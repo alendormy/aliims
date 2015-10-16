@@ -2,9 +2,10 @@
 
 angular.module 'aliimsApp'
 .controller 'TagCtrl', ($scope) ->
-  $scope.message = 'Hello'
+
   $scope.tags = []
-  $scope.add = (id, upDated, status, type, desc, datail) ->
+
+  $scope.new = (id, upDated, status, type, desc, datail) ->
     tag = {}
     tag.id = id
     tag.upDated = upDated
@@ -12,5 +13,18 @@ angular.module 'aliimsApp'
     tag.type = type
     tag.desc = desc
     tag.datail = datail
+    tag
+
+  $scope.add = (tag) ->
     $scope.tags.push tag
     true
+
+  $scope.remove = (index) ->
+    $scope.tags.splice(index,1)
+    true
+
+  $scope.edit = (index, tag) ->
+  	$scope.tags[index] = tag
+  	true
+
+  # $scope.message = 'Hello Tag'
