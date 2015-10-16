@@ -92,6 +92,9 @@ describe 'Controller: TagCtrl', ->
   it '... have basic dialog functions.', ->
     expect(1).toBe 1
 
+  it '... have basic form functions.', ->
+    expect(1).toBe 1
+
   it '... have basic validation functions.', ->
     expect(1).toBe 1
 
