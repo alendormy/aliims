@@ -73,6 +73,14 @@ describe 'Controller: TagCtrl', ->
   it '... have basic access functions.', ->
     expect(1).toBe 1
 
+  it '... have basic form functions.', ->
+    expect(1).toBe 1
+
+#https://www.google.fr/search?client=ubuntu&channel=fs&q=angular+ui+modal&ie=utf-8&oe=utf-8&gfe_rd=cr&ei=7SchVomhIY6x8wenppSIAw
+#https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCEQFjAAahUKEwjj0pPctsfIAhUF0hoKHTdRDYA&url=https%3A%2F%2Fangular-ui.github.io%2Fbootstrap%2F&usg=AFQjCNGDCw2gdtcbU376aNoaHv7rtS6hcA&sig2=_gbxJhUR8IcAWibeIzSOsQ
+#https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0CCgQFjABahUKEwjj0pPctsfIAhUF0hoKHTdRDYA&url=http%3A%2F%2Fjsfiddle.net%2Falexsuch%2FRLQhh%2F&usg=AFQjCNHFXtGbz9ogI8zeYPSrw8PhG5HXqg&sig2=vIRbjGt-6Q4EMyJ8InjnVA
+#https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&cad=rja&uact=8&ved=0CD8QFjAEahUKEwjj0pPctsfIAhUF0hoKHTdRDYA&url=https%3A%2F%2Fcodepen.io%2Fm-e-conroy%2Fpen%2FALsdF&usg=AFQjCNEEbHb_IOjxWZhcL3_hHqsa_JaIag&sig2=jqWTzMVN5McDOzaZHvikgghttps://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&cad=rja&uact=8&ved=0CD8QFjAEahUKEwjj0pPctsfIAhUF0hoKHTdRDYA&url=https%3A%2F%2Fcodepen.io%2Fm-e-conroy%2Fpen%2FALsdF&usg=AFQjCNEEbHb_IOjxWZhcL3_hHqsa_JaIag&sig2=jqWTzMVN5McDOzaZHvikgg
+
   it 'dialog: open new: should attach to dialogs a dialog containing a form containing a new tag object', ->
     expect(1).toBe 1
   it 'dialog: open existing: should attach to dialogs a dialog containing a form containing a particular tag object in tags', ->
@@ -90,9 +98,6 @@ describe 'Controller: TagCtrl', ->
   it 'dialog: save existing: should edit the particular tag object in tags then detach from dialogs the dialog containing the form containing the particular tag object in tags', ->
     expect(1).toBe 1
   it '... have basic dialog functions.', ->
-    expect(1).toBe 1
-
-  it '... have basic form functions.', ->
     expect(1).toBe 1
 
   it '... have basic validation functions.', ->
