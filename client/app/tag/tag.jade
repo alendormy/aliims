@@ -1,2 +1,67 @@
 .col-md-12
-    | This is the tag view.
+  | This is the tag view.
+  p
+    button.btn.btn-primary(type='button', ng-click='add1()') Add +1
+    button.btn.btn-danger(type='button', ng-click='removeLast()') RemoveLast
+    button.btn.btn-primary(type='button', ng-click='edit(1, new(3, 3, 3, 3, 3, 3))') Edit 2
+  p
+    form.form-horizontal
+      .control-group
+        label.control-label(for="inputId") Id
+        .controls
+          input(type="text", id="inputId", placeholder="Id", ng-model="inputTag.id")
+      .control-group
+        label.control-label(for="inputUpDated") UpDated
+        .controls
+          input(type="text", id="inputUpDated", placeholder="UpDated", ng-model="inputTag.upDated")
+      .control-group
+        label.control-label(for="inputStatus") Status
+        .controls
+          input(type="text", id="inputStatus", placeholder="Status", ng-model="inputTag.status")
+      .control-group
+        label.control-label(for="inputType") Type
+        .controls
+          input(type="text", id="inputType", placeholder="Type", ng-model="inputTag.type")
+      .control-group
+        label.control-label(for="inputDesc") Desc
+        .controls
+          input(type="text", id="inputDesc", placeholder="Desc", ng-model="inputTag.desc")
+      .control-group
+        label.control-label(for="inputDatail") Datail
+        .controls
+          input(type="text", id="inputDatail", placeholder="Datail", ng-model="inputTag.datail")
+      button.btn(type="submit", ng-click='add(inputTag)') Save (Add)
+      button.btn(type="submit", ng-click='edit(2, inputTag)') Save (Edit)
+      button.btn(type="submit", ng-click='edit(2, inputTag)') Cancel (Cancel)
+.col-md-12
+  | multi ...
+  button.btn.btn-info(ng-click='edit(tag)')
+    span.glyphicon.glyphicon-zoom-in
+  button.btn.btn-warning(ng-click='edit(tag)')
+    span.glyphicon.glyphicon-pencil
+  button.btn.btn-danger(ng-click='remove(tag)')
+    span.glyphicon.glyphicon-trash
+  p
+    table.table.table-striped
+      tr
+        td ...
+        td id
+        td upDated
+        td status
+        td type
+        td desc
+        td datail
+      tr(ng-repeat='tag in tags')
+        td
+          button.btn.btn-info(ng-click='edit(tag)')
+            span.glyphicon.glyphicon-zoom-in
+          button.btn.btn-warning(ng-click='edit(tag)')
+            span.glyphicon.glyphicon-pencil
+          button.btn.btn-danger(ng-click='remove(tag)')
+            span.glyphicon.glyphicon-trash
+        td {{tag.id}}
+        td {{tag.upDated}}
+        td {{tag.status}}
+        td {{tag.type}}
+        td {{tag.desc}}
+        td {{tag.datail}}

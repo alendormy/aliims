@@ -1,44 +1,29 @@
 'use strict'
-
 describe 'Controller: TagCtrl', ->
-
   # load the controller's module
   beforeEach module 'aliimsApp'
   TagCtrl = undefined
   scope = undefined
-
   # Initialize the controller and a mock scope
   beforeEach inject ($controller, $rootScope) ->
     scope = $rootScope.$new()
     TagCtrl = $controller 'TagCtrl',
       $scope: scope
-
-  # it 'should ...', ->
-  #   expect(scope.message).toBe 'Hello Tag'
-
   it 'access: new: should build a tag object', ->
     a = {id: 'id', upDated: 'upDated', status: 'status', type: 'type', desc: 'desc', datail: 'datail'}
-    # console.log('a:-> ')
-    # console.log(a)
     expect(scope.tags.length).toBe 0
     expect(scope.new('id', 'upDated', 'status', 'type', 'desc', 'datail')).toMatch a
     expect(scope.tags.length).toBe 0
   it 'access: add: should attach a tag object to tags', ->
     tagA = scope.new('id', 'upDated', 'status', 'type', 'desc', 'datail')
-    # console.log('tagA:> ')
-    # console.log(tagA)
     expect(scope.tags.length).toBe 0
     expect(scope.add(tagA)).toBe true
     expect(scope.tags.length).toBe 1
     expect(scope.tags[0]).not.toBe null
     expect(scope.tags[0]).toMatch tagA
-    # console.log('tags[0]:> ')
-    # console.log(scope.tags[0])
     expect(scope.add(scope.new(1, 1, 1, 1, 1, 1))).toBe true
     expect(scope.add(scope.new(2, 2, 2, 2, 2, 2))).toBe true
     expect(scope.tags.length).toBe 3
-    # console.log('tags:>')
-    # console.log(scope.tags)
   it 'access: remove: should detach a tag object from tags', ->
     tag0 = scope.new(0, 0, 0, 0, 0, 0)
     tag1 = scope.new(1, 1, 1, 1, 1, 1)
@@ -51,8 +36,6 @@ describe 'Controller: TagCtrl', ->
     expect(scope.tags.length).toBe 2
     expect(scope.tags[0]).toMatch tag0
     expect(scope.tags[1]).toMatch tag2
-    # console.log('tags:>')
-    # console.log(scope.tags)
   it 'access: edit: should change a tag object from tags', ->
     tag0 = scope.new(0, 0, 0, 0, 0, 0)
     tag1 = scope.new(1, 1, 1, 1, 1, 1)
@@ -68,12 +51,7 @@ describe 'Controller: TagCtrl', ->
     expect(scope.tags[1] == n).toBe true
     expect(scope.tags[2] == n).not.toBe true
     expect(scope.tags[1] == tag1).not.toBe true
-    # console.log('tags:>')
-    # console.log(scope.tags)
   it '... have basic access functions.', ->
-    expect(1).toBe 1
-
-  it '... have basic form functions.', ->
     expect(1).toBe 1
 
 #https://www.google.fr/search?client=ubuntu&channel=fs&q=angular+ui+modal&ie=utf-8&oe=utf-8&gfe_rd=cr&ei=7SchVomhIY6x8wenppSIAw
@@ -105,7 +83,4 @@ describe 'Controller: TagCtrl', ->
 
   it '... have basic grid functions.', ->
     expect(1).toBe 1
-
-  # it 'should ...', ->
-  #   expect(scope.message).toBe 'Hello Tag'
     
