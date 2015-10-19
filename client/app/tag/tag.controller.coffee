@@ -3,17 +3,15 @@
 angular.module 'aliimsApp'
 .controller 'TagCtrl', ($scope, Modal) ->
   $scope.tags = []
-  $scope.showDebug = true
-  $scope.showLoad = true
-  $scope.showExtra = true
-  $scope.showGroup = true
-  $scope.showInput = false
-  $scope.showView = false  
-  $scope.showTable = true
-  $scope.disableAll = false
-  $scope.disableView = false
-  $scope.disableEdit = false
-  $scope.disableDelete = false
+  $scope.showDebug = true       # false
+  $scope.showLoad = true        # true
+  $scope.showExtra = true       # true
+  $scope.showGroup = true       # true
+  $scope.showTagInput = false   # false
+  $scope.showAiusInput = true  # false
+  $scope.showView = false       # false
+  $scope.showTable = true       # true
+  $scope.disableAll = false     # false
   $scope.new = (id, upDated, status, type, desc, datail) ->
     tag = {}
     tag.id = id
@@ -33,7 +31,7 @@ angular.module 'aliimsApp'
     clone.datail = tag.datail
     clone
   $scope.add = () ->
-    $scope.showInput = true
+    $scope.showTagInput = true
     $scope.showExtra = false
     $scope.disableAll = true
     true
@@ -45,24 +43,30 @@ angular.module 'aliimsApp'
   $scope.save = (tag) ->
     if tag.id == undefined
       tag.id = $scope.tags.length + 1
+      tag.upDated = Date.now()
       $scope.tags.push tag
     else
       index = 0
       index += 1  while $scope.tags[index].id != tag.id
+      tag.upDated = Date.now()
       $scope.tags[index] = tag
     $scope.close('i')
     true
   $scope.edit = (tag) ->
     $scope.inputTag = $scope.clone(tag)
-    $scope.showInput = true
+    $scope.showTagInput = true
     $scope.disableAll = true
     true
   $scope.close = (item) ->
-    if item == 'i'
+    if item == 'it'
       $scope.inputTag = null
-      $scope.showInput = false
+      $scope.showTagInput = false
       $scope.showExtra = true
       $scope.disableAll = false
+    if item == 'ia'
+      $scope.inputAius = null
+      $scope.inputTag.type = ''
+      $scope.showAiusInput = false
     if item == 'v'
       $scope.viewTag = null
       $scope.showView = false
@@ -81,31 +85,21 @@ angular.module 'aliimsApp'
     $scope.showView = true
     $scope.disableAll = true
     true
-
-  # Modal
-  $scope.delete = Modal.confirm.delete((tag) ->
-    $scope.remove(tag)
-    true
-  )
-
-
-
-  # $scope.edit = Modal.tag.edit((tag) ->
-  #   $scope.remove(tag)
-  #   # $scope.save(0, $scope.new('tag', 'tag', 'tag', 'tag', 'tag', 'tag'))
-  #   true
-  # )
-
   # Debug
   $scope.addOne = () ->
     i = 0
     i = $scope.tags.length + 1
-    tag = $scope.new('tag'+i, 'tag'+i, 'tag'+i, 'tag'+i, 'tag'+i, 'tag'+i)
+    tag = $scope.new(i, Date.now(), 'offline', '-', i, i)
     $scope.tags.push tag
     true
   $scope.removeLast = () ->
     $scope.remove($scope.tags[$scope.tags.length - 1])
     true
+  # Modal
+  $scope.delete = Modal.confirm.delete((tag) ->
+    $scope.remove(tag)
+    true
+  )
 
   # # Dialog
   # $scope.items = ['item1', 'item2', 'item3']

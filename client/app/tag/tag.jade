@@ -24,42 +24,54 @@ div.col-md-3(ng-show="showDebug")
     button.btn(type='button', ng-click="close('d')") Close
   button.btn(type='button', ng-click="addOne()") AddOne
   button.btn(type='button', ng-click="removeLast()") RemoveLast
-div.col-md-6(ng-show="showInput")
-  h3 Input
-    button.btn(type="submit", ng-click="close('i')") Close
-  form.form-horizontal
+div.col-md-4(ng-show="showTagInput")
+  h3 Tag input
+    button.btn(type="submit" ng-click="close('it')") Close
+  form.form-horizontal(ng-model="inputTag")
     .control-group
-      label.control-label(for="inputId") Id
+      label.control-label(for="inputTagId") Id
       .controls
-        input(type="text", id="inputId", placeholder="Id", ng-model="inputTag.id" disabled)
+        input(type="text" id="inputTagId" placeholder="Id" ng-model="inputTag.id" disabled)
     .control-group
-      label.control-label(for="inputUpDated") UpDated
+      label.control-label(for="inputTagUpDated") UpDated
       .controls
-        input(type="text", id="inputUpDated", placeholder="UpDated", ng-model="inputTag.upDated")
+        input(type="text" id="inputTagUpDated" placeholder="UpDated" ng-model="inputTag.upDated" disabled)
     .control-group
-      label.control-label(for="inputStatus") Status
+      label.control-label(for="inputTagStatus") Status
       .controls
-        input(type="text", id="inputStatus", placeholder="Status", ng-model="inputTag.status")
+        select(id="inputTagStatus" ng-model="inputTag.status")
+          option offline
+          option online
     .control-group
-      label.control-label(for="inputType") Type
+      label.control-label(for="inputTagType") Type
       .controls
-        input(type="text", id="inputType", placeholder="Type", ng-model="inputTag.type")
+        select(id="inputTagType" ng-model="inputTag.type")
+          option aius
     .control-group
-      label.control-label(for="inputDesc") Desc
+      label.control-label(for="inputTagDesc") Desc
       .controls
-        input(type="text", id="inputDesc", placeholder="Desc", ng-model="inputTag.desc")
+        input(type="text", id="inputTagDesc", placeholder="Desc", ng-model="inputTag.desc")
     .control-group
-      label.control-label(for="inputDatail") Datail
+      label.control-label(for="inputTagDatail") Datail
       .controls
-        input(type="text", id="inputDatail", placeholder="Datail", ng-model="inputTag.datail")
+        input(type="text", id="inputTagDatail", placeholder="Datail", ng-model="inputTag.datail")
+    button.btn(type="submit", ng-click="save(inputTag)" ng-show="inputTag.type!='aius'") Save
+div.col-md-4(ng-show="showAiusInput && inputTag.type=='aius'")
+  h3 Aius input
+    button.btn(type="submit" ng-click="close('ia')") Close
+  form.form-horizontal(ng-model="inputAius")
+    .control-group
+      label.control-label(for="inputAiusRevision") Revision
+      .controls
+        input(type="number" id="inputAiusRevision" placeholder="Revision" ng-model="inputAius.revision")
     button.btn(type="submit", ng-click="save(inputTag)") Save
-div.col-md-6(ng-show="showView")
+div.col-md-4(ng-show="showView")
   h3 View
     button.btn(type="submit", ng-click="close('v')") Close
   pre() {{viewTag | json}}
 div.col-md-12(ng-show="showTable")
   h3 Table
-  table.table.table-striped
+  table.table.table-striped.table-condensed
     tr
       td ...
       td id
@@ -70,14 +82,14 @@ div.col-md-12(ng-show="showTable")
       td datail
     tr(ng-repeat='tag in tags')
       td
-        button.btn(ng-click="view(tag)" ng-disabled="disableView || disableAll")
+        button.btn(ng-click="view(tag)" ng-disabled="disableAll")
           span.glyphicon.glyphicon-zoom-in
-        button.btn(ng-click="edit(tag)" ng-disabled="disableEdit || disableAll")
+        button.btn(ng-click="edit(tag)" ng-disabled="disableAll")
           span.glyphicon.glyphicon-pencil
-        button.btn(ng-click="delete(tag.id, tag)" ng-disabled="disableDelete || disableAll")
+        button.btn(ng-click="delete(tag.id, tag)" ng-disabled="disableAll")
           span.glyphicon.glyphicon-trash
       td {{tag.id}}
-      td {{tag.upDated}}
+      td {{tag.upDated | date:'MM/dd/yyyy @ h:mma'}}
       td {{tag.status}}
       td {{tag.type}}
       td {{tag.desc}}
