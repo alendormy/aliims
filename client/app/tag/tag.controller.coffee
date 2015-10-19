@@ -83,7 +83,7 @@ angular.module 'aliimsApp'
     true
 
   # Modal
-  $scope.delete = Modal.tag.delete((tag) ->
+  $scope.delete = Modal.confirm.delete((tag) ->
     $scope.remove(tag)
     true
   )
