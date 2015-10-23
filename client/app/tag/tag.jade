@@ -24,7 +24,7 @@ div.col-md-3(ng-show="showDebug")
     button.btn(type='button', ng-click="close('d')") Close
   button.btn(type='button', ng-click="addOne()") AddOne
   button.btn(type='button', ng-click="removeLast()") RemoveLast
-div.col-md-4(ng-show="showTagInput")
+div.col-md-4(ng-show="showInputTag")
   h3 Tag input
     button.btn(type="submit" ng-click="close('it')") Close
   form.form-horizontal(ng-model="inputTag")
@@ -46,17 +46,18 @@ div.col-md-4(ng-show="showTagInput")
       label.control-label(for="inputTagType") Type
       .controls
         select(id="inputTagType" ng-model="inputTag.type")
+          option -
           option aius
     .control-group
       label.control-label(for="inputTagDesc") Desc
       .controls
-        input(type="text", id="inputTagDesc", placeholder="Desc", ng-model="inputTag.desc")
+        input(type="text", id="inputTagDesc", placeholder="Desc", ng-model="inputTag.desc", ng-disabled="inputTag.type=='aius'")
     .control-group
       label.control-label(for="inputTagDatail") Datail
       .controls
-        input(type="text", id="inputTagDatail", placeholder="Datail", ng-model="inputTag.datail")
-    button.btn(type="submit", ng-click="save(inputTag)" ng-show="inputTag.type!='aius'") Save
-div.col-md-4(ng-show="showAiusInput && inputTag.type=='aius'")
+        input(type="text", id="inputTagDatail", placeholder="Datail", ng-model="inputTag.datail", ng-disabled="inputTag.type=='aius'")
+    button.btn(type="submit", ng-click="save('it', [inputTag])" ng-show="inputTag.type!='aius'") Save
+div.col-md-4(ng-show="inputTag.type=='aius'")
   h3 Aius input
     button.btn(type="submit" ng-click="close('ia')") Close
   form.form-horizontal(ng-model="inputAius")
@@ -64,8 +65,8 @@ div.col-md-4(ng-show="showAiusInput && inputTag.type=='aius'")
       label.control-label(for="inputAiusRevision") Revision
       .controls
         input(type="number" id="inputAiusRevision" placeholder="Revision" ng-model="inputAius.revision")
-    button.btn(type="submit", ng-click="save(inputTag)") Save
-div.col-md-4(ng-show="showView")
+    button.btn(type="submit", ng-click="save('ia', [inputTag, inputAius])") Save
+div.col-md-12(ng-show="showView")
   h3 View
     button.btn(type="submit", ng-click="close('v')") Close
   pre() {{viewTag | json}}
