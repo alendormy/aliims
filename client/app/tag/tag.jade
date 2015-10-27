@@ -22,11 +22,12 @@ div.col-md-3(ng-show="showLoad")
 div.col-md-3(ng-show="showDebug")
   h3 Debug
     button.btn(type='button', ng-click="close('d')") Close
-  button.btn(type='button', ng-click="addOne()") AddOne
+  button.btn(type='button', ng-click="addOne('aius')") AddOneAuis
+  button.btn(type='button', ng-click="addOne('-')") AddOneTag
   button.btn(type='button', ng-click="removeLast()") RemoveLast
 div.col-md-4(ng-show="showInputTag")
   h3 Tag input
-    button.btn(type="submit" ng-click="close('it')") Close
+    button.btn(type="submit" ng-click="close('it')" ng-show="inputTag.type!='aius'") Close
   form.form-horizontal(ng-model="inputTag")
     .control-group
       label.control-label(for="inputTagId") Id
@@ -57,15 +58,53 @@ div.col-md-4(ng-show="showInputTag")
       .controls
         input(type="text", id="inputTagDatail", placeholder="Datail", ng-model="inputTag.datail", ng-disabled="inputTag.type=='aius'")
     button.btn(type="submit", ng-click="save('it', [inputTag])" ng-show="inputTag.type!='aius'") Save
-div.col-md-4(ng-show="inputTag.type=='aius'")
-  h3 Aius input
-    button.btn(type="submit" ng-click="close('ia')") Close
-  form.form-horizontal(ng-model="inputAius")
-    .control-group
-      label.control-label(for="inputAiusRevision") Revision
-      .controls
-        input(type="number" id="inputAiusRevision" placeholder="Revision" ng-model="inputAius.revision")
-    button.btn(type="submit", ng-click="save('ia', [inputTag, inputAius])") Save
+div.col-md-4(id="aiusDiv" ng-show="inputTag.type=='aius'")
+  h3 aius
+    button.btn(type="submit" ng-click="close('aius')") Close
+  form(name="aiusForm" ng-submit="save([inputTag, aius])" novalidate)
+    div.form-group(ng-class="{ 'has-error' : aiusForm.revision.$invalid && !aiusForm.revision.$pristine }")
+      label Revision
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="revision" ng-model="aius.revision" min="1" max="9999" required)
+      p.help-block(ng-show="aiusForm.revision.$invalid && !aiusForm.revision.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : aiusForm.systemLiquid.$invalid && !aiusForm.systemLiquid.$pristine }")
+      label SystemLiquid
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="systemLiquid" ng-model="aius.systemLiquid" min="1" max="9999" required)
+      p.help-block(ng-show="aiusForm.systemLiquid.$invalid && !aiusForm.systemLiquid.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : aiusForm.immunologyWash.$invalid && !aiusForm.immunologyWash.$pristine }")
+      label ImmunologyWash
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="immunologyWash" ng-model="aius.immunologyWash" min="1" max="9999" required)
+      p.help-block(ng-show="aiusForm.immunologyWash.$invalid && !aiusForm.immunologyWash.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : aiusForm.triggerA.$invalid && !aiusForm.triggerA.$pristine }")
+      label TriggerA
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="triggerA" ng-model="aius.triggerA" min="1" max="9999" required)
+      p.help-block(ng-show="aiusForm.triggerA.$invalid && !aiusForm.triggerA.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : aiusForm.triggerB.$invalid && !aiusForm.triggerB.$pristine }")
+      label TriggerB
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="triggerB" ng-model="aius.triggerB" min="1" max="9999" required)
+      p.help-block(ng-show="aiusForm.triggerB.$invalid && !aiusForm.triggerB.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : aiusForm.dsorb.$invalid && !aiusForm.dsorb.$pristine }")
+      label Dsorb
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="dsorb" ng-model="aius.dsorb" min="1" max="9999" required)
+      p.help-block(ng-show="aiusForm.dsorb.$invalid && !aiusForm.dsorb.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : aiusForm.apSubstrate.$invalid && !aiusForm.apSubstrate.$pristine }")
+      label apSubstrate
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="apSubstrate" ng-model="aius.apSubstrate" min="1" max="9999" required)
+      p.help-block(ng-show="aiusForm.apSubstrate.$invalid && !aiusForm.apSubstrate.$pristine") Must be in [1-9999] range.
+    button.btn(type="submit" ng-disabled="aiusForm.$invalid") Submit
 div.col-md-12(ng-show="showView")
   h3 View
     button.btn(type="submit", ng-click="close('v')") Close

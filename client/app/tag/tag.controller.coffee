@@ -40,45 +40,57 @@ angular.module 'aliimsApp'
     index += 1  while $scope.tags[index].id != tag.id
     $scope.tags.splice(index,1)
     true
-  $scope.save = (type, inputs) ->
+  $scope.save = (inputs) ->
     tag = inputs[0]
-    switch type
-      when 'ia'
-        aius = inputs[1]
-        if tag.id == undefined
-          tag.desc = "aius: "+"rev"+aius.revision
-          tag.datail = aius
-          tag.id = $scope.tags.length + 1
-          tag.upDated = Date.now()
-          $scope.tags.push tag
-          # $scope.close('ia')
-          $scope.inputAius = null
-          $scope.showInputAius = false          
-          $scope.close('it')
-        else
-          alert('edit')
-
-          index = 0
-          index += 1  while $scope.tags[index].id != tag.id
-          tag.upDated = Date.now()
-          $scope.tags[index] = tag
-      when 'it'
-        if tag.id == undefined
-          tag.id = $scope.tags.length + 1
-          tag.upDated = Date.now()
-          $scope.tags.push tag
-        else
-          index = 0
-          index += 1  while $scope.tags[index].id != tag.id
-          tag.upDated = Date.now()
-          $scope.tags[index] = tag
-        $scope.close('it')
+    switch tag.id
+      when undefined
+        tag.id = $scope.tags.length + 1
+        tag.upDated = Date.now()
+        # tag.status as it is
+        # tag.type as it is
+        switch tag.type
+          when 'aius'
+            tag.desc = "new"
+            tag.datail = inputs[1]
+          when '-'
+            # tag.desc as it is
+            # tag.datail as it is
+          else
+            return false
+        $scope.tags.push tag
+        $scope.close('aius')
+      else
+        i = 0
+        i += 1  while $scope.tags[i].id != tag.id
+        # tag.id as it is
+        tag.upDated = Date.now()
+        # tag.status as it is
+        # tag.type as it is
+        switch tag.type
+          when 'aius'
+            tag.desc = "edit"
+            tag.datail = inputs[1]
+          when '-'
+            # tag.desc as it is
+            # tag.datail as it is
+          else
+            return false
+        $scope.tags[i] = tag
+        $scope.close('aius')
+    true
+  $scope.edit = (tag) ->
+    clone = $scope.clone(tag)
+    $scope.inputTag = clone
+    $scope.showInputTag = true
+    switch tag.type
+      when 'aius'
+        $scope.aius = clone.datail
+        $scope.showInputAius = true
+        return true
+      when '-'
         return true
       else
         false
-  $scope.edit = (tag) ->
-    $scope.inputTag = $scope.clone(tag)
-    $scope.showInputTag = true
     $scope.disableAll = true
     true
   $scope.close = (item) ->
@@ -87,10 +99,13 @@ angular.module 'aliimsApp'
       $scope.showInputTag = false
       $scope.showExtra = true
       $scope.disableAll = false
-    if item == 'ia'
-      $scope.inputAius = null
-      $scope.showInputAius = false
-      $scope.inputTag.type = ''
+    if item == 'aius'
+      $scope.aius = null
+      $scope.aiusForm = null
+      $scope.inputTag = null
+      $scope.showInputTag = false
+      $scope.showExtra = true
+      $scope.disableAll = false
     if item == 'v'
       $scope.viewTag = null
       $scope.showView = false
@@ -110,10 +125,24 @@ angular.module 'aliimsApp'
     $scope.disableAll = true
     true
   # Debug
-  $scope.addOne = () ->
+  $scope.addOne = (type) ->
     i = 0
     i = $scope.tags.length + 1
-    tag = $scope.new(i, Date.now(), 'offline', '-', i, i)
+    switch type
+      when 'aius'
+        datail = {}
+        datail.revision = i
+        datail.systemLiquid = i
+        datail.immunologyWash = i
+        datail.triggerA = i
+        datail.triggerB = i
+        datail.dsorb = i
+        datail.apSubstrate = i
+        tag = $scope.new(i, Date.now(), 'offline', 'aius', i, datail)
+      when '-'
+        tag = $scope.new(i, Date.now(), 'offline', '-', i, i)
+      else
+        return false
     $scope.tags.push tag
     true
   $scope.removeLast = () ->
