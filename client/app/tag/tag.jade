@@ -3,29 +3,7 @@ div.col-md-3(ng-show="showExtra")
     button.btn(type="submit", ng-click="close('e')") Close
   button.btn(ng-click="add()")
     span.glyphicon.glyphicon-plus
-div.col-md-3(ng-show="showGroup")
-  h3 Group
-    button.btn(type="submit", ng-click="close('g')") Close
-  button.btn(ng-click="view(tag)")
-    span.glyphicon.glyphicon-zoom-in
-  button.btn(ng-click="save(tag)")
-    span.glyphicon.glyphicon-pencil
-  button.btn(ng-click="remove(tag)")
-    span.glyphicon.glyphicon-trash
-div.col-md-3(ng-show="showLoad")
-  h3 Load
-    button.btn(type='button', ng-click="close('l')") Close
-  button.btn(ng-click="alert('download')")
-    span.glyphicon.glyphicon-download
-  button.btn(ng-click="alert('upload')")
-    span.glyphicon.glyphicon-upload
-div.col-md-3(ng-show="showDebug")
-  h3 Debug
-    button.btn(type='button', ng-click="close('d')") Close
-  button.btn(type='button', ng-click="addOne('aius')") AddOneAuis
-  button.btn(type='button', ng-click="addOne('-')") AddOneTag
-  button.btn(type='button', ng-click="removeLast()") RemoveLast
-div.col-md-4(ng-show="showInputTag")
+div.col-md-3(ng-show="showInputTag")
   h3 Tag input
     button.btn(type="submit" ng-click="close('it')" ng-show="inputTag.type!='aius'") Close
   form.form-horizontal(ng-model="inputTag")
@@ -49,16 +27,17 @@ div.col-md-4(ng-show="showInputTag")
         select(id="inputTagType" ng-model="inputTag.type")
           option -
           option aius
+          option disec
     .control-group
       label.control-label(for="inputTagDesc") Desc
       .controls
-        input(type="text", id="inputTagDesc", placeholder="Desc", ng-model="inputTag.desc", ng-disabled="inputTag.type=='aius'")
+        input(type="text", id="inputTagDesc", placeholder="Desc", ng-model="inputTag.desc", ng-disabled="inputTag.type=='aius' || inputTag.type=='disec'")
     .control-group
       label.control-label(for="inputTagDatail") Datail
       .controls
-        input(type="text", id="inputTagDatail", placeholder="Datail", ng-model="inputTag.datail", ng-disabled="inputTag.type=='aius'")
+        input(type="text", id="inputTagDatail", placeholder="Datail", ng-model="inputTag.datail", ng-disabled="inputTag.type=='aius' || inputTag.type=='disec'")
     button.btn(type="submit", ng-click="save('it', [inputTag])" ng-show="inputTag.type!='aius'") Save
-div.col-md-4(id="aiusDiv" ng-show="inputTag.type=='aius'")
+div.col-md-3(id="aiusDiv" ng-show="inputTag.type=='aius'")
   h3 aius
     button.btn(type="submit" ng-click="close('aius')") Close
   form(name="aiusForm" ng-submit="save([inputTag, aius])" novalidate)
@@ -105,6 +84,86 @@ div.col-md-4(id="aiusDiv" ng-show="inputTag.type=='aius'")
         input.form-control(type="number" name="apSubstrate" ng-model="aius.apSubstrate" min="1" max="9999" required)
       p.help-block(ng-show="aiusForm.apSubstrate.$invalid && !aiusForm.apSubstrate.$pristine") Must be in [1-9999] range.
     button.btn(type="submit" ng-disabled="aiusForm.$invalid") Submit
+div.col-md-3(id="disecDiv" ng-show="inputTag.type=='disec'")
+  h3 disec
+    button.btn(type="submit" ng-click="close('disec')") Close
+  form(name="disecForm" ng-submit="save([inputTag, disec])" novalidate)
+    div.form-group(ng-class="{ 'has-error' : disecForm.key.$invalid && !disecForm.key.$pristine }")
+      label Key
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="key" ng-model="disec.key" minlenght="1" maxlenght="5" required)
+      p.help-block(ng-show="disecForm.key.$invalid && !disecForm.key.$pristine") Must be a a-Z 0-9 with [1-5] chars.
+    div.form-group(ng-class="{ 'has-error' : disecForm.lot.$invalid && !disecForm.lot.$pristine }")
+      label Lot
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="lot" ng-model="disec.lot" minlenght="1" maxlenght="10" required)
+      p.help-block(ng-show="disecForm.lot.$invalid && !disecForm.lot.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+    div.form-group(ng-class="{ 'has-error' : disecForm.onBoardStabilityValue.$invalid && !disecForm.onBoardStabilityValue.$pristine }")
+      label OnBoardStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="onBoardStabilityValue" ng-model="disec.onBoardStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="disecForm.onBoardStabilityValue.$invalid && !disecForm.onBoardStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="disec.onBoardStabilityUnit") OnBoardStabilityUnit
+      div.input-group
+        select(id="onBoardStabilityUnit" name="onBoardStabilityUnit" ng-model="disec.onBoardStabilityUnit" required)
+          option hours
+          option days
+    div.form-group(ng-class="{ 'has-error' : disecForm.inUseStabilityValue.$invalid && !disecForm.inUseStabilityValue.$pristine }")
+      label InUseStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="inUseStabilityValue" ng-model="disec.inUseStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="disecForm.inUseStabilityValue.$invalid && !disecForm.inUseStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="disec.inUseStabilityUnit") InUseStabilityUnit
+      div.input-group
+        select(id="inUseStabilityUnit" name="inUseStabilityUnit" ng-model="disec.inUseStabilityUnit" required)
+          option hours
+          option days
+    div.form-group
+      label.control-label(for="disec.lagTimeFlag") LagTimeFlag
+      div.input-group
+        input(type="checkbox" id="lagTimeFlag" name="lagTimeFlag" ng-model="disec.lagTimeFlag")
+    div.form-group(ng-class="{ 'has-error' : disecForm.lagTimeValue.$invalid && !disecForm.lagTimeValue.$pristine }" ng-show="disec.lagTimeFlag")
+      label LagTimeValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="lagTimeValue" ng-model="disec.lagTimeValue" min="1" max="9999")
+      p.help-block(ng-show="disecForm.lagTimeValue.$invalid && !disecForm.lagTimeValue.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : disecForm.initialVolume.$invalid && !disecForm.initialVolume.$pristine }")
+      label InitialVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="initialVolume" ng-model="disec.initialVolume" min="1" max="9999" required)
+      p.help-block(ng-show="disecForm.initialVolume.$invalid && !disecForm.initialVolume.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : disecForm.idealVolume.$invalid && !disecForm.idealVolume.$pristine }")
+      label IdealVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="idealVolume" ng-model="disec.idealVolume" min="1" max="9999" required)
+      p.help-block(ng-show="disecForm.idealVolume.$invalid && !disecForm.idealVolume.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="disec.container") Container
+      div.input-group
+        select(id="container" name="container" ng-model="disec.container" required)
+          option container1
+          option container2
+          option container3
+          option container4
+    div.form-group
+      label.control-label(for="disec.app") App
+      div.input-group
+        select(id="container" name="app" ng-model="disec.app" multiple)
+          option app1
+          option app2
+          option app3
+          option app4
+    //- expiry
+    button.btn(type="submit" ng-disabled="disecForm.$invalid") Submit
 div.col-md-12(ng-show="showView")
   h3 View
     button.btn(type="submit", ng-click="close('v')") Close
@@ -134,3 +193,26 @@ div.col-md-12(ng-show="showTable")
       td {{tag.type}}
       td {{tag.desc}}
       td {{tag.datail}}
+div.col-md-3(ng-show="showGroup")
+  h3 Group
+    button.btn(type="submit", ng-click="close('g')") Close
+  button.btn(ng-click="view(tag)")
+    span.glyphicon.glyphicon-zoom-in
+  button.btn(ng-click="save(tag)")
+    span.glyphicon.glyphicon-pencil
+  button.btn(ng-click="remove(tag)")
+    span.glyphicon.glyphicon-trash
+div.col-md-3(ng-show="showLoad")
+  h3 Load
+    button.btn(type='button', ng-click="close('l')") Close
+  button.btn(ng-click="alert('download')")
+    span.glyphicon.glyphicon-download
+  button.btn(ng-click="alert('upload')")
+    span.glyphicon.glyphicon-upload
+div.col-md-3(ng-show="showDebug")
+  h3 Debug
+    button.btn(type='button', ng-click="close('d')") Close
+  button.btn(type='button', ng-click="addOne('aius')") AddOneAuis
+  button.btn(type='button', ng-click="addOne('disec')") AddOneDisec
+  button.btn(type='button', ng-click="addOne('-')") AddOneTag
+  button.btn(type='button', ng-click="removeLast()") RemoveLast
