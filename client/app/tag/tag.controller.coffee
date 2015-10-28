@@ -153,3 +153,15 @@ angular.module 'aliimsApp'
     $scope.remove(tag)
     true
   )
+  # Datepicker
+  $scope.today = () ->
+    $scope.dt = new Date()
+  $scope.today()
+  $scope.clear = () ->
+    $scope.dt = null
+  $scope.open = ($event) ->
+    $event.preventDefault()
+    $event.stopPropagation()
+    $scope.opened = true
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate']
+  $scope.format = $scope.formats[0]

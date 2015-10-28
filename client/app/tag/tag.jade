@@ -1,4 +1,27 @@
-div.col-md-3(ng-show="showExtra")
+div.col-md-6
+h1 Angular.js / Bootstrap UI Datepicker
+pre Selected:
+  em {{dt | date:'fullDate' }}
+p.input-group
+  label(for="date-picker" ng-click="open($event)") Choose a date
+  input.form-control(
+    type="text"
+    datepicker-popup="{{format}}" 
+    ng-model="dt" 
+    is-open="opened" 
+    min-date="minDate" 
+    max-date="'2020-06-22'"
+    datepicker-options="dateOptions" 
+    date-disabled="disabled(date, mode)" 
+    ng-required="true" 
+    close-text="Close" 
+    id="date-picker" 
+    readonly
+    ng-click="open($event)")
+  span.input-group-btn
+    button.btn.btn-default(type="button" ng-click="open($event)")
+      i.glyphicon.glyphicon-calendar
+div.col-md-12(ng-show="showExtra")
   h3 Extra
     button.btn(type="submit", ng-click="close('e')") Close
   button.btn(ng-click="add()")
