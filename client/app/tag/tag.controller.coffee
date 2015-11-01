@@ -64,6 +64,11 @@ angular.module 'aliimsApp'
             tag.datail = inputs[1]
             $scope.tags.push tag
             $scope.close('dised')
+          when 'dss'
+            tag.desc = "new"
+            tag.datail = inputs[1]
+            $scope.tags.push tag
+            $scope.close('dss')
           when '-'
             # tag.desc as it is
             # tag.datail as it is
@@ -92,6 +97,11 @@ angular.module 'aliimsApp'
             tag.datail = inputs[1]
             $scope.tags[i] = tag
             $scope.close('dised')
+          when 'dss'
+            tag.desc = "edit"
+            tag.datail = inputs[1]
+            $scope.tags[i] = tag
+            $scope.close('dss')
           when '-'
             # tag.desc as it is
             # tag.datail as it is
@@ -111,6 +121,9 @@ angular.module 'aliimsApp'
         return true
       when 'dised'
         $scope.dised = clone.datail
+        return true
+      when 'dss'
+        $scope.dss = clone.datail
         return true
       when '-'
         return true
@@ -141,6 +154,13 @@ angular.module 'aliimsApp'
     if item == 'dised'
       $scope.dised = null
       $scope.disedForm = null
+      $scope.inputTag = null
+      $scope.showInputTag = false
+      $scope.showExtra = true
+      $scope.disableAll = false
+    if item == 'dss'
+      $scope.dss = null
+      $scope.dssForm = null
       $scope.inputTag = null
       $scope.showInputTag = false
       $scope.showExtra = true
