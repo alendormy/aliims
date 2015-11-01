@@ -59,6 +59,11 @@ angular.module 'aliimsApp'
             tag.datail = inputs[1]
             $scope.tags.push tag
             $scope.close('disec')
+          when 'dised'
+            tag.desc = "new"
+            tag.datail = inputs[1]
+            $scope.tags.push tag
+            $scope.close('dised')
           when '-'
             # tag.desc as it is
             # tag.datail as it is
@@ -82,6 +87,11 @@ angular.module 'aliimsApp'
             tag.datail = inputs[1]
             $scope.tags[i] = tag
             $scope.close('disec')
+          when 'dised'
+            tag.desc = "edit"
+            tag.datail = inputs[1]
+            $scope.tags[i] = tag
+            $scope.close('dised')
           when '-'
             # tag.desc as it is
             # tag.datail as it is
@@ -98,6 +108,9 @@ angular.module 'aliimsApp'
         return true
       when 'disec'
         $scope.disec = clone.datail
+        return true
+      when 'dised'
+        $scope.dised = clone.datail
         return true
       when '-'
         return true
@@ -121,6 +134,13 @@ angular.module 'aliimsApp'
     if item == 'disec'
       $scope.disec = null
       $scope.disecForm = null
+      $scope.inputTag = null
+      $scope.showInputTag = false
+      $scope.showExtra = true
+      $scope.disableAll = false
+    if item == 'dised'
+      $scope.dised = null
+      $scope.disedForm = null
       $scope.inputTag = null
       $scope.showInputTag = false
       $scope.showExtra = true
@@ -159,6 +179,22 @@ angular.module 'aliimsApp'
         datail.apSubstrate = i
         tag = $scope.new(i, Date.now(), 'offline', 'aius', i, datail)
       when 'disec'
+        datail = {}
+        datail.key = i
+        datail.lot = i
+        datail.onBoardStabilityValue = i
+        datail.onBoardStabilityUnit = 'hours'
+        datail.inUseStabilityValue = i
+        datail.inUseStabilityUnit = 'days'
+        datail.lagTimeFlag = true
+        datail.lagTimeValue = i
+        datail.initialVolume = i
+        datail.idealVolume = i
+        datail.container = 'container2'
+        datail.app = ['app1', 'app3']
+        datail.exipry = new Date("November 30, 2015 12:12:12");
+        tag = $scope.new(i, Date.now(), 'offline', 'disec', i, datail)
+      when 'dised'
         datail = {}
         datail.key = i
         datail.lot = i

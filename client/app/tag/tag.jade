@@ -5,7 +5,7 @@ div.col-md-12(ng-show="showExtra")
     span.glyphicon.glyphicon-plus
 div.col-md-3(ng-show="showInputTag")
   h3 Tag input
-    button.btn(type="submit" ng-click="close('it')" ng-show="inputTag.type!='aius' && inputTag.type!='disec'") Close
+    button.btn(type="submit" ng-click="close('it')" ng-show="inputTag.type!='aius' && inputTag.type!='disec' && inputTag.type!='dised'") Close
   form.form-horizontal(ng-model="inputTag")
     .control-group
       label.control-label(for="inputTagId") Id
@@ -28,6 +28,7 @@ div.col-md-3(ng-show="showInputTag")
           option -
           option aius
           option disec
+          option dised
     .control-group
       label.control-label(for="inputTagDesc") Desc
       .controls
@@ -184,6 +185,106 @@ div.col-md-3(id="disecDiv" ng-show="inputTag.type=='disec'")
           button.btn.btn-default(type="button" ng-click="open($event)")
             i.glyphicon.glyphicon-calendar
     button.btn(type="submit" ng-disabled="disecForm.$invalid") Submit
+div.col-md-3(id="disedDiv" ng-show="inputTag.type=='dised'")
+  h3 dised
+    button.btn(type="submit" ng-click="close('dised')") Close
+  form(name="disedForm" ng-submit="save([inputTag, dised])" novalidate)
+    div.form-group(ng-class="{ 'has-error' : disedForm.key.$invalid && !disedForm.key.$pristine }")
+      label Key
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="key" ng-model="dised.key" minlenght="1" maxlenght="5" required)
+      p.help-block(ng-show="disedForm.key.$invalid && !disedForm.key.$pristine") Must be a a-Z 0-9 with [1-5] chars.
+    div.form-group(ng-class="{ 'has-error' : disedForm.lot.$invalid && !disedForm.lot.$pristine }")
+      label Lot
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="lot" ng-model="dised.lot" minlenght="1" maxlenght="10" required)
+      p.help-block(ng-show="disedForm.lot.$invalid && !disedForm.lot.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+    div.form-group(ng-class="{ 'has-error' : disedForm.onBoardStabilityValue.$invalid && !disedForm.onBoardStabilityValue.$pristine }")
+      label OnBoardStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="onBoardStabilityValue" ng-model="dised.onBoardStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="disedForm.onBoardStabilityValue.$invalid && !disedForm.onBoardStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="dised.onBoardStabilityUnit") OnBoardStabilityUnit
+      div.input-group
+        select(id="onBoardStabilityUnit" name="onBoardStabilityUnit" ng-model="dised.onBoardStabilityUnit" required)
+          option hours
+          option days
+    div.form-group(ng-class="{ 'has-error' : disedForm.inUseStabilityValue.$invalid && !disedForm.inUseStabilityValue.$pristine }")
+      label InUseStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="inUseStabilityValue" ng-model="dised.inUseStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="disedForm.inUseStabilityValue.$invalid && !disedForm.inUseStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="dised.inUseStabilityUnit") InUseStabilityUnit
+      div.input-group
+        select(id="inUseStabilityUnit" name="inUseStabilityUnit" ng-model="dised.inUseStabilityUnit" required)
+          option hours
+          option days
+    div.form-group
+      label.control-label(for="dised.lagTimeFlag") LagTimeFlag
+      div.input-group
+        input(type="checkbox" id="lagTimeFlag" name="lagTimeFlag" ng-model="dised.lagTimeFlag")
+    div.form-group(ng-class="{ 'has-error' : disedForm.lagTimeValue.$invalid && !disedForm.lagTimeValue.$pristine }" ng-show="dised.lagTimeFlag")
+      label LagTimeValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="lagTimeValue" ng-model="dised.lagTimeValue" min="1" max="9999")
+      p.help-block(ng-show="disedForm.lagTimeValue.$invalid && !disedForm.lagTimeValue.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : disedForm.initialVolume.$invalid && !disedForm.initialVolume.$pristine }")
+      label InitialVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="initialVolume" ng-model="dised.initialVolume" min="1" max="9999" required)
+      p.help-block(ng-show="disedForm.initialVolume.$invalid && !disedForm.initialVolume.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : disedForm.idealVolume.$invalid && !disedForm.idealVolume.$pristine }")
+      label IdealVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="idealVolume" ng-model="dised.idealVolume" min="1" max="9999" required)
+      p.help-block(ng-show="disedForm.idealVolume.$invalid && !disedForm.idealVolume.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="dised.container") Container
+      div.input-group
+        select(id="container" name="container" ng-model="dised.container" required)
+          option container1
+          option container2
+          option container3
+          option container4
+    div.form-group
+      label.control-label(for="dised.app") App
+      div.input-group
+        select(id="app" name="app" ng-model="dised.app" multiple)
+          option app1
+          option app2
+          option app3
+          option app4
+    div.form-group
+      label.control-label(for="dised.exipry") Expiry
+      //- label(for="date-picker" ng-click="open($event)") Choose a date
+      div.input-group
+        input.form-control(
+          type="text"
+          datepicker-popup="{{format}}" 
+          ng-model="dised.exipry" 
+          is-open="opened" 
+          min-date="minDate" 
+          max-date="'2020-06-22'"
+          datepicker-options="dateOptions" 
+          date-disabled="disabled(date, mode)" 
+          ng-required="true" 
+          close-text="Close" 
+          id="date-picker" 
+          readonly
+          ng-click="open($event)")
+        span.input-group-btn
+          button.btn.btn-default(type="button" ng-click="open($event)")
+            i.glyphicon.glyphicon-calendar
+    button.btn(type="submit" ng-disabled="disedForm.$invalid") Submit
 div.col-md-12(ng-show="showView")
   h3 View
     button.btn(type="submit", ng-click="close('v')") Close
@@ -234,5 +335,6 @@ div.col-md-3(ng-show="showDebug")
     button.btn(type='button', ng-click="close('d')") Close
   button.btn(type='button', ng-click="addOne('aius')") AddOneAuis
   button.btn(type='button', ng-click="addOne('disec')") AddOneDisec
+  button.btn(type='button', ng-click="addOne('dised')") AddOnedised
   button.btn(type='button', ng-click="addOne('-')") AddOneTag
   button.btn(type='button', ng-click="removeLast()") RemoveLast
