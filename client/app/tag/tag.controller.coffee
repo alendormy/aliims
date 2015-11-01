@@ -52,13 +52,18 @@ angular.module 'aliimsApp'
           when 'aius'
             tag.desc = "new"
             tag.datail = inputs[1]
+            $scope.tags.push tag
+            $scope.close('aius')
+          when 'disec'
+            tag.desc = "new"
+            tag.datail = inputs[1]
+            $scope.tags.push tag
+            $scope.close('disec')
           when '-'
             # tag.desc as it is
             # tag.datail as it is
           else
             return false
-        $scope.tags.push tag
-        $scope.close('aius')
       else
         i = 0
         i += 1  while $scope.tags[i].id != tag.id
@@ -70,13 +75,18 @@ angular.module 'aliimsApp'
           when 'aius'
             tag.desc = "edit"
             tag.datail = inputs[1]
+            $scope.tags[i] = tag
+            $scope.close('aius')
+          when 'disec'
+            tag.desc = "edit"
+            tag.datail = inputs[1]
+            $scope.tags[i] = tag
+            $scope.close('disec')
           when '-'
             # tag.desc as it is
             # tag.datail as it is
           else
             return false
-        $scope.tags[i] = tag
-        $scope.close('aius')
     true
   $scope.edit = (tag) ->
     clone = $scope.clone(tag)
@@ -85,7 +95,9 @@ angular.module 'aliimsApp'
     switch tag.type
       when 'aius'
         $scope.aius = clone.datail
-        $scope.showInputAius = true
+        return true
+      when 'disec'
+        $scope.disec = clone.datail
         return true
       when '-'
         return true
@@ -102,6 +114,13 @@ angular.module 'aliimsApp'
     if item == 'aius'
       $scope.aius = null
       $scope.aiusForm = null
+      $scope.inputTag = null
+      $scope.showInputTag = false
+      $scope.showExtra = true
+      $scope.disableAll = false
+    if item == 'disec'
+      $scope.disec = null
+      $scope.disecForm = null
       $scope.inputTag = null
       $scope.showInputTag = false
       $scope.showExtra = true
@@ -139,6 +158,22 @@ angular.module 'aliimsApp'
         datail.dsorb = i
         datail.apSubstrate = i
         tag = $scope.new(i, Date.now(), 'offline', 'aius', i, datail)
+      when 'disec'
+        datail = {}
+        datail.key = i
+        datail.lot = i
+        datail.onBoardStabilityValue = i
+        datail.onBoardStabilityUnit = 'hours'
+        datail.inUseStabilityValue = i
+        datail.inUseStabilityUnit = 'days'
+        datail.lagTimeFlag = true
+        datail.lagTimeValue = i
+        datail.initialVolume = i
+        datail.idealVolume = i
+        datail.container = 'container2'
+        datail.app = ['app1', 'app3']
+        datail.exipry = new Date("November 30, 2015 12:12:12");
+        tag = $scope.new(i, Date.now(), 'offline', 'disec', i, datail)
       when '-'
         tag = $scope.new(i, Date.now(), 'offline', '-', i, i)
       else
