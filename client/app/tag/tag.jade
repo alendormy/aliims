@@ -5,7 +5,7 @@ div.col-md-12(ng-show="showExtra")
     span.glyphicon.glyphicon-plus
 div.col-md-3(ng-show="showInputTag")
   h3 Tag input
-    button.btn(type="submit" ng-click="close('it')" ng-show="inputTag.type!='aius' && inputTag.type!='disec' && inputTag.type!='dised' && inputTag.type!='dss'") Close
+    button.btn(type="submit" ng-click="close('it')" ng-show="inputTag.type!='aius' && inputTag.type!='disec' && inputTag.type!='dised' && inputTag.type!='dss' && inputTag.type!='mmc' && inputTag.type!='rht' && inputTag.type!='dd' && inputTag.type!='rbr' && inputTag.type!='rihr'") Close
   form.form-horizontal(ng-model="inputTag")
     .control-group
       label.control-label(for="inputTagId") Id
@@ -30,14 +30,19 @@ div.col-md-3(ng-show="showInputTag")
           option disec
           option dised
           option dss
+          option mmc
+          option rht
+          option dd
+          option rbr
+          option rihr
     .control-group
       label.control-label(for="inputTagDesc") Desc
       .controls
-        input(type="text", id="inputTagDesc", placeholder="Desc", ng-model="inputTag.desc", ng-disabled="inputTag.type=='aius' || inputTag.type=='disec'")
+        input(type="text", id="inputTagDesc", placeholder="Desc", ng-model="inputTag.desc", ng-disabled="inputTag.type=='aius' || inputTag.type=='disec' || inputTag.type=='dised' || inputTag.type=='dss' || inputTag.type=='mmc' || inputTag.type=='rht' || inputTag.type=='dd' || inputTag.type=='rbr' || inputTag.type=='rihr'")
     .control-group
       label.control-label(for="inputTagDatail") Datail
       .controls
-        input(type="text", id="inputTagDatail", placeholder="Datail", ng-model="inputTag.datail", ng-disabled="inputTag.type=='aius' || inputTag.type=='disec'")
+        input(type="text", id="inputTagDatail", placeholder="Datail", ng-model="inputTag.datail", ng-disabled="inputTag.type=='aius' || inputTag.type=='disec' || inputTag.type=='dised' || inputTag.type=='dss' || inputTag.type=='mmc' || inputTag.type=='rht' || inputTag.type=='dd' || inputTag.type=='rbr' || inputTag.type=='rihr'")
     button.btn(type="submit", ng-click="save('it', [inputTag])" ng-show="inputTag.type!='aius'") Save
 div.col-md-3(id="aiusDiv" ng-show="inputTag.type=='aius'")
   h3 aius
@@ -386,6 +391,530 @@ div.col-md-3(id="dssDiv" ng-show="inputTag.type=='dss'")
           button.btn.btn-default(type="button" ng-click="open($event)")
             i.glyphicon.glyphicon-calendar
     button.btn(type="submit" ng-disabled="dssForm.$invalid") Submit
+div.col-md-3(id="mmcDiv" ng-show="inputTag.type=='mmc'")
+  h3 mmc
+    button.btn(type="submit" ng-click="close('mmc')") Close
+  form(name="mmcForm" ng-submit="save([inputTag, mmc])" novalidate)
+    div.form-group(ng-class="{ 'has-error' : mmcForm.id.$invalid && !mmcForm.id.$pristine }")
+      label Id
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="id" ng-model="mmc.id" min="1" max="999999" required)
+      p.help-block(ng-show="mmcForm.id.$invalid && !mmcForm.id.$pristine") Must be in [1-999999] range.
+    div.form-group(ng-class="{ 'has-error' : mmcForm.ymax.$invalid && !mmcForm.ymax.$pristine }")
+      label Ymax
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="ymax" ng-model="mmc.ymax" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required)
+      p.help-block(ng-show="mmcForm.ymax.$invalid && !mmcForm.ymax.$pristine") Must be in [0.01-9999.99] range.
+    div.form-group(ng-class="{ 'has-error' : mmcForm.c.$invalid && !mmcForm.c.$pristine }")
+      label C
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="c" ng-model="mmc.c" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required)
+      p.help-block(ng-show="mmcForm.c.$invalid && !mmcForm.c.$pristine") Must be in [0.01-9999.99] range.
+    div.form-group(ng-class="{ 'has-error' : mmcForm.nsb.$invalid && !mmcForm.nsb.$pristine }")
+      label Nsb
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="nsb" ng-model="mmc.nsb" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required)
+      p.help-block(ng-show="mmcForm.nsb.$invalid && !mmcForm.nsb.$pristine") Must be in [0.01-9999.99] range.
+    div.form-group(ng-class="{ 'has-error' : mmcForm.d.$invalid && !mmcForm.d.$pristine }")
+      label D
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="d" ng-model="mmc.d" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required)
+      p.help-block(ng-show="mmcForm.d.$invalid && !mmcForm.d.$pristine") Must be in [0.01-9999.99] range.
+    div.form-group
+      label.control-label(for="mmc.app") App
+      div.input-group
+        select(id="app" name="app" ng-model="mmc.app" multiple)
+          option app1
+          option app2
+          option app3
+          option app4
+    button.btn(type="submit" ng-disabled="mmcForm.$invalid") Submit
+div.col-md-3(id="rhtDiv" ng-show="inputTag.type=='rht'")
+  h3 rht
+    button.btn(type="submit" ng-click="close('rht')") Close
+  form(name="rhtForm" ng-submit="save([inputTag, rht])" novalidate)
+    div.form-group(ng-class="{ 'has-error' : rhtForm.key.$invalid && !rhtForm.key.$pristine }")
+      label Key
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="key" ng-model="rht.key" minlenght="1" maxlenght="5" required)
+      p.help-block(ng-show="rhtForm.key.$invalid && !rhtForm.key.$pristine") Must be a a-Z 0-9 with [1-5] chars.
+    div.form-group(ng-class="{ 'has-error' : rhtForm.lot.$invalid && !rhtForm.lot.$pristine }")
+      label Lot
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="lot" ng-model="rht.lot" minlenght="1" maxlenght="10" required)
+      p.help-block(ng-show="rhtForm.lot.$invalid && !rhtForm.lot.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+    div.form-group(ng-class="{ 'has-error' : rhtForm.onBoardStabilityValue.$invalid && !rhtForm.onBoardStabilityValue.$pristine }")
+      label OnBoardStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="onBoardStabilityValue" ng-model="rht.onBoardStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="rhtForm.onBoardStabilityValue.$invalid && !rhtForm.onBoardStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="rht.onBoardStabilityUnit") OnBoardStabilityUnit
+      div.input-group
+        select(id="onBoardStabilityUnit" name="onBoardStabilityUnit" ng-model="rht.onBoardStabilityUnit" required)
+          option hours
+          option days
+    div.form-group(ng-class="{ 'has-error' : rhtForm.inUseStabilityValue.$invalid && !rhtForm.inUseStabilityValue.$pristine }")
+      label InUseStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="inUseStabilityValue" ng-model="rht.inUseStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="rhtForm.inUseStabilityValue.$invalid && !rhtForm.inUseStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="rht.inUseStabilityUnit") InUseStabilityUnit
+      div.input-group
+        select(id="inUseStabilityUnit" name="inUseStabilityUnit" ng-model="rht.inUseStabilityUnit" required)
+          option hours
+          option days
+    div.form-group
+      label.control-label(for="rht.lagTimeFlag") LagTimeFlag
+      div.input-group
+        input(type="checkbox" id="lagTimeFlag" name="lagTimeFlag" ng-model="rht.lagTimeFlag")
+    div.form-group(ng-class="{ 'has-error' : rhtForm.lagTimeValue.$invalid && !rhtForm.lagTimeValue.$pristine }" ng-show="rht.lagTimeFlag")
+      label LagTimeValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="lagTimeValue" ng-model="rht.lagTimeValue" min="1" max="9999")
+      p.help-block(ng-show="rhtForm.lagTimeValue.$invalid && !rhtForm.lagTimeValue.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : rhtForm.initialVolume.$invalid && !rhtForm.initialVolume.$pristine }")
+      label InitialVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="initialVolume" ng-model="rht.initialVolume" min="1" max="9999" required)
+      p.help-block(ng-show="rhtForm.initialVolume.$invalid && !rhtForm.initialVolume.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : rhtForm.idealVolume.$invalid && !rhtForm.idealVolume.$pristine }")
+      label IdealVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="idealVolume" ng-model="rht.idealVolume" min="1" max="9999" required)
+      p.help-block(ng-show="rhtForm.idealVolume.$invalid && !rhtForm.idealVolume.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : rhtForm.isi.$invalid && !rhtForm.isi.$pristine }")
+      label Isi
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="isi" ng-model="rht.isi" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required)
+      p.help-block(ng-show="rhtForm.isi.$invalid && !rhtForm.isi.$pristine") Must be in [0.01-9999.99] range.
+    div.form-group(ng-class="{ 'has-error' : rhtForm.pid.$invalid && !rhtForm.pid.$pristine }")
+      label Pid
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="pid" ng-model="rht.pid" min="1" max="999999" required)
+      p.help-block(ng-show="rhtForm.pid.$invalid && !rhtForm.pid.$pristine") Must be in [1-999999] range.
+    div.form-group
+      label.control-label(for="rht.dsorbFlag") DsorbFlag
+      div.input-group
+        input(type="checkbox" id="dsorbFlag" name="dsorbFlag" ng-model="rht.dsorbFlag")
+    div.form-group
+      label.control-label(for="rht.container") Container
+      div.input-group
+        select(id="container" name="container" ng-model="rht.container" required)
+          option container1
+          option container2
+          option container3
+          option container4
+    div.form-group
+      label.control-label(for="rht.app") App
+      div.input-group
+        select(id="app" name="app" ng-model="rht.app" multiple)
+          option app1
+          option app2
+          option app3
+          option app4
+    div.form-group
+      label.control-label(for="rht.exipry") Expiry
+      //- label(for="date-picker" ng-click="open($event)") Choose a date
+      div.input-group
+        input.form-control(
+          type="text"
+          datepicker-popup="{{format}}" 
+          ng-model="rht.exipry" 
+          is-open="opened" 
+          min-date="minDate" 
+          max-date="'2020-06-22'"
+          datepicker-options="dateOptions" 
+          date-disabled="disabled(date, mode)" 
+          ng-required="true" 
+          close-text="Close" 
+          id="date-picker" 
+          readonly
+          ng-click="open($event)")
+        span.input-group-btn
+          button.btn.btn-default(type="button" ng-click="open($event)")
+            i.glyphicon.glyphicon-calendar
+    button.btn(type="submit" ng-disabled="rhtForm.$invalid") Submit
+div.col-md-3(id="ddDiv" ng-show="inputTag.type=='dd'")
+  h3 dd
+    button.btn(type="submit" ng-click="close('dd')") Close
+  form(name="ddForm" ng-submit="save([inputTag, dd])" novalidate)
+    div.form-group(ng-class="{ 'has-error' : ddForm.key.$invalid && !ddForm.key.$pristine }")
+      label Key
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="key" ng-model="dd.key" minlenght="1" maxlenght="5" required)
+      p.help-block(ng-show="ddForm.key.$invalid && !ddForm.key.$pristine") Must be a a-Z 0-9 with [1-5] chars.
+    div.form-group(ng-class="{ 'has-error' : ddForm.lot.$invalid && !ddForm.lot.$pristine }")
+      label Lot
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="lot" ng-model="dd.lot" minlenght="1" maxlenght="10" required)
+      p.help-block(ng-show="ddForm.lot.$invalid && !ddForm.lot.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+    div.form-group(ng-class="{ 'has-error' : ddForm.onBoardStabilityValue.$invalid && !ddForm.onBoardStabilityValue.$pristine }")
+      label OnBoardStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="onBoardStabilityValue" ng-model="dd.onBoardStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="ddForm.onBoardStabilityValue.$invalid && !ddForm.onBoardStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="dd.onBoardStabilityUnit") OnBoardStabilityUnit
+      div.input-group
+        select(id="onBoardStabilityUnit" name="onBoardStabilityUnit" ng-model="dd.onBoardStabilityUnit" required)
+          option hours
+          option days
+    div.form-group(ng-class="{ 'has-error' : ddForm.inUseStabilityValue.$invalid && !ddForm.inUseStabilityValue.$pristine }")
+      label InUseStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="inUseStabilityValue" ng-model="dd.inUseStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="ddForm.inUseStabilityValue.$invalid && !ddForm.inUseStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="dd.inUseStabilityUnit") InUseStabilityUnit
+      div.input-group
+        select(id="inUseStabilityUnit" name="inUseStabilityUnit" ng-model="dd.inUseStabilityUnit" required)
+          option hours
+          option days
+    div.form-group
+      label.control-label(for="dd.lagTimeFlag") LagTimeFlag
+      div.input-group
+        input(type="checkbox" id="lagTimeFlag" name="lagTimeFlag" ng-model="dd.lagTimeFlag")
+    div.form-group(ng-class="{ 'has-error' : ddForm.lagTimeValue.$invalid && !ddForm.lagTimeValue.$pristine }" ng-show="dd.lagTimeFlag")
+      label LagTimeValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="lagTimeValue" ng-model="dd.lagTimeValue" min="1" max="9999")
+      p.help-block(ng-show="ddForm.lagTimeValue.$invalid && !ddForm.lagTimeValue.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : ddForm.initialVolume.$invalid && !ddForm.initialVolume.$pristine }")
+      label InitialVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="initialVolume" ng-model="dd.initialVolume" min="1" max="9999" required)
+      p.help-block(ng-show="ddForm.initialVolume.$invalid && !ddForm.initialVolume.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : ddForm.idealVolume.$invalid && !ddForm.idealVolume.$pristine }")
+      label IdealVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="idealVolume" ng-model="dd.idealVolume" min="1" max="9999" required)
+      p.help-block(ng-show="ddForm.idealVolume.$invalid && !ddForm.idealVolume.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : ddForm.pid.$invalid && !ddForm.pid.$pristine }")
+      label Pid
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="pid" ng-model="dd.pid" min="1" max="999999" required)
+      p.help-block(ng-show="ddForm.pid.$invalid && !ddForm.pid.$pristine") Must be in [1-999999] range.
+    div.form-group
+      label.control-label(for="dd.container") Container
+      div.input-group
+        select(id="container" name="container" ng-model="dd.container" required)
+          option container1
+          option container2
+          option container3
+          option container4
+    div.form-group
+      label.control-label(for="dd.app") App
+      div.input-group
+        select(id="app" name="app" ng-model="dd.app" multiple)
+          option app1
+          option app2
+          option app3
+          option app4
+    div.form-group
+      label.control-label(for="dd.exipry") Expiry
+      //- label(for="date-picker" ng-click="open($event)") Choose a date
+      div.input-group
+        input.form-control(
+          type="text"
+          datepicker-popup="{{format}}" 
+          ng-model="dd.exipry" 
+          is-open="opened" 
+          min-date="minDate" 
+          max-date="'2020-06-22'"
+          datepicker-options="dateOptions" 
+          date-disabled="disabled(date, mode)" 
+          ng-required="true" 
+          close-text="Close" 
+          id="date-picker" 
+          readonly
+          ng-click="open($event)")
+        span.input-group-btn
+          button.btn.btn-default(type="button" ng-click="open($event)")
+            i.glyphicon.glyphicon-calendar
+    button.btn(type="submit" ng-disabled="ddForm.$invalid") Submit
+div.col-md-3(id="rbrDiv" ng-show="inputTag.type=='rbr'")
+  h3 rbr
+    button.btn(type="submit" ng-click="close('rbr')") Close
+  form(name="rbrForm" ng-submit="save([inputTag, rbr])" novalidate)
+    div.form-group(ng-class="{ 'has-error' : rbrForm.key.$invalid && !rbrForm.key.$pristine }")
+      label Key
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="key" ng-model="rbr.key" minlenght="1" maxlenght="5" required)
+      p.help-block(ng-show="rbrForm.key.$invalid && !rbrForm.key.$pristine") Must be a a-Z 0-9 with [1-5] chars.
+    div.form-group(ng-class="{ 'has-error' : rbrForm.lot.$invalid && !rbrForm.lot.$pristine }")
+      label Lot
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="lot" ng-model="rbr.lot" minlenght="1" maxlenght="10" required)
+      p.help-block(ng-show="rbrForm.lot.$invalid && !rbrForm.lot.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+    div.form-group(ng-class="{ 'has-error' : rbrForm.onBoardStabilityValue.$invalid && !rbrForm.onBoardStabilityValue.$pristine }")
+      label OnBoardStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="onBoardStabilityValue" ng-model="rbr.onBoardStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="rbrForm.onBoardStabilityValue.$invalid && !rbrForm.onBoardStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="rbr.onBoardStabilityUnit") OnBoardStabilityUnit
+      div.input-group
+        select(id="onBoardStabilityUnit" name="onBoardStabilityUnit" ng-model="rbr.onBoardStabilityUnit" required)
+          option hours
+          option days
+    div.form-group(ng-class="{ 'has-error' : rbrForm.inUseStabilityValue.$invalid && !rbrForm.inUseStabilityValue.$pristine }")
+      label InUseStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="inUseStabilityValue" ng-model="rbr.inUseStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="rbrForm.inUseStabilityValue.$invalid && !rbrForm.inUseStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="rbr.inUseStabilityUnit") InUseStabilityUnit
+      div.input-group
+        select(id="inUseStabilityUnit" name="inUseStabilityUnit" ng-model="rbr.inUseStabilityUnit" required)
+          option hours
+          option days
+    div.form-group
+      label.control-label(for="rbr.lagTimeFlag") LagTimeFlag
+      div.input-group
+        input(type="checkbox" id="lagTimeFlag" name="lagTimeFlag" ng-model="rbr.lagTimeFlag")
+    div.form-group(ng-class="{ 'has-error' : rbrForm.lagTimeValue.$invalid && !rbrForm.lagTimeValue.$pristine }" ng-show="rbr.lagTimeFlag")
+      label LagTimeValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="lagTimeValue" ng-model="rbr.lagTimeValue" min="1" max="9999")
+      p.help-block(ng-show="rbrForm.lagTimeValue.$invalid && !rbrForm.lagTimeValue.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : rbrForm.initialVolume.$invalid && !rbrForm.initialVolume.$pristine }")
+      label InitialVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="initialVolume" ng-model="rbr.initialVolume" min="1" max="9999" required)
+      p.help-block(ng-show="rbrForm.initialVolume.$invalid && !rbrForm.initialVolume.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : rbrForm.idealVolume.$invalid && !rbrForm.idealVolume.$pristine }")
+      label IdealVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="idealVolume" ng-model="rbr.idealVolume" min="1" max="9999" required)
+      p.help-block(ng-show="rbrForm.idealVolume.$invalid && !rbrForm.idealVolume.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="rbr.type") Type
+      div.input-group
+        select(id="container" name="type" ng-model="rbr.type" required)
+          option R1
+          option R2
+          option R3
+    div.form-group(ng-class="{ 'has-error' : rbrForm.protocolId.$invalid && !rbrForm.protocolId.$pristine }")
+      label ProtocolId
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="protocolId" ng-model="rbr.protocolId" min="1" max="999999" required)
+      p.help-block(ng-show="rbrForm.protocolId.$invalid && !rbrForm.protocolId.$pristine") Must be in [1-999999] range.
+    div.form-group
+      label.control-label(for="rbr.container") Container
+      div.input-group
+        select(id="container" name="container" ng-model="rbr.container" required)
+          option container1
+          option container2
+          option container3
+          option container4
+    div.form-group
+      label.control-label(for="rbr.app") App
+      div.input-group
+        select(id="app" name="app" ng-model="rbr.app" multiple)
+          option app1
+          option app2
+          option app3
+          option app4
+    div.form-group
+      label.control-label(for="rbr.exipry") Expiry
+      //- label(for="date-picker" ng-click="open($event)") Choose a date
+      div.input-group
+        input.form-control(
+          type="text"
+          datepicker-popup="{{format}}" 
+          ng-model="rbr.exipry" 
+          is-open="opened" 
+          min-date="minDate" 
+          max-date="'2020-06-22'"
+          datepicker-options="dateOptions" 
+          date-disabled="disabled(date, mode)" 
+          ng-required="true" 
+          close-text="Close" 
+          id="date-picker" 
+          readonly
+          ng-click="open($event)")
+        span.input-group-btn
+          button.btn.btn-default(type="button" ng-click="open($event)")
+            i.glyphicon.glyphicon-calendar
+    button.btn(type="submit" ng-disabled="rbrForm.$invalid") Submit
+div.col-md-3(id="rihrDiv" ng-show="inputTag.type=='rihr'")
+  h3 rihr
+    button.btn(type="submit" ng-click="close('rihr')") Close
+  form(name="rihrForm" ng-submit="save([inputTag, rihr])" novalidate)
+    div.form-group(ng-class="{ 'has-error' : rihrForm.key.$invalid && !rihrForm.key.$pristine }")
+      label Key
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="key" ng-model="rihr.key" minlenght="1" maxlenght="5" required)
+      p.help-block(ng-show="rihrForm.key.$invalid && !rihrForm.key.$pristine") Must be a a-Z 0-9 with [1-5] chars.
+    div.form-group(ng-class="{ 'has-error' : rihrForm.lot.$invalid && !rihrForm.lot.$pristine }")
+      label Lot
+      div.input-group
+        span.input-group-addon a-Z 0-9
+        input.form-control(type="text" name="lot" ng-model="rihr.lot" minlenght="1" maxlenght="10" required)
+      p.help-block(ng-show="rihrForm.lot.$invalid && !rihrForm.lot.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+    div.form-group(ng-class="{ 'has-error' : rihrForm.onBoardStabilityValue.$invalid && !rihrForm.onBoardStabilityValue.$pristine }")
+      label OnBoardStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="onBoardStabilityValue" ng-model="rihr.onBoardStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="rihrForm.onBoardStabilityValue.$invalid && !rihrForm.onBoardStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="rihr.onBoardStabilityUnit") OnBoardStabilityUnit
+      div.input-group
+        select(id="onBoardStabilityUnit" name="onBoardStabilityUnit" ng-model="rihr.onBoardStabilityUnit" required)
+          option hours
+          option days
+    div.form-group(ng-class="{ 'has-error' : rihrForm.inUseStabilityValue.$invalid && !rihrForm.inUseStabilityValue.$pristine }")
+      label InUseStabilityValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="inUseStabilityValue" ng-model="rihr.inUseStabilityValue" min="1" max="9999" required)
+      p.help-block(ng-show="rihrForm.inUseStabilityValue.$invalid && !rihrForm.inUseStabilityValue.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="rihr.inUseStabilityUnit") InUseStabilityUnit
+      div.input-group
+        select(id="inUseStabilityUnit" name="inUseStabilityUnit" ng-model="rihr.inUseStabilityUnit" required)
+          option hours
+          option days
+    div.form-group
+      label.control-label(for="rihr.lagTimeFlag") LagTimeFlag
+      div.input-group
+        input(type="checkbox" id="lagTimeFlag" name="lagTimeFlag" ng-model="rihr.lagTimeFlag")
+    div.form-group(ng-class="{ 'has-error' : rihrForm.lagTimeValue.$invalid && !rihrForm.lagTimeValue.$pristine }" ng-show="rihr.lagTimeFlag")
+      label LagTimeValue
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="lagTimeValue" ng-model="rihr.lagTimeValue" min="1" max="9999")
+      p.help-block(ng-show="rihrForm.lagTimeValue.$invalid && !rihrForm.lagTimeValue.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : rihrForm.initialVolume.$invalid && !rihrForm.initialVolume.$pristine }")
+      label InitialVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="initialVolume" ng-model="rihr.initialVolume" min="1" max="9999" required)
+      p.help-block(ng-show="rihrForm.initialVolume.$invalid && !rihrForm.initialVolume.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : rihrForm.idealVolume.$invalid && !rihrForm.idealVolume.$pristine }")
+      label IdealVolume
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="idealVolume" ng-model="rihr.idealVolume" min="1" max="9999" required)
+      p.help-block(ng-show="rihrForm.idealVolume.$invalid && !rihrForm.idealVolume.$pristine") Must be in [1-9999] range.
+    div.form-group
+      label.control-label(for="rihr.type") Type
+      div.input-group
+        select(id="container" name="type" ng-model="rihr.type" required)
+          option Immuno
+          option Haemos
+    div.form-group(ng-class="{ 'has-error' : rihrForm.pid.$invalid && !rihrForm.pid.$pristine }")
+      label Pid
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="pid" ng-model="rihr.pid" min="1" max="999999" required)
+      p.help-block(ng-show="rihrForm.pid.$invalid && !rihrForm.pid.$pristine") Must be in [1-999999] range.
+    div.form-group(ng-class="{ 'has-error' : rihrForm.minMean.$invalid && !rihrForm.minMean.$pristine }")
+      label minMean
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="minMean" ng-model="rihr.minMean" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required)
+      p.help-block(ng-show="rihrForm.minMean.$invalid && !rihrForm.minMean.$pristine") Must be in [0.01-9999.99] range.
+    div.form-group(ng-class="{ 'has-error' : rihrForm.maxMean.$invalid && !rihrForm.maxMean.$pristine }")
+      label maxMean
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="maxMean" ng-model="rihr.maxMean" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required)
+      p.help-block(ng-show="rihrForm.maxMean.$invalid && !rihrForm.maxMean.$pristine") Must be in [0.01-9999.99] range.
+    div.form-group(ng-class="{ 'has-error' : rihrForm.maxSd.$invalid && !rihrForm.maxSd.$pristine }")
+      label maxSd
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="maxSd" ng-model="rihr.maxSd" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required)
+      p.help-block(ng-show="rihrForm.maxSd.$invalid && !rihrForm.maxSd.$pristine") Must be in [0.01-9999.99] range.
+    div.form-group
+      label.control-label(for="rihr.dsorbFlag") DsorbFlag
+      div.input-group
+        input(type="checkbox" id="dsorbFlag" name="dsorbFlag" ng-model="rihr.dsorbFlag")
+    div.form-group(ng-class="{ 'has-error' : rihrForm.masterCurve.$invalid && !rihrForm.masterCurve.$pristine }")
+      label masterCurve
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="masterCurve" ng-model="rihr.masterCurve" min="1" max="999999" required)
+      p.help-block(ng-show="rihrForm.masterCurve.$invalid && !rihrForm.masterCurve.$pristine") Must be in [1-9999] range.
+    div.form-group(ng-class="{ 'has-error' : rihrForm.correctionFactor.$invalid && !rihrForm.correctionFactor.$pristine }", ng-show="rihrForm.type=='Immuno'")
+      label correctionFactor
+      div.input-group
+        span.input-group-addon #
+        input.form-control(type="number" name="correctionFactor" ng-model="rihr.correctionFactor" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required)
+      p.help-block(ng-show="rihrForm.correctionFactor.$invalid && !rihrForm.correctionFactor.$pristine") Must be in [0.01-9999.99] range.
+    div.form-group
+      label.control-label(for="rihr.container") Container
+      div.input-group
+        select(id="container" name="container" ng-model="rihr.container" required)
+          option container1
+          option container2
+          option container3
+          option container4
+    div.form-group
+      label.control-label(for="rihr.app") App
+      div.input-group
+        select(id="app" name="app" ng-model="rihr.app" multiple)
+          option app1
+          option app2
+          option app3
+          option app4
+    div.form-group
+      label.control-label(for="rihr.exipry") Expiry
+      //- label(for="date-picker" ng-click="open($event)") Choose a date
+      div.input-group
+        input.form-control(
+          type="text"
+          datepicker-popup="{{format}}" 
+          ng-model="rihr.exipry" 
+          is-open="opened" 
+          min-date="minDate" 
+          max-date="'2020-06-22'"
+          datepicker-options="dateOptions" 
+          date-disabled="disabled(date, mode)" 
+          ng-required="true" 
+          close-text="Close" 
+          id="date-picker" 
+          readonly
+          ng-click="open($event)")
+        span.input-group-btn
+          button.btn.btn-default(type="button" ng-click="open($event)")
+            i.glyphicon.glyphicon-calendar
+    button.btn(type="submit" ng-disabled="rihrForm.$invalid") Submit
 div.col-md-12(ng-show="showView")
   h3 View
     button.btn(type="submit", ng-click="close('v')") Close
@@ -436,7 +965,12 @@ div.col-md-3(ng-show="showDebug")
     button.btn(type='button', ng-click="close('d')") Close
   button.btn(type='button', ng-click="addOne('aius')") AddOneAuis
   button.btn(type='button', ng-click="addOne('disec')") AddOneDisec
-  button.btn(type='button', ng-click="addOne('dised')") AddOnedised
-  button.btn(type='button', ng-click="addOne('dss')") AddOnedss
+  button.btn(type='button', ng-click="addOne('dised')") AddOneDised
+  button.btn(type='button', ng-click="addOne('dss')") AddOneDss
+  button.btn(type='button', ng-click="addOne('mmc')") AddOneMmc
+  button.btn(type='button', ng-click="addOne('rht')") AddOneRht
+  button.btn(type='button', ng-click="addOne('dd')") AddOneDd
+  button.btn(type='button', ng-click="addOne('rbr')") AddOneRbr
+  button.btn(type='button', ng-click="addOne('rihr')") AddOneRihr
   button.btn(type='button', ng-click="addOne('-')") AddOneTag
   button.btn(type='button', ng-click="removeLast()") RemoveLast

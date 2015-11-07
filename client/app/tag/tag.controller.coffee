@@ -69,6 +69,31 @@ angular.module 'aliimsApp'
             tag.datail = inputs[1]
             $scope.tags.push tag
             $scope.close('dss')
+          when 'mmc'
+            tag.desc = "new"
+            tag.datail = inputs[1]
+            $scope.tags.push tag
+            $scope.close('mmc')
+          when 'rht'
+            tag.desc = "new"
+            tag.datail = inputs[1]
+            $scope.tags.push tag
+            $scope.close('rht')
+          when 'dd'
+            tag.desc = "new"
+            tag.datail = inputs[1]
+            $scope.tags.push tag
+            $scope.close('dd')
+          when 'rbr'
+            tag.desc = "new"
+            tag.datail = inputs[1]
+            $scope.tags.push tag
+            $scope.close('rbr')
+          when 'rihr'
+            tag.desc = "new"
+            tag.datail = inputs[1]
+            $scope.tags.push tag
+            $scope.close('rihr')
           when '-'
             # tag.desc as it is
             # tag.datail as it is
@@ -102,6 +127,31 @@ angular.module 'aliimsApp'
             tag.datail = inputs[1]
             $scope.tags[i] = tag
             $scope.close('dss')
+          when 'mmc'
+            tag.desc = "edit"
+            tag.datail = inputs[1]
+            $scope.tags[i] = tag
+            $scope.close('mmc')
+          when 'rht'
+            tag.desc = "edit"
+            tag.datail = inputs[1]
+            $scope.tags[i] = tag
+            $scope.close('rht')
+          when 'dd'
+            tag.desc = "edit"
+            tag.datail = inputs[1]
+            $scope.tags[i] = tag
+            $scope.close('dd')
+          when 'rbr'
+            tag.desc = "edit"
+            tag.datail = inputs[1]
+            $scope.tags[i] = tag
+            $scope.close('rbr')
+          when 'rihr'
+            tag.desc = "edit"
+            tag.datail = inputs[1]
+            $scope.tags[i] = tag
+            $scope.close('rihr')
           when '-'
             # tag.desc as it is
             # tag.datail as it is
@@ -124,6 +174,21 @@ angular.module 'aliimsApp'
         return true
       when 'dss'
         $scope.dss = clone.datail
+        return true
+      when 'mmc'
+        $scope.mmc = clone.datail
+        return true
+      when 'rht'
+        $scope.rht = clone.datail
+        return true
+      when 'dd'
+        $scope.dd = clone.datail
+        return true
+      when 'rbr'
+        $scope.rbr = clone.datail
+        return true
+      when 'rihr'
+        $scope.rihr = clone.datail
         return true
       when '-'
         return true
@@ -161,6 +226,41 @@ angular.module 'aliimsApp'
     if item == 'dss'
       $scope.dss = null
       $scope.dssForm = null
+      $scope.inputTag = null
+      $scope.showInputTag = false
+      $scope.showExtra = true
+      $scope.disableAll = false
+    if item == 'mmc'
+      $scope.mmc = null
+      $scope.mmcForm = null
+      $scope.inputTag = null
+      $scope.showInputTag = false
+      $scope.showExtra = true
+      $scope.disableAll = false
+    if item == 'rht'
+      $scope.rht = null
+      $scope.rhtForm = null
+      $scope.inputTag = null
+      $scope.showInputTag = false
+      $scope.showExtra = true
+      $scope.disableAll = false
+    if item == 'dd'
+      $scope.dd = null
+      $scope.ddForm = null
+      $scope.inputTag = null
+      $scope.showInputTag = false
+      $scope.showExtra = true
+      $scope.disableAll = false
+    if item == 'rbr'
+      $scope.rbr = null
+      $scope.rbrForm = null
+      $scope.inputTag = null
+      $scope.showInputTag = false
+      $scope.showExtra = true
+      $scope.disableAll = false
+    if item == 'rihr'
+      $scope.rihr = null
+      $scope.rihrForm = null
       $scope.inputTag = null
       $scope.showInputTag = false
       $scope.showExtra = true
@@ -230,6 +330,133 @@ angular.module 'aliimsApp'
         datail.app = ['app1', 'app3']
         datail.exipry = new Date("November 30, 2015 12:12:12");
         tag = $scope.new(i, Date.now(), 'offline', 'disec', i, datail)
+      when 'dss'
+        datail = {}
+        datail.key = i
+        datail.lot = i
+        datail.onBoardStabilityValue = i
+        datail.onBoardStabilityUnit = 'hours'
+        datail.inUseStabilityValue = i
+        datail.inUseStabilityUnit = 'days'
+        datail.lagTimeFlag = true
+        datail.lagTimeValue = i
+        datail.initialVolume = i
+        datail.idealVolume = i
+        datail.container = 'container2'
+        datail.app = ['app1', 'app3']
+        datail.exipry = new Date("November 30, 2015 12:12:12");
+        tag = $scope.new(i, Date.now(), 'offline', 'dss', i, datail)
+      when 'mmc'
+        datail = {}
+        datail.id = i
+        datail.ymax = i+'.'+i
+        datail.c = i+i+'.'+i+i
+        datail.nsb = i+i+i+'.'+i+i+i
+        datail.d = i+i+i+i+'.'+i+i+i+i
+        datail.app = ['app1', 'app3']
+        tag = $scope.new(i, Date.now(), 'offline', 'dss', i, datail)
+      when 'rht'
+        datail = {}
+        datail.key = i
+        datail.lot = i
+        datail.onBoardStabilityValue = i
+        datail.onBoardStabilityUnit = 'hours'
+        datail.inUseStabilityValue = i
+        datail.inUseStabilityUnit = 'days'
+        datail.lagTimeFlag = true
+        datail.lagTimeValue = i
+        datail.initialVolume = i
+        datail.idealVolume = i
+        datail.isi = i
+        datail.pid = i
+        datail.dsorbFlag = true
+        datail.container = 'container2'
+        datail.app = ['app1', 'app3']
+        datail.exipry = new Date("November 30, 2015 12:12:12");
+        tag = $scope.new(i, Date.now(), 'offline', 'dss', i, datail)
+      when 'dd'
+        datail = {}
+        datail.key = i
+        datail.lot = i
+        datail.onBoardStabilityValue = i
+        datail.onBoardStabilityUnit = 'hours'
+        datail.inUseStabilityValue = i
+        datail.inUseStabilityUnit = 'days'
+        datail.lagTimeFlag = true
+        datail.lagTimeValue = i
+        datail.initialVolume = i
+        datail.idealVolume = i
+        datail.pid = i
+        datail.container = 'container2'
+        datail.app = ['app1', 'app3']
+        datail.exipry = new Date("November 30, 2015 12:12:12");
+        tag = $scope.new(i, Date.now(), 'offline', 'dss', i, datail)
+      when 'rbr'
+        datail = {}
+        datail.key = i
+        datail.lot = i
+        datail.onBoardStabilityValue = i
+        datail.onBoardStabilityUnit = 'hours'
+        datail.inUseStabilityValue = i
+        datail.inUseStabilityUnit = 'days'
+        datail.lagTimeFlag = true
+        datail.lagTimeValue = i
+        datail.initialVolume = i
+        datail.idealVolume = i
+        datail.type = 'R1'
+        datail.protocolId = i
+        datail.container = 'container2'
+        datail.app = ['app1', 'app3']
+        datail.exipry = new Date("November 30, 2015 12:12:12");
+        tag = $scope.new(i, Date.now(), 'offline', 'dss', i, datail)
+      when 'rihr'
+        datail = {}
+        datail.key = i
+        datail.lot = i
+        datail.onBoardStabilityValue = i
+        datail.onBoardStabilityUnit = 'hours'
+        datail.inUseStabilityValue = i
+        datail.inUseStabilityUnit = 'days'
+        datail.lagTimeFlag = true
+        datail.lagTimeValue = i
+        datail.initialVolume = i
+        datail.idealVolume = i
+        datail.type = 'Immuno'
+        datail.pid = i
+        datail.minMean = i
+        datail.maxMean = i
+        datail.maxSd = i
+        datail.dsorbFlag = true
+        datail.masterCurve = i
+        datail.correctionFactor = i
+        datail.container = 'container2'
+        datail.app = ['app1', 'app3']
+        datail.exipry = new Date("November 30, 2015 12:12:12");
+        tag = $scope.new(i, Date.now(), 'offline', 'dss', i, datail)
+      when 'cac'
+        datail = {}
+        datail.key = i
+        datail.lot = i
+        datail.onBoardStabilityValue = i
+        datail.onBoardStabilityUnit = 'hours'
+        datail.inUseStabilityValue = i
+        datail.inUseStabilityUnit = 'days'
+        datail.lagTimeFlag = true
+        datail.lagTimeValue = i
+        datail.initialVolume = i
+        datail.idealVolume = i
+        datail.type = 'Immuno'
+        datail.pid = i
+        datail.minMean = i
+        datail.maxMean = i
+        datail.maxSd = i
+        datail.dsorbFlag = true
+        datail.masterCurve = i
+        datail.correctionFactor = i
+        datail.container = 'container2'
+        datail.app = ['app1', 'app3']
+        datail.exipry = new Date("November 30, 2015 12:12:12");
+        tag = $scope.new(i, Date.now(), 'offline', 'dss', i, datail)
       when '-'
         tag = $scope.new(i, Date.now(), 'offline', '-', i, i)
       else
