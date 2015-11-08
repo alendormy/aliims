@@ -2,7 +2,7 @@ div(ng-include='"components/navbar/navbar.html"')
 header#banner.hero-unit
   .container
     h1 Hello ids!
-    p.lead manage your product tag identification online
+    p.lead manage your products identification
 .container
   .row
     .col-lg-12
@@ -40,25 +40,36 @@ header#banner.hero-unit
         button.btn(ng-show="tagFormView == true", ng-click="tagFormView = false")
           span.glyphicon.glyphicon-zoom-out
       .col-lg-10.col-lg-offset-2(ng-show="tagFormView")
-        form.form-horizontal(name="tagForm", id="tagForm", ng-model="tag", novalidate)
+        form.form-inline(name="tagForm", id="tagForm", ng-model="tag", novalidate)
+  
           div.form-group(ng-class="{ 'has-error' : tagForm.status.$invalid && !tagForm.status.$pristine }")
-            label.control-label(for="tagFormStatus") Status
+            label.control-label(for="status") Status
             div.input-group
-              select(name="tagFormStatus", id="tagFormStatus", ng-model="tag.status", required)
+              select.form-control(name="status", id="status", ng-model="tag.status", required)
                 option(ng-repeat="option in tagFormStatusOptions", value="{{option.id}}") {{option.name}}
               p.help-block(ng-show="tagForm.status.$invalid && !tagForm.status.$pristine") Must not be null.
+
           div.form-group(ng-class="{ 'has-error' : tagForm.type.$invalid && !tagForm.type.$pristine }")
-            label.control-label(for="tagFormType") Type
+            label.control-label(for="type") Type
             div.input-group
-              select(name="tagFormType", id="tagFormType", ng-model="tag.type", required)
+              select.form-control(name="type", id="type", ng-model="tag.type", required)
                 option(ng-repeat="option in tagFormTypeOptions", value="{{option.id}}") {{option.name}}
               p.help-block(ng-show="tagForm.type.$invalid && !tagForm.type.$pristine") Must not be null.
+
           div.form-group(ng-show="tag.type == 'aius'", ng-class="{ 'has-error' : tagForm.revision.$invalid && !tagForm.revision.$pristine }")
-            label.control-label(for="tagFormRevision") Revision
+            label.control-label(for="revision") Revision
             div.input-group
               span.input-group-addon #
-              input.form-control(type="number", name="tagFormRevision", id="tagFormRevision", ng-model="tag.revision", min="1", max="9999")
+              input.form-control(type="number", name="revision", id="revision", ng-model="tag.revision", min="1", max="9999", ng-required="tag.type == 'aius'")
             p.help-block(ng-show="tagForm.revision.$invalid && !tagForm.revision.$pristine") Must be in [1-9999] range.
+
+          div.form-group(ng-show="tag.type == 'aius'", ng-class="{ 'has-error' : tagForm.systemLiquid.$invalid && !tagForm.systemLiquid.$pristine }")
+            label.control-label(for="systemLiquid") System Liquid
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="systemLiquid", id="systemLiquid", ng-model="tag.systemLiquid", min="1", max="999", ng-required="tag.type == 'aius'")
+            p.help-block(ng-show="tagForm.systemLiquid.$invalid && !tagForm.systemLiquid.$pristine") Must be in [1-999] range.
+
           button.btn.btn-primary(type='submit', ng-click='saveTag()', ng-disabled="tagForm.$invalid") Save
           button.btn.btn-warning(type='submit', ng-click='cancelTag()') Cancel
       h2 Preview
@@ -69,21 +80,12 @@ header#banner.hero-unit
       .col-lg-9.col-lg-offset-3(ng-show="tagPreView")
         | tag
         pre {{tag | json}}
+.container(ng-show="false")
   .row
     .col-lg-12
       h1.page-header Debug:
-        form(name="form", class="css-form", novalidate)
-          input(type="number", ng-model="size", name="size", min="0", max="10", integer) {{size}}
-          //- div
-          //-   | Size (integer 0 - 10):
-          //-   input(type="number", ng-model="size", name="size", min="0", max="10", integer) {{size}}
-          //-   | span(ng-show="form.size.$error.integer") The value is not a valid integer!
-          //-   | span(ng-show="form.size.$error.min || form.size.$error.max") The value must be in range 0 to 10!
-          //- div
-          //-   | Username:
-          //-   input(type="text" ng-model="name" name="name" username) {{name}}
-          //-   | span(ng-show="form.name.$pending.username") Checking if this name is available...
-          //-   | span(ng-show="form.name.$error.username") This username is already taken!
+      h2 Validation
+        pre {{tagForm | json}}
 footer.footer
   .container
     p

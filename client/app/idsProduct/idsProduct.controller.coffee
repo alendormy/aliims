@@ -14,7 +14,7 @@ angular.module 'aliimsApp'
     $scope.tag.upDated = Date.now()
     $scope.tags.push $scope.tag
     $scope.tag = {}
-    # $scope.tagFormView = false
+    $scope.tagFormView = false
     true
   $scope.deleteTag = Modal.confirm.delete(
   	(tag) ->
@@ -23,31 +23,3 @@ angular.module 'aliimsApp'
       $scope.tags.splice(index,1)
       true
   )
-
-
-INTEGER_REGEXP = /^\-?\d+$/
-
-.directive 'integer', () ->
-  require: 'ngModel'
-  link: (scope, elm, attrs, ctrl) ->
-    ctrl.$validators.integer = (modelValue, viewValue) ->
-      if ctrl.$isEmpty(modelValue)
-        true
-      if INTEGER_REGEXP.test(viewValue)
-        true
-      false
-
-.directive 'username', ($q, $timeout) ->
-  require: 'ngModel',
-  link: (scope, elm, attrs, ctrl) ->
-    usernames = ['Jim', 'John', 'Jill', 'Jackie']
-    ctrl.$asyncValidators.username = (modelValue, viewValue) ->
-      $q.when() if ctrl.$isEmpty(modelValue)
-      def = $q.defer()
-      $timeout () ->
-        if (usernames.indexOf(modelValue) == -1)
-          def.resolve()
-        else
-          def.reject()
-      , 2000
-      def.promise;
