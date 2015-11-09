@@ -19,16 +19,17 @@ header#banner.hero-unit
         table.table.table-condensed.table-hover
           tr.active
             td id
+            td desc
             td upDated
             td status
             td type
-            td desc
+            
           tr(ng-repeat="item in tags", ng-click="selectTag(item)", ng-class="{'active': item.id == tag.id, cursor: pointer}")
             td {{item.id}}
+            td {{item.desc}}
             td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
             td {{item.status}}
             td {{item.type}}
-            td {{item.desc}}
 
       h3 Form
         button.btn(ng-show="tagFormView == false", ng-click="tagFormView = true")
@@ -199,9 +200,13 @@ header#banner.hero-unit
           //- apps
           div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'mmc' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac'", ng-class="{ 'has-error' : tagForm.apps.$invalid && !tagForm.apps.$pristine }")
             label.control-label(for="apps") Apps
+            button.btn(ng-show="appPreView  == false && appTableView  == false && appFormView == false", ng-click="appPreView = appTableView = appFormView = true")
+              span.glyphicon.glyphicon-zoom-in
+            button.btn(ng-show="appPreView  == true && appTableView  == true && appFormView == true", ng-click="appPreView = appTableView = appFormView = false")
+              span.glyphicon.glyphicon-zoom-out
             div.input-group
               select.form-control(name="apps", id="apps", ng-model="tag.apps", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'mmc' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac'", multiple)
-                option(ng-repeat="app in apps", value="{{app.id}}") {{app.name}}
+                option(ng-show="app.status == 'on'", ng-repeat="app in apps", value="{{app.id}}") {{app.name}}
               p.help-block(ng-show="tagForm.apps.$invalid && !tagForm.apps.$pristine") Must not be null.
 
           //- expiry
@@ -383,7 +388,7 @@ header#banner.hero-unit
                 option(ng-repeat="position in positions", value="{{position.id}}") {{position.name}}
               p.help-block(ng-show="tagForm.positions.$invalid && !tagForm.positions.$pristine") Must not be null.
 
-          //- start
+          //- xxx
 
 
 
@@ -398,7 +403,75 @@ header#banner.hero-unit
         button.btn(ng-show="tagPreView == true", ng-click="tagPreView = false")
           span.glyphicon.glyphicon-zoom-out
       .col-lg-9.col-lg-offset-3(ng-show="tagPreView")
+        | tag:
         pre {{tag | json}}
+        //- | tags:
+        //- pre {{tags | json}}
+
+.container.bordered
+  .row
+    .col-lg-12
+      h1.page-header Apps:
+
+      h3 Table
+        button.btn(ng-show="appTableView == false", ng-click="appTableView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="appTableView == true", ng-click="appTableView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-11.col-lg-offset-1(ng-show="appTableView")
+        table.table.table-condensed.table-hover
+          tr.active
+            td id
+            td desc
+            td upDated
+            td status
+            td name
+          tr(ng-repeat="item in apps", ng-click="selectApp(item)", ng-class="{'active': item.id == app.id, cursor: pointer}")
+            td {{item.id}}
+            td {{item.desc}}
+            td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
+            td {{item.status}}
+            td {{item.name}}
+
+      h3 Form
+        button.btn(ng-show="appFormView == false", ng-click="appFormView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="appFormView == true", ng-click="appFormView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-10.col-lg-offset-2(ng-show="appFormView")
+        form.form-inline(name="appForm", id="appForm", ng-model="app", novalidate)
+
+          //- status
+          div.form-group(ng-class="{ 'has-error' : appForm.status.$invalid && !appForm.status.$pristine }")
+            label.control-label(for="status") Status
+            div.input-group
+              select.form-control(name="status", id="status", ng-model="app.status", required)
+                option(ng-repeat="option in appFormStatusOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="appForm.status.$invalid && !appForm.status.$pristine") Must not be null.
+
+          //- name
+          div.form-group(ng-class="{ 'has-error' : appForm.name.$invalid && !appForm.name.$pristine }")
+            label.control-label(for="name") Name
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="name", id="name", ng-model="app.name", required)
+            p.help-block(ng-show="appForm.name.$invalid && !appForm.name.$pristine") Must be a a-Z 0-9.
+
+          button.btn.btn-primary(type='submit', ng-click='saveApp()', ng-disabled="appForm.$invalid") Save
+          button.btn.btn-warning(type='submit', ng-click='clearApp()') Clear
+          button.btn.btn-danger(type='submit', ng-click='deleteApp(app.id, app)', ng-show="app.id") Delete
+
+      h3 View
+        button.btn(ng-show="appPreView == false", ng-click="appPreView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="appPreView == true", ng-click="appPreView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-9.col-lg-offset-3(ng-show="appPreView")
+        | app:
+        pre {{app | json}}
+        //- apps:
+        //- pre {{apps | json}}
+
 
 .container(ng-show="false")
   .row

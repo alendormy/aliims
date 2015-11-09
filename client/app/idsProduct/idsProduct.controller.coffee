@@ -2,9 +2,196 @@
 angular.module 'aliimsApp'
 .controller 'IdsProductCtrl', ($scope, Modal) ->
 
-  $scope.tags = []
+  # TAG STUFF
+  $scope.tagTableView = false
+  $scope.tagFormView = false
+  $scope.tagPreView = false
+
+  $scope.tags = [
+    {
+      status: "off",
+      type: "aius",
+      revision: 7,
+      systemLiquid: 7,
+      immunoWash: 7,
+      triggerA: 9,
+      triggerB: 8,
+      dsorb: 9,
+      apSubstrate: 8,
+      id: "tag_1447073591908",
+      desc: "new",
+      upDated: 1447073591908
+    }, {
+      status: "off",
+      type: "disec",
+      key: "qfrefeag",
+      lot: "z",
+      onBoardStabilityValue: 8,
+      onBoardStabilityUnit: "h",
+      inUseStabilityValue: 8,
+      inUseStabilityUnit: "d",
+      lagTimeFlag: true,
+      lagTimeValue: 7,
+      initialVolume: 11,
+      idealVolume: 9,
+      container: 1,
+      apps: [
+        4,
+        5,
+        6
+      ],
+      id: "tag_1447073625257",
+      desc: "new",
+      upDated: 1447073625257
+    }, {
+      status: "off",
+      type: "dised",
+      key: "qsfnlernil",
+      lot: "qsrfaerf",
+      onBoardStabilityValue: 10,
+      onBoardStabilityUnit: "h",
+      inUseStabilityValue: 7,
+      inUseStabilityUnit: "d",
+      initialVolume: 7,
+      idealVolume: 9,
+      container: "1",
+      apps: [
+        5,
+        7
+      ],
+      id: "tag_1447073660982",
+      desc: "new",
+      upDated: 1447073660982
+    }, {
+      status: "on",
+      type: "dss",
+      key: "qseffé",
+      lot: "z",
+      onBoardStabilityValue: 7,
+      onBoardStabilityUnit: "h",
+      inUseStabilityValue: 7,
+      inUseStabilityUnit: "d",
+      initialVolume: 8,
+      idealVolume: 10,
+      container: "6",
+      apps: [
+        4,
+        6
+      ],
+      id: "tag_1447073701712",
+      desc: "new",
+      upDated: 1447073701713
+    }, {
+      status: "off",
+      type: "mmc",
+      apps: [
+        3,
+        6
+      ],
+      mmcId: "L123",
+      ymax: 0.46,
+      c: 0.05,
+      nsb: 0.19,
+      d: 0.11,
+      id: "tag_1447073726918",
+      desc: "new",
+      upDated: 1447073726918
+    }, {
+      status: "on",
+      type: "rht",
+      key: "xxxx",
+      lot: "qsrfaerf",
+      onBoardStabilityValue: 9,
+      onBoardStabilityUnit: "d",
+      inUseStabilityValue: 8,
+      inUseStabilityUnit: "d",
+      initialVolume: 10,
+      idealVolume: 10,
+      lagTimeFlag: true,
+      lagTimeValue: 10,
+      container: "9",
+      apps: [
+        4,
+        6,
+        7
+      ],
+      pid: "skjdfnkq",
+      dsorbFlag: true,
+      id: "tag_1447073782990",
+      desc: "new",
+      upDated: 1447073782990
+    }, {
+      status: "on",
+      type: "dd",
+      key: "qseffé",
+      lot: "azeff('g",
+      onBoardStabilityValue: 8,
+      onBoardStabilityUnit: "h",
+      inUseStabilityValue: 5,
+      inUseStabilityUnit: "d",
+      initialVolume: 7,
+      idealVolume: 7,
+      container: "4",
+      apps: [
+        4,
+        6
+      ],
+      pid: "sqfeqf",
+      id: "tag_1447073820512",
+      desc: "new",
+      upDated: 1447073820512
+    }, {
+      status: "off",
+      type: "rbr",
+      key: "qfarfr",
+      lot: "fhtyhe",
+      onBoardStabilityValue: 6,
+      onBoardStabilityUnit: "d",
+      inUseStabilityValue: 6,
+      inUseStabilityUnit: "h",
+      initialVolume: 7,
+      idealVolume: 11,
+      container: "2",
+      apps: [
+        1,
+        3,
+        4
+      ],
+      rbrType: "2",
+      protocolId: "qskfnir",
+      id: "tag_1447073863660",
+      desc: "new",
+      upDated: 1447073863660
+    }, {
+      status: "off",
+      type: "rihr",
+      key: "sqfaer",
+      lot: "z",
+      onBoardStabilityValue: 9,
+      onBoardStabilityUnit: "d",
+      inUseStabilityValue: 7,
+      inUseStabilityUnit: "d",
+      initialVolume: 8,
+      idealVolume: 10,
+      container: "1",
+      apps: [
+        1,
+        2
+      ],
+      pid: "sqfeqf",
+      dsorbFlag: true,
+      rihrType: "i",
+      minMean: 0.07,
+      maxMean: 0.1,
+      maxSd: 0.07,
+      mmc: "qsfffrq",
+      correctionFactor: 0.12,
+      id: "tag_1447073921380",
+      desc: "new",
+      upDated: 1447073921380}]
+  # $scope.tags = []
   $scope.tag = null
-  $scope.tagFormStabilityUnitOptions = [{id: 'h', name: 'Hour(s)'}, {id: 'd', name: 'Day(s)'}]
+
   $scope.tagFormStatusOptions = [{id: 'off', name: 'Offline'}, {id: 'on', name: 'Online'}]
   $scope.tagFormTypeOptions = [
     {id: 'aius', name: 'Ancilliaries In Use Stability'},
@@ -18,9 +205,120 @@ angular.module 'aliimsApp'
     {id: 'rihr', name: 'R Biochemistry Immunology Haemostasis Reagent'},
     {id: 'cac', name: 'CA Cartridge'},
     {id: 'ccc', name: 'C Calibrator Control'}]
+  $scope.tagFormStabilityUnitOptions = [{id: 'h', name: 'Hour(s)'}, {id: 'd', name: 'Day(s)'}]
   $scope.tagFormRbrTypeOptions  = [{id: '1', name: 'R1'}, {id: '2', name: 'R2'}, {id: '3', name: 'R3'}]
   $scope.tagFormRihrTypeOptions  = [{id: 'i', name: 'Immunology'}, {id: 'h', name: 'Haemostasis'}]
 
+  $scope.selectTag = (tag) ->
+    $scope.tag = angular.copy(tag)
+    $scope.tagFormView = true
+    $scope.tagPreView = true
+    true
+
+  $scope.saveTag = () ->
+    # mock mongo id
+    if $scope.tag.id
+      # alert('edit')
+      i = 0
+      i++ while $scope.tag.id != $scope.tags[i].id
+      $scope.tag.desc = 'edit'
+      $scope.tags[i] = $scope.tag
+    else
+      # alert('new')
+      $scope.tag.id = 'tag_'+Date.now()
+      $scope.tag.desc = 'new'
+      $scope.tags.push $scope.tag
+    $scope.tag.upDated = Date.now()
+    $scope.clearTag()
+    true
+
+  $scope.clearTag = () ->
+    $scope.tag = null
+    $scope.tagForm = null
+    $scope.tagFormView = false
+    $scope.tagPreView = false
+    true
+
+  $scope.deleteTag = Modal.confirm.delete (tag) ->
+    i = 0
+    i += 1  while $scope.tags[i].id != tag.id
+    $scope.tags.splice(i,1)
+    $scope.clearTag()
+    true
+
+  # APP STUFF
+  $scope.appTableView = false
+  $scope.appFormView = false
+  $scope.appPreView = false
+
+  $scope.apps  =[
+    {
+      status: "off",
+      name: "app1",
+      id: "app_1447076981841",
+      desc: "new",
+      upDated: 1447076981841
+    }, {
+      status: "on",
+      name: "app2",
+      id: "app_1447076991666",
+      desc: "new",
+      upDated: 1447076991666
+    }, {
+      status: "off",
+      name: "app3",
+      id: "app_1447076999407",
+      desc: "new",
+      upDated: 1447076999407
+    }, {
+      status: "on",
+      name: "app4",
+      id: "app_1447077007352",
+      desc: "new",
+      upDated: 1447077007352}]
+  # $scope.apps = []
+  $scope.app = null
+
+  $scope.appFormStatusOptions = [{id: 'off', name: 'Offline'}, {id: 'on', name: 'Online'}]
+
+  $scope.selectApp = (app) ->
+    $scope.app = angular.copy(app)
+    $scope.appFormView = true
+    $scope.appPreView = true
+    true
+
+  $scope.saveApp = () ->
+    # mock mongo id
+    if $scope.app.id
+      # alert('edit')
+      i = 0
+      i++ while $scope.app.id != $scope.apps[i].id
+      $scope.app.desc = 'edit'
+      $scope.apps[i] = $scope.app
+    else
+      # alert('new')
+      $scope.app.id = 'app_'+Date.now()
+      $scope.app.desc = 'new'
+      $scope.apps.push $scope.app
+    $scope.app.upDated = Date.now()
+    $scope.clearApp()
+    true
+
+  $scope.clearApp = () ->
+    $scope.app = null
+    $scope.appForm = null
+    $scope.appFormView = false
+    $scope.appPreView = false
+    true
+
+  $scope.deleteApp = Modal.confirm.delete (app) ->
+    i = 0
+    i += 1  while $scope.apps[i].id != app.id
+    $scope.apps.splice(i,1)
+    $scope.clearTag()
+    true
+
+  # CONTAINER STUFF
   $scope.containers  = [
     {id: '0', filter: ['ccc'], name: 'PT_11_4.5mL'},
     {id: '1', filter: ['ccc'], name: 'PT_13_6mL'},
@@ -62,17 +360,6 @@ angular.module 'aliimsApp'
   # $scope.containers = []
   $scope.container = {}
   
-  $scope.apps  = [
-    {id: '1', name: 'App 1'},
-    {id: '2', name: 'App 2'},
-    {id: '3', name: 'App 3'},
-    {id: '4', name: 'App 4'},
-    {id: '5', name: 'App 5'},
-    {id: '6', name: 'App 6'},
-    {id: '7', name: 'App 7'}]
-  # $scope.apps = []
-  $scope.app = {}
-
   $scope.positions  = [
     {id: '1', name: 'Position 1'},
     {id: '2', name: 'Position 2'},
@@ -84,45 +371,7 @@ angular.module 'aliimsApp'
   # $scope.positions = []
   $scope.position = {}
 
-  $scope.tagTableView = false
-  $scope.tagFormView = false
-  $scope.tagPreView = false
-
-  $scope.selectTag = (tag) ->
-    $scope.tag = angular.copy(tag)
-    true
-
-  $scope.saveTag = () ->
-    # mock mongo id
-    if $scope.tag.id
-      alert('edit')
-      i = 0
-      i++ while $scope.tag.id != $scope.tags[i].id
-      $scope.tag.desc = 'edit'
-      $scope.tags[i] = $scope.tag
-    else
-      alert('new')
-      $scope.tag.id = 'xXx'+Date.now()+'xXx'  
-      $scope.tag.desc = 'new'
-      $scope.tags.push $scope.tag
-    $scope.tag.upDated = Date.now()
-    $scope.clearTag()
-    true
-
-  $scope.clearTag = () ->
-    $scope.tag = null
-    $scope.tagForm = null
-    true
-
-  $scope.deleteTag = Modal.confirm.delete (tag) ->
-    i = 0
-    i += 1  while $scope.tags[i].id != tag.id
-    $scope.tags.splice(i,1)
-    $scope.clearTag()
-    true
-
-
-  # copied over...
+  # COPIED OVER
   $scope.today = () ->
     $scope.dt = new Date()
 
