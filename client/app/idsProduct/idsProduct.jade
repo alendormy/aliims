@@ -192,9 +192,13 @@ header#banner.hero-unit
           //- container
           div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.container.$invalid && !tagForm.container.$pristine }")
             label.control-label(for="container") Container
+            button.btn(ng-show="containerPreView  == false && containerTableView  == false && containerFormView == false", ng-click="containerPreView = containerTableView = containerFormView = true")
+              span.glyphicon.glyphicon-zoom-in
+            button.btn(ng-show="containerPreView  == true && containerTableView  == true && containerFormView == true", ng-click="containerPreView = containerTableView = containerFormView = false")
+              span.glyphicon.glyphicon-zoom-out
             div.input-group
               select.form-control(name="container", id="container", ng-model="tag.container", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'")
-                option(ng-show="container.filter.indexOf(tag.type) > -1", ng-repeat="container in containers", value="{{container.id}}") {{container.name}}
+                option(ng-show="container.status == 'on' && container.filter.indexOf(tag.type) > -1", ng-repeat="container in containers", value="{{container.id}}") {{container.name}}
               p.help-block(ng-show="tagForm.container.$invalid && !tagForm.container.$pristine") Must not be null.
 
           //- apps
@@ -383,9 +387,13 @@ header#banner.hero-unit
           //- positions
           div.form-group(ng-show="tag.type == 'cac'", ng-class="{ 'has-error' : tagForm.positions.$invalid && !tagForm.positions.$pristine }")
             label.control-label(for="positions") Positions
+            button.btn(ng-show="positionPreView  == false && positionTableView  == false && positionFormView == false", ng-click="positionPreView = positionTableView = positionFormView = true")
+              span.glyphicon.glyphicon-zoom-in
+            button.btn(ng-show="positionPreView  == true && positionTableView  == true && positionFormView == true", ng-click="positionPreView = positionTableView = positionFormView = false")
+              span.glyphicon.glyphicon-zoom-out
             div.input-group
-              select.form-control(name="apps", id="positions", ng-model="tag.positions", ng-required="tag.type == 'cac'", multiple)
-                option(ng-repeat="position in positions", value="{{position.id}}") {{position.name}}
+              select.form-control(name="positions", id="positions", ng-model="tag.positions", ng-required="tag.type == 'cac'", multiple)
+                option(ng-show="position.status == 'on'", ng-repeat="position in positions", value="{{position.id}}") {{position.name}}
               p.help-block(ng-show="tagForm.positions.$invalid && !tagForm.positions.$pristine") Must not be null.
 
           //- xxx
@@ -472,6 +480,197 @@ header#banner.hero-unit
         //- apps:
         //- pre {{apps | json}}
 
+.container.bordered
+  .row
+    .col-lg-12
+      h1.page-header Containers:
+
+      h3 Table
+        button.btn(ng-show="containerTableView == false", ng-click="containerTableView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="containerTableView == true", ng-click="containerTableView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-11.col-lg-offset-1(ng-show="containerTableView")
+        table.table.table-condensed.table-hover
+          tr.active
+            td id
+            td desc
+            td upDated
+            td status
+            td code
+            td name
+          tr(ng-repeat="item in containers", ng-click="selectContainer(item)", ng-class="{'active': item.id == container.id, cursor: pointer}")
+            td {{item.id}}
+            td {{item.desc}}
+            td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
+            td {{item.status}}
+            td {{item.code}}
+            td {{item.name}}
+
+      h3 Form
+        button.btn(ng-show="containerFormView == false", ng-click="containerFormView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="containerFormView == true", ng-click="containerFormView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-10.col-lg-offset-2(ng-show="containerFormView")
+        form.form-inline(name="containerForm", id="containerForm", ng-model="container", novalidate)
+
+          //- status
+          div.form-group(ng-class="{ 'has-error' : containerForm.status.$invalid && !containerForm.status.$pristine }")
+            label.control-label(for="status") Status
+            div.input-group
+              select.form-control(name="status", id="status", ng-model="container.status", required)
+                option(ng-repeat="option in containerFormStatusOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="containerForm.status.$invalid && !containerForm.status.$pristine") Must not be null.
+
+          //- code
+          div.form-group(ng-class="{ 'has-error' : containerForm.code.$invalid && !containerForm.code.$pristine }")
+            label.control-label(for="code") Code
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="code", id="code", ng-model="container.code", min="1", max="9999", required)
+            p.help-block(ng-show="containerForm.code.$invalid && !containerForm.code.$pristine") Must be in [1-9999] range.
+
+          //- name
+          div.form-group(ng-class="{ 'has-error' : containerForm.name.$invalid && !containerForm.name.$pristine }")
+            label.control-label(for="name") Name
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="name", id="name", ng-model="container.name", required)
+            p.help-block(ng-show="containerForm.name.$invalid && !containerForm.name.$pristine") Must be a a-Z 0-9.
+
+          //- filter
+          div.form-group(ng-class="{ 'has-error' : containerForm.filter.$invalid && !containerForm.filter.$pristine }")
+            label.control-label(for="filter") Filter
+            div.input-group
+              select.form-control(name="filter", id="filter", ng-model="container.filter", required, multiple)
+                option(ng-repeat="option in containerFormFilterOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="containerForm.filter.$invalid && !containerForm.filter.$pristine") Must not be null.
+
+          button.btn.btn-primary(type='submit', ng-click='saveContainer()', ng-disabled="containerForm.$invalid") Save
+          button.btn.btn-warning(type='submit', ng-click='clearContainer()') Clear
+          button.btn.btn-danger(type='submit', ng-click='deleteContainer(container.id, container)', ng-show="container.id") Delete
+
+      h3 View
+        button.btn(ng-show="containerPreView == false", ng-click="containerPreView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="containerPreView == true", ng-click="containerPreView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-9.col-lg-offset-3(ng-show="containerPreView")
+        | container:
+        pre {{container | json}}
+        //- containers:
+        //- pre {{containers | json}}
+
+.container.bordered
+  .row
+    .col-lg-12
+      h1.page-header Positions:
+
+      h3 Table
+        button.btn(ng-show="positionTableView == false", ng-click="positionTableView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="positionTableView == true", ng-click="positionTableView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-11.col-lg-offset-1(ng-show="positionTableView")
+        table.table.table-condensed.table-hover
+          tr.active
+            td id
+            td desc
+            td upDated
+            td status
+            td pos
+            td name
+          tr(ng-repeat="item in positions", ng-click="selectPosition(item)", ng-class="{'active': item.id == position.id, cursor: pointer}")
+            td {{item.id}}
+            td {{item.desc}}
+            td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
+            td {{item.status}}
+            td {{item.pos}}
+            td {{item.name}}
+
+      h3 Form
+        button.btn(ng-show="positionFormView == false", ng-click="positionFormView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="positionFormView == true", ng-click="positionFormView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-10.col-lg-offset-2(ng-show="positionFormView")
+        form.form-inline(name="positionForm", id="positionForm", ng-model="position", novalidate)
+
+          //- status
+          div.form-group(ng-class="{ 'has-error' : positionForm.status.$invalid && !positionForm.status.$pristine }")
+            label.control-label(for="status") Status
+            div.input-group
+              select.form-control(name="status", id="status", ng-model="position.status", required)
+                option(ng-repeat="option in positionFormStatusOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="positionForm.status.$invalid && !positionForm.status.$pristine") Must not be null.
+
+          //- pos
+          div.form-group(ng-class="{ 'has-error' : positionForm.pos.$invalid && !positionForm.pos.$pristine }")
+            label.control-label(for="pos") Pos
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="pos", id="pos", ng-model="position.pos", min="1", max="9999", required)
+            p.help-block(ng-show="positionForm.pos.$invalid && !positionForm.pos.$pristine") Must be in [1-9999] range.
+
+          //- pid
+          div.form-group(ng-class="{ 'has-error' : positionForm.pid.$invalid && !positionForm.pid.$pristine }")
+            label.control-label(for="pid") Pid
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="pid", id="pid", ng-model="position.pid", minlenght="1", maxlenght="10", required)
+            p.help-block(ng-show="positionForm.pid.$invalid && !positionForm.pid.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+
+          //- container
+          div.form-group(ng-class="{ 'has-error' : positionForm.container.$invalid && !positionForm.container.$pristine }")
+            label.control-label(for="container") Container
+            button.btn(ng-show="containerPreView  == false && containerTableView  == false && containerFormView == false", ng-click="containerPreView = containerTableView = containerFormView = true")
+              span.glyphicon.glyphicon-zoom-in
+            button.btn(ng-show="containerPreView  == true && containerTableView  == true && containerFormView == true", ng-click="containerPreView = containerTableView = containerFormView = false")
+              span.glyphicon.glyphicon-zoom-out
+            div.input-group
+              select.form-control(name="container", id="container", ng-model="position.container", required)
+                option(ng-show="container.status == 'on' && container.filter.indexOf('cac') > -1", ng-repeat="container in containers", value="{{container.id}}") {{container.name}}
+              p.help-block(ng-show="positionForm.container.$invalid && !positionForm.container.$pristine") Must not be null.
+
+          //- type
+          div.form-group(ng-class="{ 'has-error' : positionForm.type.$invalid && !positionForm.type.$pristine }")
+            label.control-label(for="type") Type
+            div.input-group
+              select.form-control(name="type", id="type", ng-model="position.type", required)
+                option(ng-repeat="option in positionFormTypeOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="positionForm.type.$invalid && !positionForm.type.$pristine") Must not be null.
+
+          //- initialVolume
+          div.form-group(ng-class="{ 'has-error' : positionForm.initialVolume.$invalid && !positionForm.initialVolume.$pristine }")
+            label.control-label(for="initialVolume") Initial Volume
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="initialVolume", id="initialVolume",ng-model="position.initialVolume", min="1", max="9999", required)
+            p.help-block(ng-show="positionForm.initialVolume.$invalid && !positionForm.initialVolume.$pristine") Must be in [1-9999] range.
+
+          //- idealVolume
+          div.form-group(ng-class="{ 'has-error' : positionForm.idealVolume.$invalid && !positionForm.idealVolume.$pristine }")
+            label.control-label(for="idealVolume") Ideal Volume
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="idealVolume", id="idealVolume",ng-model="position.idealVolume", min="1", max="9999", required)
+            p.help-block(ng-show="positionForm.idealVolume.$invalid && !positionForm.idealVolume.$pristine") Must be in [1-9999] range.
+
+          button.btn.btn-primary(type='submit', ng-click='savePosition()', ng-disabled="positionForm.$invalid") Save
+          button.btn.btn-warning(type='submit', ng-click='clearPosition()') Clear
+          button.btn.btn-danger(type='submit', ng-click='deletePosition(position.id, position)', ng-show="position.id") Delete
+
+      h3 View
+        button.btn(ng-show="positionPreView == false", ng-click="positionPreView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="positionPreView == true", ng-click="positionPreView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-9.col-lg-offset-3(ng-show="positionPreView")
+        | position:
+        pre {{position | json}}
+        //- positions:
+        //- pre {{positions | json}}
 
 .container(ng-show="false")
   .row
