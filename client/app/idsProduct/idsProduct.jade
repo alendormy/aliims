@@ -1,47 +1,44 @@
 div(ng-include='"components/navbar/navbar.html"')
+
 header#banner.hero-unit
   .container
     h1 Hello ids!
     p.lead manage your products identification
-.container
+
+.container.bordered
   .row
     .col-lg-12
       h1.page-header Tags:
-      h2 Table
+
+      h3 Table
         button.btn(ng-show="tagTableView == false", ng-click="tagTableView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="tagTableView == true", ng-click="tagTableView = false")
           span.glyphicon.glyphicon-zoom-out
       .col-lg-11.col-lg-offset-1(ng-show="tagTableView")
-        table.table.table-striped.table-condensed
-          tr
-            td ...
+        table.table.table-condensed.table-hover
+          tr.active
+            td id
             td upDated
             td status
             td type
             td desc
-            td datail
-          tr(ng-repeat='tag in tags')
-            td
-              button.btn(type='button', ng-click="view(tag)")
-                span.glyphicon.glyphicon-zoom-in
-              button.btn(type='button', ng-click="edit(tag)")
-                span.glyphicon.glyphicon-pencil
-              button.btn(type='button', ng-click="deleteTag(tag.type, tag)")
-                span.glyphicon.glyphicon-trash
-            td {{tag.upDated | date:'MM/dd/yyyy @ h:mma'}}
-            td {{tag.status}}
-            td {{tag.type}}
-            td {{tag.desc}}
-            td {{tag.datail}}
-      h2 Form
+          tr(ng-repeat="item in tags", ng-click="selectTag(item)", ng-class="{'active': item.id == tag.id, cursor: pointer}")
+            td {{item.id}}
+            td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
+            td {{item.status}}
+            td {{item.type}}
+            td {{item.desc}}
+
+      h3 Form
         button.btn(ng-show="tagFormView == false", ng-click="tagFormView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="tagFormView == true", ng-click="tagFormView = false")
           span.glyphicon.glyphicon-zoom-out
       .col-lg-10.col-lg-offset-2(ng-show="tagFormView")
         form.form-inline(name="tagForm", id="tagForm", ng-model="tag", novalidate)
-  
+
+          //- status
           div.form-group(ng-class="{ 'has-error' : tagForm.status.$invalid && !tagForm.status.$pristine }")
             label.control-label(for="status") Status
             div.input-group
@@ -49,6 +46,7 @@ header#banner.hero-unit
                 option(ng-repeat="option in tagFormStatusOptions", value="{{option.id}}") {{option.name}}
               p.help-block(ng-show="tagForm.status.$invalid && !tagForm.status.$pristine") Must not be null.
 
+          //- type
           div.form-group(ng-class="{ 'has-error' : tagForm.type.$invalid && !tagForm.type.$pristine }")
             label.control-label(for="type") Type
             div.input-group
@@ -56,6 +54,7 @@ header#banner.hero-unit
                 option(ng-repeat="option in tagFormTypeOptions", value="{{option.id}}") {{option.name}}
               p.help-block(ng-show="tagForm.type.$invalid && !tagForm.type.$pristine") Must not be null.
 
+          //- revision
           div.form-group(ng-show="tag.type == 'aius'", ng-class="{ 'has-error' : tagForm.revision.$invalid && !tagForm.revision.$pristine }")
             label.control-label(for="revision") Revision
             div.input-group
@@ -63,6 +62,7 @@ header#banner.hero-unit
               input.form-control(type="number", name="revision", id="revision", ng-model="tag.revision", min="1", max="9999", ng-required="tag.type == 'aius'")
             p.help-block(ng-show="tagForm.revision.$invalid && !tagForm.revision.$pristine") Must be in [1-9999] range.
 
+          //- systemLiquid
           div.form-group(ng-show="tag.type == 'aius'", ng-class="{ 'has-error' : tagForm.systemLiquid.$invalid && !tagForm.systemLiquid.$pristine }")
             label.control-label(for="systemLiquid") System Liquid
             div.input-group
@@ -70,22 +70,328 @@ header#banner.hero-unit
               input.form-control(type="number", name="systemLiquid", id="systemLiquid", ng-model="tag.systemLiquid", min="1", max="999", ng-required="tag.type == 'aius'")
             p.help-block(ng-show="tagForm.systemLiquid.$invalid && !tagForm.systemLiquid.$pristine") Must be in [1-999] range.
 
+          //- immunoWash
+          div.form-group(ng-show="tag.type == 'aius'", ng-class="{ 'has-error' : tagForm.immunoWash.$invalid && !tagForm.immunoWash.$pristine }")
+            label.control-label(for="immunoWash") Immuno Wash
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="immunoWash", id="immunoWash", ng-model="tag.immunoWash", min="1", max="999", ng-required="tag.type == 'aius'")
+            p.help-block(ng-show="tagForm.immunoWash.$invalid && !tagForm.immunoWash.$pristine") Must be in [1-999] range.
+
+          //- triggerA
+          div.form-group(ng-show="tag.type == 'aius'", ng-class="{ 'has-error' : tagForm.triggerA.$invalid && !tagForm.triggerA.$pristine }")
+            label.control-label(for="triggerA") Trigger A
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="triggerA", id="triggerA", ng-model="tag.triggerA", min="1", max="999", ng-required="tag.type == 'aius'")
+            p.help-block(ng-show="tagForm.triggerA.$invalid && !tagForm.triggerA.$pristine") Must be in [1-999] range.
+
+          //- triggerB
+          div.form-group(ng-show="tag.type == 'aius'", ng-class="{ 'has-error' : tagForm.triggerB.$invalid && !tagForm.triggerB.$pristine }")
+            label.control-label(for="triggerB") Trigger B
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="triggerB", id="triggerB", ng-model="tag.triggerB", min="1", max="999", ng-required="tag.type == 'aius'")
+            p.help-block(ng-show="tagForm.triggerB.$invalid && !tagForm.triggerB.$pristine") Must be in [1-999] range.
+
+          //- dsorb
+          div.form-group(ng-show="tag.type == 'aius'", ng-class="{ 'has-error' : tagForm.dsorb.$invalid && !tagForm.dsorb.$pristine }")
+            label.control-label(for="dsorb") Dsorb
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="dsorb", id="dsorb", ng-model="tag.dsorb", min="1", max="999", ng-required="tag.type == 'aius'")
+            p.help-block(ng-show="tagForm.dsorb.$invalid && !tagForm.dsorb.$pristine") Must be in [1-999] range.
+
+          //- apSubstrate
+          div.form-group(ng-show="tag.type == 'aius'", ng-class="{ 'has-error' : tagForm.apSubstrate.$invalid && !tagForm.apSubstrate.$pristine }")
+            label.control-label(for="apSubstrate") Ap Substrate
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="apSubstrate", id="apSubstrate", ng-model="tag.apSubstrate", min="1", max="999", ng-required="tag.type == 'aius'")
+            p.help-block(ng-show="tagForm.apSubstrate.$invalid && !tagForm.apSubstrate.$pristine") Must be in [1-999] range.
+
+          //- key
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.key.$invalid && !tagForm.key.$pristine }")
+            label.control-label(for="key") Key
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="key", id="key", ng-model="tag.key", minlenght="1", maxlenght="5", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.key.$invalid && !tagForm.key.$pristine") Must be a a-Z 0-9 with [1-5] chars.
+
+          //- lot
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.lot.$invalid && !tagForm.lot.$pristine }")
+            label.control-label(for="lot") Lot
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="lot", id="lot", ng-model="tag.lot", minlenght="1", maxlenght="10", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.lot.$invalid && !tagForm.lot.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+
+          //- onBoardStabilityValue
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.onBoardStabilityValue.$invalid && !tagForm.onBoardStabilityValue.$pristine }")
+            label.control-label(for="onBoardStabilityValue") On Board Stability Value
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="onBoardStabilityValue", id="onBoardStabilityValue", ng-model="tag.onBoardStabilityValue", min="1", max="9999", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.onBoardStabilityValue.$invalid && !tagForm.onBoardStabilityValue.$pristine") Must be in [1-9999] range.
+
+          //- onBoardStabilityUnit
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.onBoardStabilityUnit.$invalid && !tagForm.onBoardStabilityUnit.$pristine }")
+            label.control-label(for="onBoardStabilityUnit") On Board Stability Unit
+            div.input-group
+              select.form-control(name="onBoardStabilityUnit", id="onBoardStabilityUnit", ng-model="tag.onBoardStabilityUnit", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'")
+                option(ng-repeat="option in tagFormStabilityUnitOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="tagForm.onBoardStabilityUnit.$invalid && !tagForm.onBoardStabilityUnit.$pristine") Must not be null.
+
+          //- inUseStabilityValue
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.inUseStabilityValue.$invalid && !tagForm.inUseStabilityValue.$pristine }")
+            label.control-label(for="inUseStabilityValue") In Use Stability Value
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="inUseStabilityValue", id="inUseStabilityValue", ng-model="tag.inUseStabilityValue", min="1", max="9999", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.inUseStabilityValue.$invalid && !tagForm.inUseStabilityValue.$pristine") Must be in [1-9999] range.
+
+          //- inUseStabilityUnit
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.inUseStabilityUnit.$invalid && !tagForm.inUseStabilityUnit.$pristine }")
+            label.control-label(for="inUseStabilityUnit") In Use Stability Unit
+            div.input-group
+              select.form-control(name="inUseStabilityUnit", id="inUseStabilityUnit", ng-model="tag.inUseStabilityUnit", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'")
+                option(ng-repeat="option in tagFormStabilityUnitOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="tagForm.inUseStabilityUnit.$invalid && !tagForm.inUseStabilityUnit.$pristine") Must not be null.
+
+          //- lagTimeFlag
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.lagTimeFlag.$invalid && !tagForm.lagTimeFlag.$pristine }")
+            label.control-label(for="lagTimeFlag") Lag Time Flag
+            div.input-group
+              input.form-control(type="checkbox", name="lagTimeFlag", id="lagTimeFlag" ng-model="tag.lagTimeFlag")
+
+          //- lagTimeValue
+          div.form-group(ng-show="tag.lagTimeFlag == true", ng-class="{ 'has-error' : tagForm.lagTimeValue.$invalid && !tagForm.lagTimeValue.$pristine }")
+            label.control-label(for="lagTimeValue") Lag Time Value
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="lagTimeValue", id="lagTimeValue", ng-model="tag.lagTimeValue", min="1", max="9999", ng-required="tag.lagTimeFlag == true")
+            p.help-block(ng-show="tagForm.lagTimeValue.$invalid && !tagForm.lagTimeValue.$pristine") Must be in [1-9999] range.
+
+          //- initialVolume
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.initialVolume.$invalid && !tagForm.initialVolume.$pristine }")
+            label.control-label(for="initialVolume") Initial Volume
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="initialVolume", id="initialVolume",ng-model="tag.initialVolume", min="1", max="9999", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.initialVolume.$invalid && !tagForm.initialVolume.$pristine") Must be in [1-9999] range.
+
+          //- idealVolume
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.idealVolume.$invalid && !tagForm.idealVolume.$pristine }")
+            label.control-label(for="idealVolume") Ideal Volume
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="idealVolume", id="idealVolume",ng-model="tag.idealVolume", min="1", max="9999", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.idealVolume.$invalid && !tagForm.idealVolume.$pristine") Must be in [1-9999] range.
+
+          //- container
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.container.$invalid && !tagForm.container.$pristine }")
+            label.control-label(for="container") Container
+            div.input-group
+              select.form-control(name="container", id="container", ng-model="tag.container", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'")
+                option(ng-repeat="container in containers", value="{{container.id}}") {{container.name}}
+              p.help-block(ng-show="tagForm.container.$invalid && !tagForm.container.$pristine") Must not be null.
+
+          //- apps
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'mmc' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.apps.$invalid && !tagForm.apps.$pristine }")
+            label.control-label(for="apps") Apps
+            div.input-group
+              select.form-control(name="apps", id="apps", ng-model="tag.apps", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'mmc' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", multiple)
+                option(ng-repeat="app in apps", value="{{app.id}}") {{app.name}}
+              p.help-block(ng-show="tagForm.apps.$invalid && !tagForm.apps.$pristine") Must not be null.
+
+          //- expiry
+          div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.expiry.$invalid && !tagForm.expiry.$pristine }")
+            label.control-label(for="exipry") Expiry
+            div.input-group
+              input.form-control(
+                type="text",
+                datepicker-popup="{{format}}", 
+                ng-model="disec.exipry", 
+                is-open="opened", 
+                min-date="minDate", 
+                max-date="'2020-06-22'",
+                datepicker-options="dateOptions", 
+                date-disabled="disabled(date, mode)", 
+                ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'", 
+                close-text="Close", 
+                id="date-picker", 
+                readonly,
+                ng-click="open($event)")
+              span.input-group-btn
+                button.btn.btn-default(type="button", ng-click="open($event)")
+                  i.glyphicon.glyphicon-calendar
+              p.help-block(ng-show="tagForm.expiry.$invalid && !tagForm.expiry.$pristine") Must be a valid date.
+
+          //- mmcId
+          div.form-group(ng-show="tag.type == 'mmc'", ng-class="{ 'has-error' : tagForm.mmcId.$invalid && !tagForm.mmcId.$pristine }")
+            label.control-label(for="mmcId") Mmc Id
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="mmcId", id="mmcId", ng-model="tag.mmcId", minlenght="6", maxlenght="6", ng-required="tag.type == 'mcc'")
+            p.help-block(ng-show="tagForm.mmcId.$invalid && !tagForm.mmcId.$pristine") Must be a a-Z 0-9 with 6 chars.
+
+          //- ymax
+          div.form-group(ng-show="tag.type == 'mmc'", ng-class="{ 'has-error' : tagForm.ymax.$invalid && !tagForm.ymax.$pristine }")
+            label.control-label(for="ymax") Ymax
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="ymax", id="ymax", ng-model="tag.ymax", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", ng-required="tag.type == 'mcc'")
+            p.help-block(ng-show="tagForm.ymax.$invalid && !tagForm.ymax.$pristine") Must be in [0.01-9999.99] range.
+
+          //- c
+          div.form-group(ng-show="tag.type == 'mmc'", ng-class="{ 'has-error' : tagForm.c.$invalid && !tagForm.c.$pristine }")
+            label.control-label(for="c") C
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="c", id="c", ng-model="tag.c", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", ng-required="tag.type == 'mcc'")
+            p.help-block(ng-show="tagForm.c.$invalid && !tagForm.c.$pristine") Must be in [0.01-9999.99] range.
+
+          //- nsb
+          div.form-group(ng-show="tag.type == 'mmc'", ng-class="{ 'has-error' : tagForm.nsb.$invalid && !tagForm.nsb.$pristine }")
+            label.control-label(for="nsb") Nsb
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="nsb", id="nsb", ng-model="tag.nsb", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", ng-required="tag.type == 'mcc'")
+            p.help-block(ng-show="tagForm.nsb.$invalid && !tagForm.nsb.$pristine") Must be in [0.01-9999.99] range.
+
+          //- d
+          div.form-group(ng-show="tag.type == 'mmc'", ng-class="{ 'has-error' : tagForm.d.$invalid && !tagForm.d.$pristine }")
+            label.control-label(for="d") D
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="d", id="d", ng-model="tag.d", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", ng-required="tag.type == 'mcc'")
+            p.help-block(ng-show="tagForm.d.$invalid && !tagForm.d.$pristine") Must be in [0.01-9999.99] range.
+
+          //- isi
+          div.form-group(ng-show="tag.type == 'rht'", ng-class="{ 'has-error' : tagForm.isi.$invalid && !tagForm.isi.$pristine }")
+            label.control-label(for="isi") Isi
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="isi", id="isi", ng-model="tag.isi", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.0001", ng-required="tag.type == 'rht'")
+            p.help-block(ng-show="tagForm.isi.$invalid && !tagForm.isi.$pristine") Must be in [0.0001-9999.9999] range.
+
+          //- pid
+          div.form-group(ng-show="tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.pid.$invalid && !tagForm.pid.$pristine }")
+            label.control-label(for="pid") Pid
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="pid", id="pid", ng-model="tag.pid", minlenght="1", maxlenght="10", ng-required="tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.pid.$invalid && !tagForm.pid.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+
+          //- dsorbFlag
+          div.form-group(ng-show="tag.type == 'rht' || tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.dsorbFlag.$invalid && !tagForm.dsorbFlag.$pristine }")
+            label.control-label(for="dsorbFlag") Dsorb Flag
+            div.input-group
+              input.form-control(type="checkbox", name="dsorbFlag", id="dsorbFlag" ng-model="tag.dsorbFlag")
+
+          //- rbrType
+          div.form-group(ng-show="tag.type == 'rbr'", ng-class="{ 'has-error' : tagForm.rbrType.$invalid && !tagForm.rbrType.$pristine }")
+            label.control-label(for="rbrType") Rbr Type
+            div.input-group
+              select.form-control(name="rbrType", id="rbrType", ng-model="tag.rbrType", ng-required="tag.type == 'rbr'")
+                option(ng-repeat="option in tagFormRbrTypeOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="tagForm.rbrType.$invalid && !tagForm.rbrType.$pristine") Must not be null.
+
+          //- protocolId
+          div.form-group(ng-show="tag.type == 'rbr'", ng-class="{ 'has-error' : tagForm.protocolId.$invalid && !tagForm.protocolId.$pristine }")
+            label.control-label(for="protocolId") Protocol Id
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="protocolId", id="protocolId", ng-model="tag.protocolId", minlenght="1", maxlenght="6", ng-required="tag.type == 'rbr'")
+            p.help-block(ng-show="tagForm.protocolId.$invalid && !tagForm.protocolId.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+
+          //- rihrType
+          div.form-group(ng-show="tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.rihrType.$invalid && !tagForm.rihrType.$pristine }")
+            label.control-label(for="rihrType") Rihr Type
+            div.input-group
+              select.form-control(name="rihrType", id="rihrType", ng-model="tag.rihrType", ng-required="tag.type == 'rihr'")
+                option(ng-repeat="option in tagFormRihrTypeOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="tagForm.rihrType.$invalid && !tagForm.rihrType.$pristine") Must not be null.
+
+          //- minMean
+          div.form-group(ng-show="tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.minMean.$invalid && !tagForm.minMean.$pristine }")
+            label.control-label(for="minMean") Min Mean
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="minMean", id="minMean", ng-model="tag.minMean", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", ng-required="tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.minMean.$invalid && !tagForm.minMean.$pristine") Must be in [0.01-9999.99] range.
+
+          //- maxMean
+          div.form-group(ng-show="tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.maxMean.$invalid && !tagForm.maxMean.$pristine }")
+            label.control-label(for="maxMean") Max Mean
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="maxMean", id="maxMean", ng-model="tag.maxMean", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", ng-required="tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.maxMean.$invalid && !tagForm.maxMean.$pristine") Must be in [0.01-9999.99] range.
+
+          //- maxSd
+          div.form-group(ng-show="tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.maxSd.$invalid && !tagForm.maxSd.$pristine }")
+            label.control-label(for="maxSd") Max Mean
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="maxSd", id="maxSd", ng-model="tag.maxSd", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", ng-required="tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.maxSd.$invalid && !tagForm.maxSd.$pristine") Must be in [0.01-9999.99] range.
+
+          //- mcId
+          div.form-group(ng-show="tag.type == 'rihr' && tag.rihrType == 'i'", ng-class="{ 'has-error' : tagForm.mcId.$invalid && !tagForm.mcId.$pristine }")
+            label.control-label(for="mcId") Mmc Id
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="mcId", id="mcId", ng-model="tag.mcId", minlenght="6", maxlenght="6", ng-required="tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.mcId.$invalid && !tagForm.mcId.$pristine") Must be a a-Z 0-9 with 6 chars.
+
+          //- correctionFactor
+          div.form-group(ng-show="tag.type == 'rihr' && tag.rihrType == 'i'", ng-class="{ 'has-error' : tagForm.correctionFactor.$invalid && !tagForm.correctionFactor.$pristine }")
+            label.control-label(for="correctionFactor") Max Mean
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="correctionFactor", id="correctionFactor", ng-model="tag.correctionFactor", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", ng-required="tag.type == 'rihr'")
+            p.help-block(ng-show="tagForm.correctionFactor.$invalid && !tagForm.correctionFactor.$pristine") Must be in [0.01-9999.99] range.
+          //- start
+
+
+
+          //- end
           button.btn.btn-primary(type='submit', ng-click='saveTag()', ng-disabled="tagForm.$invalid") Save
-          button.btn.btn-warning(type='submit', ng-click='cancelTag()') Cancel
-      h2 Preview
+          button.btn.btn-warning(type='submit', ng-click='clearTag()') Clear
+          button.btn.btn-danger(type='submit', ng-click='deleteTag(tag.id, tag)', ng-show="tag.id") Delete
+
+      h3 View
         button.btn(ng-show="tagPreView == false", ng-click="tagPreView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="tagPreView == true", ng-click="tagPreView = false")
           span.glyphicon.glyphicon-zoom-out
       .col-lg-9.col-lg-offset-3(ng-show="tagPreView")
-        | tag
         pre {{tag | json}}
+
 .container(ng-show="false")
   .row
     .col-lg-12
       h1.page-header Debug:
       h2 Validation
-        pre {{tagForm | json}}
+        pre {{tags | json}}
+
+.container(ng-show="false")
+  .row
+    .col-lg-12
+      h1.page-header Debug:
+      form
+        div.form-group
+          label Name:
+          input(type="text", ng-model="user.name")
+        div.form-group
+          label E-mail:
+          input(type="email", ng-model="user.email")
+        button(ng-click="reset()") RESET
+        button(ng-click="update(user)") SAVE
+      pre form = {{user | json}}
+      pre master = {{master | json}}
+
 footer.footer
   .container
     p

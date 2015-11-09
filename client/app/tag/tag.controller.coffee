@@ -407,7 +407,7 @@ angular.module 'aliimsApp'
         datail.protocolId = i
         datail.container = 'container2'
         datail.app = ['app1', 'app3']
-        datail.exipry = new Date("November 30, 2015 12:12:12");
+        datail.exipry = new Date("November 30, 2015 12:12:12")
         tag = $scope.new(i, Date.now(), 'offline', 'dss', i, datail)
       when 'rihr'
         datail = {}
