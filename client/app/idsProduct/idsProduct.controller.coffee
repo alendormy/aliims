@@ -208,6 +208,7 @@ angular.module 'aliimsApp'
   $scope.tagFormStabilityUnitOptions = [{id: "h", name: "Hour(s)"}, {id: "d", name: "Day(s)"}]
   $scope.tagFormRbrTypeOptions  = [{id: "1", name: "R1"}, {id: "2", name: "R2"}, {id: "3", name: "R3"}]
   $scope.tagFormRihrTypeOptions  = [{id: "i", name: "Immunology"}, {id: "h", name: "Haemostasis"}]
+  $scope.tagFormCccTypeOptions  = [{id: "cal", name: "Calibrator"}, {id: "con", name: "Control"}]
 
   $scope.selectTag = (tag) ->
     $scope.tag = angular.copy(tag)
@@ -859,7 +860,117 @@ angular.module 'aliimsApp'
     $scope.clearPosition()
     true
 
+  # ANALYTES STUFF
+  $scope.analyteTableView = false
+  $scope.analyteFormView = false
+  $scope.analytePreView = false
 
+  # $scope.analytes  = [
+  #   {id: "1", name: "Analyte 1"},
+  #   {id: "2", name: "Analyte 2"},
+  #   {id: "3", name: "Analyte 3"},
+  #   {id: "4", name: "Analyte 4"},
+  #   {id: "5", name: "Analyte 5"},
+  #   {id: "6", name: "Analyte 6"},
+  #   {id: "7", name: "Analyte 7"}]
+  $scope.analytes = []
+  $scope.analyte = null
+
+  $scope.analyteFormStatusOptions = [{id: "off", name: "Offline"}, {id: "on", name: "Online"}]
+
+  $scope.selectAnalyte = (analyte) ->
+    $scope.analyte = angular.copy(analyte)
+    $scope.analyteFormView = true
+    $scope.analytePreView = true
+    true
+
+  $scope.saveAnalyte = () ->
+    # mock mongo id
+    $scope.analyte.name = 'analyteId:'+$scope.analyte.analyteId+', target:'+$scope.analyte.target+', tolerance:'+$scope.analyte.tolerance+', reference:'+$scope.analyte.reference
+    if $scope.analyte.id
+      # alert("edit")
+      i = 0
+      i++ while $scope.analyte.id != $scope.analytes[i].id
+      $scope.analyte.desc = "edit"
+      $scope.analytes[i] = $scope.analyte
+    else
+      # alert("new")
+      $scope.analyte.id = "analyte_"+Date.now()
+      $scope.analyte.desc = "new"
+      $scope.analytes.push $scope.analyte
+    $scope.analyte.upDated = Date.now()
+    $scope.clearAnalyte()
+    true
+
+  $scope.clearAnalyte = () ->
+    $scope.analyte = null
+    $scope.analyteForm = null
+    $scope.analyteFormView = false
+    $scope.analytePreView = false
+    true
+
+  $scope.deleteAnalyte = Modal.confirm.delete (analyte) ->
+    i = 0
+    i += 1  while $scope.analytes[i].id != analyte.id
+    $scope.analytes.splice(i,1)
+    $scope.clearAnalyte()
+    true
+
+  # REAGENTS STUFF
+  $scope.reagentTableView = false
+  $scope.reagentFormView = false
+  $scope.reagentPreView = false
+
+  # $scope.reagents  = [
+  #   {id: "1", name: "Reagent 1"},
+  #   {id: "2", name: "Reagent 2"},
+  #   {id: "3", name: "Reagent 3"},
+  #   {id: "4", name: "Reagent 4"},
+  #   {id: "5", name: "Reagent 5"},
+  #   {id: "6", name: "Reagent 6"},
+  #   {id: "7", name: "Reagent 7"}]
+  $scope.reagents = []
+  $scope.reagent = null
+
+  $scope.reagentFormStatusOptions = [{id: "off", name: "Offline"}, {id: "on", name: "Online"}]
+
+  $scope.selectReagent = (reagent) ->
+    $scope.reagent = angular.copy(reagent)
+    $scope.reagentFormView = true
+    $scope.reagentPreView = true
+    true
+
+  $scope.saveReagent = () ->
+    # mock mongo id
+    $scope.reagent.name = 'reagentId:'+$scope.reagent.reagentId
+    if $scope.reagent.id
+      # alert("edit")
+      i = 0
+      i++ while $scope.reagent.id != $scope.reagents[i].id
+      $scope.reagent.desc = "edit"
+      $scope.reagents[i] = $scope.reagent
+    else
+      # alert("new")
+      $scope.reagent.id = "reagent_"+Date.now()
+      $scope.reagent.desc = "new"
+      $scope.reagents.push $scope.reagent
+    $scope.reagent.upDated = Date.now()
+    $scope.clearReagent()
+    true
+
+  $scope.clearReagent = () ->
+    $scope.reagent = null
+    $scope.reagentForm = null
+    $scope.reagentFormView = false
+    $scope.reagentPreView = false
+    true
+
+  $scope.deleteReagent = Modal.confirm.delete (reagent) ->
+    i = 0
+    i += 1  while $scope.reagents[i].id != reagent.id
+    $scope.reagents.splice(i,1)
+    $scope.clearReagent()
+    true
 
   # COPIED OVER
   $scope.today = () ->

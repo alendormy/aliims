@@ -397,13 +397,39 @@ header#banner.hero-unit
               p.help-block(ng-show="tagForm.positions.$invalid && !tagForm.positions.$pristine") Must not be null.
 
           //- ccc
-          //- type (Calibrator | Control)
-          //- reagentLots/cal
-          //- analytes (analyteId | Target | Tolerance/con | Reference/cal
-          )
 
+          //- cccType
+          div.form-group(ng-show="tag.type == 'ccc'", ng-class="{ 'has-error' : tagForm.cccType.$invalid && !tagForm.cccType.$pristine }")
+            label.control-label(for="cccType") Ccc Type
+            div.input-group
+              select.form-control(name="cccType", id="cccType", ng-model="tag.cccType", ng-required="tag.type == 'ccc'")
+                option(ng-repeat="option in tagFormCccTypeOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="tagForm.cccType.$invalid && !tagForm.cccType.$pristine") Must not be null.
 
-          //- end
+          //- analytes
+          div.form-group(ng-show="tag.type == 'ccc'", ng-class="{ 'has-error' : tagForm.analytes.$invalid && !tagForm.analytes.$pristine }")
+            label.control-label(for="analytes") Analytes
+            button.btn(ng-show="analytePreView  == false && analyteTableView  == false && analyteFormView == false", ng-click="analytePreView = analyteTableView = analyteFormView = true")
+              span.glyphicon.glyphicon-zoom-in
+            button.btn(ng-show="analytePreView  == true && analyteTableView  == true && analyteFormView == true", ng-click="analytePreView = analyteTableView = analyteFormView = false")
+              span.glyphicon.glyphicon-zoom-out
+            div.input-group
+              select.form-control(name="analytes", id="analytes", ng-model="tag.analytes", ng-required="tag.type == 'ccc'", multiple)
+                option(ng-show="analyte.status == 'on'", ng-repeat="analyte in analytes", value="{{analyte.id}}") {{analyte.name}}
+              p.help-block(ng-show="tagForm.analytes.$invalid && !tagForm.analytes.$pristine") Must not be null.
+
+          //- reagents
+          div.form-group(ng-show="tag.type == 'ccc' && tag.cccType == 'cal'", ng-class="{ 'has-error' : tagForm.reagents.$invalid && !tagForm.reagents.$pristine }")
+            label.control-label(for="reagents") Reagents
+            button.btn(ng-show="reagentPreView  == false && reagentTableView  == false && reagentFormView == false", ng-click="reagentPreView = reagentTableView = reagentFormView = true")
+              span.glyphicon.glyphicon-zoom-in
+            button.btn(ng-show="reagentPreView  == true && reagentTableView  == true && reagentFormView == true", ng-click="reagentPreView = reagentTableView = reagentFormView = false")
+              span.glyphicon.glyphicon-zoom-out
+            div.input-group
+              select.form-control(name="reagents", id="reagents", ng-model="tag.reagents", ng-required="tag.type == 'ccc' && tag.cccType == 'cal'", multiple)
+                option(ng-show="reagent.status == 'on'", ng-repeat="reagent in reagents", value="{{reagent.id}}") {{reagent.name}}
+              p.help-block(ng-show="tagForm.reagents.$invalid && !tagForm.reagents.$pristine") Must not be null.
+
           button.btn.btn-primary(type='submit', ng-click='saveTag()', ng-disabled="tagForm.$invalid") Save
           button.btn.btn-warning(type='submit', ng-click='clearTag()') Clear
           button.btn.btn-danger(type='submit', ng-click='deleteTag(tag.id, tag)', ng-show="tag.id") Delete
@@ -627,10 +653,6 @@ header#banner.hero-unit
           //- container
           div.form-group(ng-class="{ 'has-error' : positionForm.container.$invalid && !positionForm.container.$pristine }")
             label.control-label(for="container") Container
-            button.btn(ng-show="containerPreView  == false && containerTableView  == false && containerFormView == false", ng-click="containerPreView = containerTableView = containerFormView = true")
-              span.glyphicon.glyphicon-zoom-in
-            button.btn(ng-show="containerPreView  == true && containerTableView  == true && containerFormView == true", ng-click="containerPreView = containerTableView = containerFormView = false")
-              span.glyphicon.glyphicon-zoom-out
             div.input-group
               select.form-control(name="container", id="container", ng-model="position.container", required)
                 option(ng-show="container.status == 'on' && container.filter.indexOf('cac') > -1", ng-repeat="container in containers", value="{{container.id}}") {{container.name}}
@@ -674,6 +696,156 @@ header#banner.hero-unit
         pre {{position | json}}
         //- positions:
         //- pre {{positions | json}}
+
+.container.bordered
+  .row
+    .col-lg-12
+      h1.page-header Analytes:
+
+      h3 Table
+        button.btn(ng-show="analyteTableView == false", ng-click="analyteTableView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="analyteTableView == true", ng-click="analyteTableView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-11.col-lg-offset-1(ng-show="analyteTableView")
+        table.table.table-condensed.table-hover
+          tr.active
+            td id
+            td desc
+            td upDated
+            td status
+            td name
+          tr(ng-repeat="item in analytes", ng-click="selectAnalyte(item)", ng-class="{'active': item.id == analyte.id, cursor: pointer}")
+            td {{item.id}}
+            td {{item.desc}}
+            td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
+            td {{item.name}}
+
+      h3 Form
+        button.btn(ng-show="analyteFormView == false", ng-click="analyteFormView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="analyteFormView == true", ng-click="analyteFormView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-10.col-lg-offset-2(ng-show="analyteFormView")
+        form.form-inline(name="analyteForm", id="analyteForm", ng-model="analyte", novalidate)
+
+          //- status
+          div.form-group(ng-class="{ 'has-error' : analyteForm.status.$invalid && !analyteForm.status.$pristine }")
+            label.control-label(for="status") Status
+            div.input-group
+              select.form-control(name="status", id="status", ng-model="analyte.status", required)
+                option(ng-repeat="option in analyteFormStatusOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="analyteForm.status.$invalid && !analyteForm.status.$pristine") Must not be null.
+
+          //- analyteId
+          div.form-group(ng-class="{ 'has-error' : analyteForm.analyteId.$invalid && !analyteForm.analyteId.$pristine }")
+            label.control-label(for="analyteId") Analyte Id
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="analyteId", id="analyteId", ng-model="analyte.analyteId", minlenght="1", maxlenght="10", required)
+            p.help-block(ng-show="analyteForm.analyteId.$invalid && !analyteForm.pid.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+
+          //- target
+          div.form-group(ng-class="{ 'has-error' : analyteForm.target.$invalid && !analyteForm.target.$pristine }")
+            label.control-label(for="target") Target
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="target", id="target", ng-model="analyte.target", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", required)
+            p.help-block(ng-show="analyteForm.target.$invalid && !analyteForm.target.$pristine") Must be in [0.01-9999.99] range.
+
+          //- tolerance
+          div.form-group(ng-show="tag.cccType == 'con'", ng-class="{ 'has-error' : analyteForm.tolerance.$invalid && !analyteForm.tolerance.$pristine }")
+            label.control-label(for="tolerance") Tolerance
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="tolerance", id="tolerance",ng-model="analyte.tolerance", min="1", max="9999", ng-required="tag.cccType == 'con'")
+            p.help-block(ng-show="analyteForm.tolerance.$invalid && !analyteForm.tolerance.$pristine") Must be in [1-9999] range.
+
+          //- reference
+          div.form-group(ng-show="tag.cccType == 'cal'", ng-class="{ 'has-error' : analyteForm.reference.$invalid && !analyteForm.reference.$pristine }")
+            label.control-label(for="reference") Reference
+            div.input-group
+              span.input-group-addon #
+              input.form-control(type="number", name="reference", id="reference",ng-model="analyte.reference", min="1", max="9999", ng-required="tag.cccType == 'cal'")
+            p.help-block(ng-show="analyteForm.reference.$invalid && !analyteForm.reference.$pristine") Must be in [1-9999] range.
+
+          button.btn.btn-primary(type='submit', ng-click='saveAnalyte()', ng-disabled="analyteForm.$invalid") Save
+          button.btn.btn-warning(type='submit', ng-click='clearAnalyte()') Clear
+          button.btn.btn-danger(type='submit', ng-click='deleteAnalyte(analyte.id, analyte)', ng-show="analyte.id") Delete
+
+      h3 View
+        button.btn(ng-show="analytePreView == false", ng-click="analytePreView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="analytePreView == true", ng-click="analytePreView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-9.col-lg-offset-3(ng-show="analytePreView")
+        | analyte:
+        pre {{analyte | json}}
+        //- analytes:
+        //- pre {{analytes | json}}
+
+.container.bordered
+  .row
+    .col-lg-12
+      h1.page-header Reagents:
+
+      h3 Table
+        button.btn(ng-show="reagentTableView == false", ng-click="reagentTableView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="reagentTableView == true", ng-click="reagentTableView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-11.col-lg-offset-1(ng-show="reagentTableView")
+        table.table.table-condensed.table-hover
+          tr.active
+            td id
+            td desc
+            td upDated
+            td status
+            td name
+          tr(ng-repeat="item in reagents", ng-click="selectReagent(item)", ng-class="{'active': item.id == reagent.id, cursor: pointer}")
+            td {{item.id}}
+            td {{item.desc}}
+            td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
+            td {{item.name}}
+
+      h3 Form
+        button.btn(ng-show="reagentFormView == false", ng-click="reagentFormView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="reagentFormView == true", ng-click="reagentFormView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-10.col-lg-offset-2(ng-show="reagentFormView")
+        form.form-inline(name="reagentForm", id="reagentForm", ng-model="reagent", novalidate)
+
+          //- status
+          div.form-group(ng-class="{ 'has-error' : reagentForm.status.$invalid && !reagentForm.status.$pristine }")
+            label.control-label(for="status") Status
+            div.input-group
+              select.form-control(name="status", id="status", ng-model="reagent.status", required)
+                option(ng-repeat="option in reagentFormStatusOptions", value="{{option.id}}") {{option.name}}
+              p.help-block(ng-show="reagentForm.status.$invalid && !reagentForm.status.$pristine") Must not be null.
+
+          //- reagentId
+          div.form-group(ng-class="{ 'has-error' : reagentForm.reagentId.$invalid && !reagentForm.reagentId.$pristine }")
+            label.control-label(for="reagentId") Reagent Id
+            div.input-group
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="reagentId", id="reagentId", ng-model="reagent.reagentId", minlenght="1", maxlenght="10", required)
+            p.help-block(ng-show="reagentForm.reagentId.$invalid && !reagentForm.pid.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+
+          button.btn.btn-primary(type='submit', ng-click='saveReagent()', ng-disabled="reagentForm.$invalid") Save
+          button.btn.btn-warning(type='submit', ng-click='clearReagent()') Clear
+          button.btn.btn-danger(type='submit', ng-click='deleteReagent(reagent.id, reagent)', ng-show="reagent.id") Delete
+
+      h3 View
+        button.btn(ng-show="reagentPreView == false", ng-click="reagentPreView = true")
+          span.glyphicon.glyphicon-zoom-in
+        button.btn(ng-show="reagentPreView == true", ng-click="reagentPreView = false")
+          span.glyphicon.glyphicon-zoom-out
+      .col-lg-9.col-lg-offset-3(ng-show="reagentPreView")
+        | reagent:
+        pre {{reagent | json}}
+        //- reagents:
+        //- pre {{reagents | json}}
 
 .container(ng-show="false")
   .row
