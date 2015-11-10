@@ -2,7 +2,9 @@
 angular.module 'aliimsApp'
 .controller 'IdsProductCtrl', ($scope, Modal) ->
 
-  # TAG STUFF
+# TAGS
+
+  $scope.tagView = true
   $scope.tagTableView = false
   $scope.tagFormView = false
   $scope.tagPreView = false
@@ -188,7 +190,85 @@ angular.module 'aliimsApp'
       correctionFactor: 0.12,
       id: "tag_1447073921380",
       desc: "new",
-      upDated: 1447073921380}]
+      upDated: 1447073921380
+    }, {
+      status: "off",
+      type: "cac",
+      key: "a",
+      lot: "fhtyhe",
+      onBoardStabilityValue: 3,
+      onBoardStabilityUnit: "h",
+      inUseStabilityValue: 5,
+      inUseStabilityUnit: "d",
+      lagTimeFlag: true,
+      lagTimeValue: 6,
+      apps: [
+        "app_1447076981841",
+        "app_1447076981842"
+      ],
+      minMean: 0.08,
+      maxMean: 0.08,
+      maxSd: 0.08,
+      mmc: "qsfffrq",
+      name: "qskfa",
+      k: 0.08,
+      preTreatmentFlag: true,
+      positions: [
+        "position_1447158095432",
+        "position_1447158113046"
+      ],
+      id: "tag_1447158159108",
+      desc: "new",
+      upDated: 1447158159108
+    }, {
+      status: "off",
+      type: "ccc",
+      key: "q",
+      lot: "fhtyhe",
+      onBoardStabilityValue: 6,
+      onBoardStabilityUnit: "d",
+      inUseStabilityValue: 8,
+      inUseStabilityUnit: "h",
+      container: "container_1447076981852",
+      apps: [
+        "app_1447076981841",
+        "app_1447076981844"
+      ],
+      pid: "skjdfnkq",
+      cccType: "con",
+      analytes: [
+        "analyte_1447158543823",
+        "analyte_1447158569246"
+      ],
+      id: "tag_1447158576339",
+      desc: "new",
+      upDated: 1447158576339
+    }, {
+      status: "off",
+      type: "ccc",
+      key: "q",
+      lot: "z",
+      onBoardStabilityValue: 5,
+      onBoardStabilityUnit: "h",
+      inUseStabilityValue: 6,
+      inUseStabilityUnit: "h",
+      container: "container_1447076981858",
+      apps: [
+        "app_1447076981842"
+      ],
+      pid: "kldfn",
+      cccType: "cal",
+      analytes: [
+        "analyte_1447159013169",
+        "analyte_1447159025479"
+      ],
+      reagents: [
+        "reagent_1447159036546"
+      ],
+      id: "tag_1447159044548",
+      desc: "new",
+      upDated: 1447159044548
+    }]
   # $scope.tags = []
   $scope.tag = null
 
@@ -202,7 +282,7 @@ angular.module 'aliimsApp'
     {id: "rht", name: "R Haemostasis Trigger"},
     {id: "dd", name: "D Diluent"},
     {id: "rbr", name: "R Biochemistry Reagent"},
-    {id: "rihr", name: "R Biochemistry Immunology Haemostasis Reagent"},
+    {id: "rihr", name: "R Immunology Haemostasis Reagent"},
     {id: "cac", name: "CA Cartridge"},
     {id: "ccc", name: "C Calibrator Control"}]
   $scope.tagFormStabilityUnitOptions = [{id: "h", name: "Hour(s)"}, {id: "d", name: "Day(s)"}]
@@ -247,7 +327,9 @@ angular.module 'aliimsApp'
     $scope.clearTag()
     true
 
-  # APP STUFF
+# APPS
+
+  $scope.appView = false
   $scope.appTableView = false
   $scope.appFormView = false
   $scope.appPreView = false
@@ -319,7 +401,9 @@ angular.module 'aliimsApp'
     $scope.clearApp()
     true
 
-  # CONTAINER STUFF
+# CONTAINERS
+
+  $scope.containerView = false
   $scope.containerTableView = false
   $scope.containerFormView = false
   $scope.containerPreView = false
@@ -799,7 +883,9 @@ angular.module 'aliimsApp'
     $scope.clearContainer()
     true
 
-  # POSITION STUFF
+# POSITIONS
+
+  $scope.positionView = false
   $scope.positionTableView = false
   $scope.positionFormView = false
   $scope.positionPreView = false
@@ -860,7 +946,9 @@ angular.module 'aliimsApp'
     $scope.clearPosition()
     true
 
-  # ANALYTES STUFF
+# ANALYTES
+
+  $scope.analyteView = false
   $scope.analyteTableView = false
   $scope.analyteFormView = false
   $scope.analytePreView = false
@@ -916,7 +1004,9 @@ angular.module 'aliimsApp'
     $scope.clearAnalyte()
     true
 
-  # REAGENTS STUFF
+# REAGENTS
+
+  $scope.reagentView = false
   $scope.reagentTableView = false
   $scope.reagentFormView = false
   $scope.reagentPreView = false
@@ -972,7 +1062,7 @@ angular.module 'aliimsApp'
     $scope.clearReagent()
     true
 
-  # COPIED OVER
+# CARRIED OVER
   $scope.today = () ->
     $scope.dt = new Date()
 
