@@ -1,278 +1,299 @@
 'use strict'
 angular.module 'aliimsApp'
-.controller 'IdsProductCtrl', ($scope, Modal) ->
+.controller 'IdsProductCtrl', ($scope, $filter, Modal) ->
 
-# TAGS
+# COMMONS
+
+  $scope.formats = ["dd-MMMM-yyyy", "yyyy/MM/dd", "dd.MM.yyyy", "shortDate"]
+
+  $scope.format = $scope.formats[0]
+
+  $scope.formStatusOptions = [{val: "off", desc: "Offline"}, {val: "on", desc: "Online"}]
+
+
+  $scope.today = () ->
+    $scope.dt = new Date()
+
+  $scope.clear = () ->
+    $scope.dt = null
+
+  $scope.open = ($event) ->
+    $event.preventDefault()
+    $event.stopPropagation()
+    $scope.opened = true
+
+  $scope.today()
+
+# TAGS (back loaded)
 
   $scope.tagView = true
   $scope.tagTableView = false
   $scope.tagFormView = false
   $scope.tagPreView = false
 
-  $scope.tags = [
-    {
-      status: "off",
-      type: "aius",
-      revision: 7,
-      systemLiquid: 7,
-      immunoWash: 7,
-      triggerA: 9,
-      triggerB: 8,
-      dsorb: 9,
-      apSubstrate: 8,
-      id: "tag_1447073591908",
-      desc: "new",
-      upDated: 1447073591908
-    }, {
-      status: "off",
-      type: "disec",
-      key: "qfrefeag",
-      lot: "z",
-      onBoardStabilityValue: 8,
-      onBoardStabilityUnit: "h",
-      inUseStabilityValue: 8,
-      inUseStabilityUnit: "d",
-      lagTimeFlag: true,
-      lagTimeValue: 7,
-      initialVolume: 11,
-      idealVolume: 9,
-      container: 1,
-      apps: [
-        "app_1447076981841",
-        "app_1447076981343",
-        "app_1447076981834"
-      ],
-      id: "tag_1447073625257",
-      desc: "new",
-      upDated: 1447073625257
-    }, {
-      status: "off",
-      type: "dised",
-      key: "qsfnlernil",
-      lot: "qsrfaerf",
-      onBoardStabilityValue: 10,
-      onBoardStabilityUnit: "h",
-      inUseStabilityValue: 7,
-      inUseStabilityUnit: "d",
-      initialVolume: 7,
-      idealVolume: 9,
-      container: "1",
-      apps: [
-        "app_1447076981123",
-        "app_1447076981345"
-      ],
-      id: "tag_1447073660982",
-      desc: "new",
-      upDated: 1447073660982
-    }, {
-      status: "on",
-      type: "dss",
-      key: "qseffé",
-      lot: "z",
-      onBoardStabilityValue: 7,
-      onBoardStabilityUnit: "h",
-      inUseStabilityValue: 7,
-      inUseStabilityUnit: "d",
-      initialVolume: 8,
-      idealVolume: 10,
-      container: "6",
-      apps: [
-        "app_1447076981841",
-        "app_1447076981845"
-      ],
-      id: "tag_1447073701712",
-      desc: "new",
-      upDated: 1447073701713
-    }, {
-      status: "off",
-      type: "mmc",
-      apps: [
-        "app_1447076981841",
-        "app_1447076981845"
-      ],
-      mmcId: "L123",
-      ymax: 0.46,
-      c: 0.05,
-      nsb: 0.19,
-      d: 0.11,
-      id: "tag_1447073726918",
-      desc: "new",
-      upDated: 1447073726918
-    }, {
-      status: "on",
-      type: "rht",
-      key: "xxxx",
-      lot: "qsrfaerf",
-      onBoardStabilityValue: 9,
-      onBoardStabilityUnit: "d",
-      inUseStabilityValue: 8,
-      inUseStabilityUnit: "d",
-      initialVolume: 10,
-      idealVolume: 10,
-      lagTimeFlag: true,
-      lagTimeValue: 10,
-      container: "9",
-      apps: [
-        "app_1447076981841",
-        "app_1447076981845",
-        "app_1447076981123"
-      ],
-      pid: "skjdfnkq",
-      dsorbFlag: true,
-      id: "tag_1447073782990",
-      desc: "new",
-      upDated: 1447073782990
-    }, {
-      status: "on",
-      type: "dd",
-      key: "qseffé",
-      lot: "azeff('g",
-      onBoardStabilityValue: 8,
-      onBoardStabilityUnit: "h",
-      inUseStabilityValue: 5,
-      inUseStabilityUnit: "d",
-      initialVolume: 7,
-      idealVolume: 7,
-      container: "4",
-      apps: [
-        "app_1447076981845",
-        "app_1447076981123"
-      ],
-      pid: "sqfeqf",
-      id: "tag_1447073820512",
-      desc: "new",
-      upDated: 1447073820512
-    }, {
-      status: "off",
-      type: "rbr",
-      key: "qfarfr",
-      lot: "fhtyhe",
-      onBoardStabilityValue: 6,
-      onBoardStabilityUnit: "d",
-      inUseStabilityValue: 6,
-      inUseStabilityUnit: "h",
-      initialVolume: 7,
-      idealVolume: 11,
-      container: "2",
-      apps: [
-        "app_1447076981841",
-        "app_1447076981343",
-        "app_1447076981834"
-      ],
-      rbrType: "2",
-      protocolId: "qskfnir",
-      id: "tag_1447073863660",
-      desc: "new",
-      upDated: 1447073863660
-    }, {
-      status: "off",
-      type: "rihr",
-      key: "sqfaer",
-      lot: "z",
-      onBoardStabilityValue: 9,
-      onBoardStabilityUnit: "d",
-      inUseStabilityValue: 7,
-      inUseStabilityUnit: "d",
-      initialVolume: 8,
-      idealVolume: 10,
-      container: "1",
-      apps: [
-        "app_1447076981343",
-        "app_1447076981834"
-      ],
-      pid: "sqfeqf",
-      dsorbFlag: true,
-      rihrType: "i",
-      minMean: 0.07,
-      maxMean: 0.1,
-      maxSd: 0.07,
-      mmc: "qsfffrq",
-      correctionFactor: 0.12,
-      id: "tag_1447073921380",
-      desc: "new",
-      upDated: 1447073921380
-    }, {
-      status: "off",
-      type: "cac",
-      key: "a",
-      lot: "fhtyhe",
-      onBoardStabilityValue: 3,
-      onBoardStabilityUnit: "h",
-      inUseStabilityValue: 5,
-      inUseStabilityUnit: "d",
-      lagTimeFlag: true,
-      lagTimeValue: 6,
-      apps: [
-        "app_1447076981841",
-        "app_1447076981842"
-      ],
-      minMean: 0.08,
-      maxMean: 0.08,
-      maxSd: 0.08,
-      mmc: "qsfffrq",
-      name: "qskfa",
-      k: 0.08,
-      preTreatmentFlag: true,
-      positions: [
-        "position_1447158095432",
-        "position_1447158113046"
-      ],
-      id: "tag_1447158159108",
-      desc: "new",
-      upDated: 1447158159108
-    }, {
-      status: "off",
-      type: "ccc",
-      key: "q",
-      lot: "fhtyhe",
-      onBoardStabilityValue: 6,
-      onBoardStabilityUnit: "d",
-      inUseStabilityValue: 8,
-      inUseStabilityUnit: "h",
-      container: "container_1447076981852",
-      apps: [
-        "app_1447076981841",
-        "app_1447076981844"
-      ],
-      pid: "skjdfnkq",
-      cccType: "con",
-      analytes: [
-        "analyte_1447158543823",
-        "analyte_1447158569246"
-      ],
-      id: "tag_1447158576339",
-      desc: "new",
-      upDated: 1447158576339
-    }, {
-      status: "off",
-      type: "ccc",
-      key: "q",
-      lot: "z",
-      onBoardStabilityValue: 5,
-      onBoardStabilityUnit: "h",
-      inUseStabilityValue: 6,
-      inUseStabilityUnit: "h",
-      container: "container_1447076981858",
-      apps: [
-        "app_1447076981842"
-      ],
-      pid: "kldfn",
-      cccType: "cal",
-      analytes: [
-        "analyte_1447159013169",
-        "analyte_1447159025479"
-      ],
-      reagents: [
-        "reagent_1447159036546"
-      ],
-      id: "tag_1447159044548",
-      desc: "new",
-      upDated: 1447159044548
-    }]
-  # $scope.tags = []
+  # $scope.tags = [
+  #   {
+  #     status: "on",
+  #     type: "aius",
+  #     revision: 7,
+  #     systemLiquid: 7,
+  #     immunoWash: 7,
+  #     triggerA: 9,
+  #     triggerB: 8,
+  #     dsorb: 9,
+  #     apSubstrate: 8,
+  #     id: "tag_1447073591908",
+  #     desc: "new",
+  #     upDated: 1447073591908
+  #   }, {
+  #     status: "on",
+  #     type: "disec",
+  #     key: "qfrefeag",
+  #     lot: "z",
+  #     onBoardStabilityValue: 8,
+  #     onBoardStabilityUnit: "h",
+  #     inUseStabilityValue: 8,
+  #     inUseStabilityUnit: "d",
+  #     lagTimeFlag: true,
+  #     lagTimeValue: 7,
+  #     initialVolume: 11,
+  #     idealVolume: 9,
+  #     container: 1,
+  #     apps: [
+  #       "app_1447076981841",
+  #       "app_1447076981343",
+  #       "app_1447076981834"
+  #     ],
+  #     id: "tag_1447073625257",
+  #     desc: "new",
+  #     upDated: 1447073625257
+  #   }, {
+  #     status: "on",
+  #     type: "dised",
+  #     key: "qsfnlernil",
+  #     lot: "qsrfaerf",
+  #     onBoardStabilityValue: 10,
+  #     onBoardStabilityUnit: "h",
+  #     inUseStabilityValue: 7,
+  #     inUseStabilityUnit: "d",
+  #     initialVolume: 7,
+  #     idealVolume: 9,
+  #     container: "1",
+  #     apps: [
+  #       "app_1447076981123",
+  #       "app_1447076981345"
+  #     ],
+  #     id: "tag_1447073660982",
+  #     desc: "new",
+  #     upDated: 1447073660982
+  #   }, {
+  #     status: "on",
+  #     type: "dss",
+  #     key: "qseffé",
+  #     lot: "z",
+  #     onBoardStabilityValue: 7,
+  #     onBoardStabilityUnit: "h",
+  #     inUseStabilityValue: 7,
+  #     inUseStabilityUnit: "d",
+  #     initialVolume: 8,
+  #     idealVolume: 10,
+  #     container: "6",
+  #     apps: [
+  #       "app_1447076981841",
+  #       "app_1447076981845"
+  #     ],
+  #     id: "tag_1447073701712",
+  #     desc: "new",
+  #     upDated: 1447073701713
+  #   }, {
+  #     status: "on",
+  #     type: "mmc",
+  #     apps: [
+  #       "app_1447076981841",
+  #       "app_1447076981845"
+  #     ],
+  #     mmcId: "L123",
+  #     ymax: 0.46,
+  #     c: 0.05,
+  #     nsb: 0.19,
+  #     d: 0.11,
+  #     id: "tag_1447073726918",
+  #     desc: "new",
+  #     upDated: 1447073726918
+  #   }, {
+  #     status: "on",
+  #     type: "rht",
+  #     key: "xxxx",
+  #     lot: "qsrfaerf",
+  #     onBoardStabilityValue: 9,
+  #     onBoardStabilityUnit: "d",
+  #     inUseStabilityValue: 8,
+  #     inUseStabilityUnit: "d",
+  #     initialVolume: 10,
+  #     idealVolume: 10,
+  #     lagTimeFlag: true,
+  #     lagTimeValue: 10,
+  #     container: "9",
+  #     apps: [
+  #       "app_1447076981841",
+  #       "app_1447076981845",
+  #       "app_1447076981123"
+  #     ],
+  #     pid: "skjdfnkq",
+  #     dsorbFlag: true,
+  #     id: "tag_1447073782990",
+  #     desc: "new",
+  #     upDated: 1447073782990
+  #   }, {
+  #     status: "on",
+  #     type: "dd",
+  #     key: "qseffé",
+  #     lot: "azeff('g",
+  #     onBoardStabilityValue: 8,
+  #     onBoardStabilityUnit: "h",
+  #     inUseStabilityValue: 5,
+  #     inUseStabilityUnit: "d",
+  #     initialVolume: 7,
+  #     idealVolume: 7,
+  #     container: "4",
+  #     apps: [
+  #       "app_1447076981845",
+  #       "app_1447076981123"
+  #     ],
+  #     pid: "sqfeqf",
+  #     id: "tag_1447073820512",
+  #     desc: "new",
+  #     upDated: 1447073820512
+  #   }, {
+  #     status: "on",
+  #     type: "rbr",
+  #     key: "qfarfr",
+  #     lot: "fhtyhe",
+  #     onBoardStabilityValue: 6,
+  #     onBoardStabilityUnit: "d",
+  #     inUseStabilityValue: 6,
+  #     inUseStabilityUnit: "h",
+  #     initialVolume: 7,
+  #     idealVolume: 11,
+  #     container: "2",
+  #     apps: [
+  #       "app_1447076981841",
+  #       "app_1447076981343",
+  #       "app_1447076981834"
+  #     ],
+  #     rbrType: "2",
+  #     protocolId: "qskfnir",
+  #     id: "tag_1447073863660",
+  #     desc: "new",
+  #     upDated: 1447073863660
+  #   }, {
+  #     status: "on",
+  #     type: "rihr",
+  #     key: "sqfaer",
+  #     lot: "z",
+  #     onBoardStabilityValue: 9,
+  #     onBoardStabilityUnit: "d",
+  #     inUseStabilityValue: 7,
+  #     inUseStabilityUnit: "d",
+  #     initialVolume: 8,
+  #     idealVolume: 10,
+  #     container: "1",
+  #     apps: [
+  #       "app_1447076981343",
+  #       "app_1447076981834"
+  #     ],
+  #     pid: "sqfeqf",
+  #     dsorbFlag: true,
+  #     rihrType: "i",
+  #     minMean: 0.07,
+  #     maxMean: 0.1,
+  #     maxSd: 0.07,
+  #     mmc: "qsfffrq",
+  #     correctionFactor: 0.12,
+  #     id: "tag_1447073921380",
+  #     desc: "new",
+  #     upDated: 1447073921380
+  #   }, {
+  #     status: "on",
+  #     type: "cac",
+  #     key: "a",
+  #     lot: "fhtyhe",
+  #     onBoardStabilityValue: 3,
+  #     onBoardStabilityUnit: "h",
+  #     inUseStabilityValue: 5,
+  #     inUseStabilityUnit: "d",
+  #     lagTimeFlag: true,
+  #     lagTimeValue: 6,
+  #     apps: [
+  #       "app_1447076981841",
+  #       "app_1447076981842"
+  #     ],
+  #     minMean: 0.08,
+  #     maxMean: 0.08,
+  #     maxSd: 0.08,
+  #     mmc: "qsfffrq",
+  #     name: "qskfa",
+  #     k: 0.08,
+  #     preTreatmentFlag: true,
+  #     positions: [
+  #       "position_1447158095432",
+  #       "position_1447158113046"
+  #     ],
+  #     id: "tag_1447158159108",
+  #     desc: "new",
+  #     upDated: 1447158159108
+  #   }, {
+  #     status: "on",
+  #     type: "ccc",
+  #     key: "q",
+  #     lot: "fhtyhe",
+  #     onBoardStabilityValue: 6,
+  #     onBoardStabilityUnit: "d",
+  #     inUseStabilityValue: 8,
+  #     inUseStabilityUnit: "h",
+  #     container: "container_1447076981852",
+  #     apps: [
+  #       "app_1447076981841",
+  #       "app_1447076981844"
+  #     ],
+  #     pid: "skjdfnkq",
+  #     cccType: "con",
+  #     analytes: [
+  #       "analyte_1447158543823",
+  #       "analyte_1447158569246"
+  #     ],
+  #     id: "tag_1447158576339",
+  #     desc: "new",
+  #     upDated: 1447158576339
+  #   }, {
+  #     status: "on",
+  #     type: "ccc",
+  #     key: "q",
+  #     lot: "z",
+  #     onBoardStabilityValue: 5,
+  #     onBoardStabilityUnit: "h",
+  #     inUseStabilityValue: 6,
+  #     inUseStabilityUnit: "h",
+  #     container: "container_1447076981858",
+  #     apps: [
+  #       "app_1447076981842"
+  #     ],
+  #     pid: "kldfn",
+  #     cccType: "cal",
+  #     analytes: [
+  #       "analyte_1447159013169",
+  #       "analyte_1447159025479"
+  #     ],
+  #     reagents: [
+  #       "reagent_1447159036546"
+  #     ],
+  #     id: "tag_1447159044548",
+  #     desc: "new",
+  #     upDated: 1447159044548
+  #   }]
+  $scope.tags = []
   $scope.tag = null
 
-  $scope.tagFormStatusOptions = [{id: "off", name: "Offline"}, {id: "on", name: "Online"}]
   $scope.tagFormTypeOptions = [
     {id: "aius", name: "Ancilliaries In Use Stability"},
     {id: "disec", name: "D Ise Cleaner"},
@@ -299,15 +320,29 @@ angular.module 'aliimsApp'
   $scope.saveTag = () ->
     # mock mongo id
     if $scope.tag.id
-      # alert("edit")
       i = 0
       i++ while $scope.tag.id != $scope.tags[i].id
-      $scope.tag.desc = "edit"
+      $scope.tag.desc = "edit->"
+      switch $scope.tag.type
+        when 'aius' then $scope.tag.desc += " Revision:"+$scope.tag.revision
+        when 'disec' || 'dised' || 'dss' || 'rht' || 'dd' || 'cac' then $scope.tag.desc += " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'mmc' then $scope.tag.desc += " mmcId:"+$scope.tag.mmcId
+        when 'rbr' then $scope.tag.desc += " Rbr Type:"+$scope.tag.rbrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'rihr' then $scope.tag.desc += " Rihr Type:"+$scope.tag.rihrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'ccc' then $scope.tag.desc += " Ccc Type:"+$scope.tag.cccType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        else $scope.tag.desc += " Oups!"
       $scope.tags[i] = $scope.tag
     else
-      # alert("new")
       $scope.tag.id = "tag_"+Date.now()
-      $scope.tag.desc = "new"
+      $scope.tag.desc = "new->"
+      switch $scope.tag.type
+        when 'aius' then $scope.tag.desc += " Revision:"+$scope.tag.revision
+        when 'disec' || 'dised' || 'dss' || 'rht' || 'dd' || 'cac' then $scope.tag.desc += " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'mmc' then $scope.tag.desc += " mmcId:"+$scope.tag.mmcId
+        when 'rbr' then $scope.tag.desc += " Rbr Type:"+$scope.tag.rbrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'rihr' then $scope.tag.desc += " Rihr Type:"+$scope.tag.rihrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'ccc' then $scope.tag.desc += " Ccc Type:"+$scope.tag.cccType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        else $scope.tag.desc += " Oups!"      
       $scope.tags.push $scope.tag
     $scope.tag.upDated = Date.now()
     $scope.clearTag()
@@ -327,6 +362,487 @@ angular.module 'aliimsApp'
     $scope.clearTag()
     true
 
+# CONTAINERS (front loaded)
+
+  $scope.containerView = false
+  $scope.containerTableView = false
+  $scope.containerFormView = false
+  $scope.containerPreView = false
+
+  $scope.containers  = [
+    {
+      status: "on",
+      containerId: 0,
+      name: "PT_11_4.5mL",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<0> PT_11_4.5mL",
+      # id: "container_0000000000000",
+      # upDated: 0000000000000
+    }, {
+      status: "on",
+      containerId: 1,
+      name: "PT_13_6mL",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<1> PT_13_6mL",
+      # id: "container_0000000000001",
+      # upDated: 0000000000001
+    }, {
+      status: "on",
+      containerId: 2,
+      name: "ST_13_5mL",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<2> ST_13_5mL",
+      # id: "container_0000000000002",
+      # upDated: 0000000000002
+    }, {
+      status: "on",
+      containerId: 3,
+      name: "PT_16_10mL",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<3> PT_16_10mL",
+      # id: "container_0000000000003",
+      # upDated: 0000000000003
+    }, {
+      status: "on",
+      containerId: 4,
+      name: "Cupule 500",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<4> Cupule 500",
+      # id: "container_0000000000004",
+      # upDated: 0000000000004
+    }, {
+      status: "on",
+      containerId: 5,
+      name: "Cupule 2mL",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<5> Cupule 2mL",
+      # id: "container_0000000000005",
+      # upDated: 0000000000005
+    }, {
+      status: "on",
+      containerId: 6,
+      name: "PT_15_8.5mL",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<6> PT_15_8.5mL",
+      # id: "container_0000000000006",
+      # upDated: 0000000000006
+    }, {
+      status: "on",
+      containerId: 7,
+      name: "",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<7> ",
+      # id: "container_0000000000007",
+      # upDated: 0000000000007
+    }, {
+      status: "on",
+      containerId: 8,
+      name: "",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<8> ",
+      # id: "container_0000000000008",
+      # upDated: 0000000000008
+    }, {
+      status: "on",
+      containerId: 9,
+      name: "",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<9> ",
+      # id: "container_0000000000009",
+      # upDated: 0000000000009
+    }, {
+      status: "on",
+      containerId: 10,
+      name: "1mL Verre Réactif",
+      usedIn: [
+        "disec",
+        "dised",
+        "dss",
+        "rht",
+        "dd",
+        "rbr",
+        "rihr"
+      ],
+      desc: "<10> 1mL Verre Réactif",
+      # id: "container_0000000000010",
+      # upDated: 0000000000010
+    }, {
+      status: "on",
+      containerId: 11,
+      name: "10mL Verre Réactif",
+      usedIn: [
+        "disec",
+        "dised",
+        "dss",
+        "rht",
+        "dd",
+        "rbr",
+        "rihr"
+      ],
+      desc: "<11> 10mL Verre Réactif",
+      # id: "container_0000000000011",
+      # upDated: 0000000000011
+    }, {
+      status: "on",
+      containerId: 17,
+      name: "10mL CAL B",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<17> 10mL CAL B",
+      # id: "container_0000000000012",
+      # upDated: 0000000000012
+    }, {
+      status: "on",
+      containerId: 19,
+      name: "",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<19> ",
+      # id: "container_0000000000013",
+      # upDated: 0000000000013
+    }, {
+      status: "on",
+      containerId: 20,
+      name: "",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<20> ",
+      # id: "container_0000000000014",
+      # upDated: 0000000000014
+    }, {
+      status: "on",
+      containerId: 21,
+      name: "",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<21> ",
+      # id: "container_0000000000015",
+      # upDated: 0000000000015
+    }, {
+      status: "on",
+      containerId: 22,
+      name: "",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<22> ",
+      # id: "container_0000000000016",
+      # upDated: 0000000000016
+    }, {
+      status: "on",
+      containerId: 23,
+      name: "",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<23> ",
+      # id: "container_0000000000017",
+      # upDated: 0000000000017
+    }, {
+      status: "on",
+      containerId: 24,
+      name: "",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<24> ",
+      # id: "container_0000000000018",
+      # upDated: 0000000000018
+    }, {
+      status: "on",
+      containerId: 25,
+      name: "",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<25> ",
+      # id: "container_0000000000020",
+      # upDated: 0000000000020
+    }, {
+      status: "on",
+      containerId: 26,
+      name: "CASBCHNANOP reduced dead volume",
+      usedIn: [
+        "cac"
+      ],
+      desc: "<26> CASBCHNANOP reduced dead volume",
+      # id: "container_0000000000021",
+      # upDated: 0000000000021
+    }, {
+      status: "on",
+      containerId: 27,
+      name: "CASBCHNANOP",
+      usedIn: [
+        "cac"
+      ],
+      desc: "<27> CASBCHNANOP",
+      # id: "container_0000000000022",
+      # upDated: 0000000000022
+    }, {
+      status: "on",
+      containerId: 28,
+      name: "CASBCH1X",
+      usedIn: [
+        "disec",
+        "dised",
+        "dss",
+        "rht",
+        "dd",
+        "rbr",
+        "rihr",
+        "cac"
+      ],
+      desc: "<28> CASBCH1X",
+      # id: "container_0000000000023",
+      # upDated: 0000000000023
+    }, {
+      status: "on",
+      containerId: 29,
+      name: "CASBCH2X",
+      usedIn: [
+        "cac"
+      ],
+      desc: "<29> CASBCH2X",
+      # id: "container_0000000000024",
+      # upDated: 0000000000024
+    }, {
+      status: "on",
+      containerId: 30,
+      name: "CASBCH3X",
+      usedIn: [
+        "cac"
+      ],
+      desc: "<30> CASBCH3X",
+      # id: "container_0000000000025",
+      # upDated: 0000000000025
+    }, {
+      status: "on",
+      containerId: 34,
+      name: "CAS_REDUC_BCH1X",
+      usedIn: [
+        "cac"
+      ],
+      desc: "<34> CAS_REDUC_BCH1X",
+      # id: "container_0000000000026",
+      # upDated: 0000000000026
+    }, {
+      status: "on",
+      containerId: 35,
+      name: "CAS_REDUC_BCH2X",
+      usedIn: [
+        "cac"
+      ],
+      desc: "<35> CAS_REDUC_BCH2X",
+      # id: "container_0000000000027",
+      # upDated: 0000000000027
+    }, {
+      status: "on",
+      containerId: 36,
+      name: "CAS_REDUC_BCH3X",
+      usedIn: [
+        "cac"
+      ],
+      desc: "<36> CAS_REDUC_BCH3X",
+      # id: "container_0000000000028",
+      # upDated: 0000000000028
+    }, {
+      status: "on",
+      containerId: 37,
+      name: "BCH_UNIT_20ML",
+      usedIn: [
+        "disec",
+        "dised",
+        "dss",
+        "rht",
+        "dd",
+        "rbr",
+        "rihr"
+      ],
+      desc: "<37> BCH_UNIT_20ML",
+      # id: "container_0000000000029",
+      # upDated: 0000000000029
+    }, {
+      status: "on",
+      containerId: 38,
+      name: "BCH_UNIT_REDUC_20ML",
+      usedIn: [
+        "disec",
+        "dised",
+        "dss",
+        "rht",
+        "dd",
+        "rbr",
+        "rihr"
+      ],
+      desc: "<38> BCH_UNIT_REDUC_20ML",
+      # id: "container_0000000000030",
+      # upDated: 0000000000030
+    }, {
+      status: "on",
+      containerId: 39,
+      name: "BCH_UNIT_50ML",
+      usedIn: [
+        "disec",
+        "dised",
+        "dss",
+        "rht",
+        "dd",
+        "rbr",
+        "rihr"
+      ],
+      desc: "<39> BCH_UNIT_50ML",
+      # id: "container_0000000000031",
+      # upDated: 0000000000031
+    }, {
+      status: "on",
+      containerId: 40,
+      name: "BCH_UNIT_REDUC_20ML",
+      usedIn: [
+        "disec",
+        "dised",
+        "dss",
+        "rht",
+        "dd",
+        "rbr",
+        "rihr"
+      ],
+      desc: "<40> BCH_UNIT_REDUC_20ML",
+      # id: "container_0000000000032",
+      # upDated: 0000000000032
+    }, {
+      status: "on",
+      containerId: 42,
+      name: "CAL/CTL Immuno",
+      usedIn: [
+        "ccc"
+      ],
+      desc: "<42> CAL/CTL Immuno",
+      # id: "container_0000000000033",
+      # upDated: 0000000000033
+    }, {
+      status: "on",
+      containerId: 43,
+      name: "CASBCH1X reduced dead volume",
+      usedIn: [
+        "cac"
+      ],
+      desc: "<43> CASBCH1X reduced dead volume",
+      # id: "container_0000000000034",
+      # upDated: 0000000000034
+    }, {
+      status: "on",
+      containerId: 44,
+      name: "CASBCH2X reduced dead volume",
+      usedIn: [
+        "cac"
+      ],
+      desc: "<44> CASBCH2X reduced dead volume",
+      # id: "container_0000000000035",
+      # upDated: 0000000000035
+    }, {
+      status: "on",
+      containerId: 45,
+      name: "CASBCH3X reduced dead volume",
+      usedIn: [
+        "cac"
+      ],
+      desc: "<45> CASBCH3X reduced dead volume",
+      # id: "container_0000000000036",
+      # upDated: 0000000000036
+    }, {
+      status: "on",
+      containerId: 46,
+      name: "IDS_UNIT_13ML",
+      usedIn: [
+        "disec",
+        "dised",
+        "dss",
+        "rht",
+        "dd",
+        "rbr",
+        "rihr"
+      ],
+      desc: "<46> IDS_UNIT_13ML",
+      # id: "container_0000000000037",
+      # upDated: 0000000000037
+    }
+    ]
+  # $scope.containers = []
+  $scope.container = null
+
+  $scope.containerFormFilterOptions = [
+    # {id: "aius", name: "Ancilliaries In Use Stability"},
+    {id: "disec", name: "D Ise Cleaner"},
+    {id: "dised", name: "D Ise Diluent"},
+    {id: "dss", name: "D Saline Solution"},
+    # {id: "mmc", name: "M Master Curve"},
+    {id: "rht", name: "R Haemostasis Trigger"},
+    {id: "dd", name: "D Diluent"},
+    {id: "rbr", name: "R Biochemistry Reagent"},
+    {id: "rihr", name: "R Biochemistry Immunology Haemostasis Reagent"},
+    {id: "cac", name: "CA Cartridge"},
+    {id: "ccc", name: "C Calibrator Control"}]
+    # tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'
+
+  $scope.selectContainer = (container) ->
+    $scope.container = angular.copy(container)
+    $scope.containerFormView = true
+    $scope.containerPreView = true
+    true
+
+  $scope.saveContainer = () ->
+    # mock mongo id
+    if $scope.container.id
+      i = 0
+      i++ while $scope.container.id != $scope.containers[i].id
+      $scope.container.desc = "<"+$scope.container.containerId+"> "+$scope.container.name
+      $scope.containers[i] = $scope.container
+    else
+      $scope.container.id = "container_"+Date.now()
+      $scope.container.desc = "<"+$scope.container.containerId+"> "+$scope.container.name
+      $scope.containers.push $scope.container
+    $scope.container.upDated = Date.now()
+    $scope.clearContainer()
+    true
+
+  $scope.clearContainer = () ->
+    $scope.container = null
+    $scope.containerForm = null
+    $scope.containerFormView = false
+    $scope.containerPreView = false
+    true
+
+  $scope.deleteContainer = Modal.confirm.delete (container) ->
+    i = 0
+    i += 1  while $scope.containers[i].id != container.id
+    $scope.containers.splice(i,1)
+    $scope.clearContainer()
+    true
+
 # APPS
 
   $scope.appView = false
@@ -334,35 +850,34 @@ angular.module 'aliimsApp'
   $scope.appFormView = false
   $scope.appPreView = false
 
-  $scope.apps  =[
-    {
-      status: "on",
-      name: "app 1",
-      id: "app_1447076981841",
-      desc: "new",
-      upDated: 1447076981841
-    }, {
-      status: "on",
-      name: "app 2",
-      id: "app_1447076981842",
-      desc: "new",
-      upDated: 1447076981842
-    }, {
-      status: "off",
-      name: "app 3",
-      id: "app_1447076981843",
-      desc: "new",
-      upDated: 1447076981843
-    }, {
-      status: "on",
-      name: "app 4",
-      id: "app_1447076981844",
-      desc: "new",
-      upDated: 1447076981844}]
-  # $scope.apps = []
-  $scope.app = null
+  # $scope.apps  =[
+  #   {
+  #     status: "on",
+  #     name: "app 1",
+  #     id: "app_1447076981841",
+  #     desc: "new",
+  #     upDated: 1447076981841
+  #   }, {
+  #     status: "on",
+  #     name: "app 2",
+  #     id: "app_1447076981842",
+  #     desc: "new",
+  #     upDated: 1447076981842
+  #   }, {
+  #     status: "on",
+  #     name: "app 3",
+  #     id: "app_1447076981843",
+  #     desc: "new",
+  #     upDated: 1447076981843
+  #   }, {
+  #     status: "on",
+  #     name: "app 4",
+  #     id: "app_1447076981844",
+  #     desc: "new",
+  #     upDated: 1447076981844}]
 
-  $scope.appFormStatusOptions = [{id: "off", name: "Offline"}, {id: "on", name: "Online"}]
+  $scope.apps = []
+  $scope.app = null
 
   $scope.selectApp = (app) ->
     $scope.app = angular.copy(app)
@@ -401,488 +916,6 @@ angular.module 'aliimsApp'
     $scope.clearApp()
     true
 
-# CONTAINERS
-
-  $scope.containerView = false
-  $scope.containerTableView = false
-  $scope.containerFormView = false
-  $scope.containerPreView = false
-
-  $scope.containers  = [
-    {
-      status: "on",
-      code: 0,
-      name: "PT_11_4.5mL",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981845",
-      desc: "new",
-      upDated: 1447076981845
-    }, {
-      status: "on",
-      code: 1,
-      name: "PT_13_6mL",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981846",
-      desc: "new",
-      upDated: 1447076981846
-    }, {
-      status: "on",
-      code: 2,
-      name: "ST_13_5mL",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981847",
-      desc: "new",
-      upDated: 1447076981847
-    }, {
-      status: "on",
-      code: 3,
-      name: "PT_16_10mL",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981848",
-      desc: "new",
-      upDated: 1447076981848
-    }, {
-      status: "on",
-      code: 4,
-      name: "Cupule 500",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981849",
-      desc: "new",
-      upDated: 1447076981849
-    }, {
-      status: "on",
-      code: 5,
-      name: "Cupule 2mL",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981850",
-      desc: "new",
-      upDated: 1447076981850
-    }, {
-      status: "on",
-      code: 6,
-      name: "PT_15_8.5mL",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981851",
-      desc: "new",
-      upDated: 1447076981851
-    }, {
-      status: "on",
-      code: 7,
-      name: "<7>",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981852",
-      desc: "new",
-      upDated: 1447076981852
-    }, {
-      status: "off",
-      code: 8,
-      name: "<8>",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981853",
-      desc: "new",
-      upDated: 1447076981853
-    }, {
-      status: "on",
-      code: 9,
-      name: "<9>",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981854",
-      desc: "new",
-      upDated: 1447076981854
-    }, {
-      status: "on",
-      code: 10,
-      name: "1mL Verre Réactif",
-      filter: [
-        "disec",
-        "dised",
-        "dss",
-        "rht",
-        "dd",
-        "rbr",
-        "rihr"
-      ],
-      id: "container_1447076981855",
-      desc: "new",
-      upDated: 1447076981855
-    }, {
-      status: "on",
-      code: 11,
-      name: "10mL Verre Réactif",
-      filter: [
-        "disec",
-        "dised",
-        "dss",
-        "rht",
-        "dd",
-        "rbr",
-        "rihr"
-      ],
-      id: "container_1447076981856",
-      desc: "new",
-      upDated: 1447076981856
-    }, {
-      status: "on",
-      code: 17,
-      name: "10mL CAL B",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981857",
-      desc: "new",
-      upDated: 1447076981857
-    }, {
-      status: "on",
-      code: 19,
-      name: "<19>",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981858",
-      desc: "new",
-      upDated: 1447076981858
-    }, {
-      status: "off",
-      code: 20,
-      name: "<20>",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981850",
-      desc: "new",
-      upDated: 1447076981850
-    }, {
-      status: "on",
-      code: 21,
-      name: "<21>",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981860",
-      desc: "new",
-      upDated: 1447076981860
-    }, {
-      status: "off",
-      code: 22,
-      name: "<22>",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981861",
-      desc: "new",
-      upDated: 1447076981861
-    }, {
-      status: "on",
-      code: 23,
-      name: "<23>",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981862",
-      desc: "new",
-      upDated: 1447076981862
-    }, {
-      status: "off",
-      code: 24,
-      name: "<24>",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981863",
-      desc: "new",
-      upDated: 1447076981863
-    }, {
-      status: "on",
-      code: 25,
-      name: "<25>",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447076981864",
-      desc: "new",
-      upDated: 1447076981864
-    }, {
-      status: "on",
-      code: 26,
-      name: "CASBCHNANOP reduced dead volume",
-      filter: [
-        "cac"
-      ],
-      id: "container_1447076981865",
-      desc: "new",
-      upDated: 1447076981865
-    }, {
-      status: "on",
-      code: 27,
-      name: "CASBCHNANOP",
-      filter: [
-        "cac"
-      ],
-      id: "container_1447076981866",
-      desc: "new",
-      upDated: 1447076981866
-    }, {
-      status: "on",
-      code: 28,
-      name: "CASBCH1X",
-      filter: [
-        "disec",
-        "dised",
-        "dss",
-        "rht",
-        "dd",
-        "rbr",
-        "rihr",
-        "cac"
-      ],
-      id: "container_1447076981867",
-      desc: "new",
-      upDated: 1447076981867
-    }, {
-      status: "on",
-      code: 29,
-      name: "CASBCH2X",
-      filter: [
-        "cac"
-      ],
-      id: "container_1447076981868",
-      desc: "new",
-      upDated: 1447076981868
-    }, {
-      status: "on",
-      code: 30,
-      name: "CASBCH3X",
-      filter: [
-        "cac"
-      ],
-      id: "container_1447076981869",
-      desc: "new",
-      upDated: 1447076981869
-    }, {
-      status: "on",
-      code: 34,
-      name: "CAS_REDUC_BCH1X",
-      filter: [
-        "cac"
-      ],
-      id: "container_1447080741970",
-      desc: "new",
-      upDated: 1447080741970
-    }, {
-      status: "on",
-      code: 35,
-      name: "CAS_REDUC_BCH2X",
-      filter: [
-        "cac"
-      ],
-      id: "container_1447080741971",
-      desc: "new",
-      upDated: 1447080741971
-    }, {
-      status: "on",
-      code: 36,
-      name: "CAS_REDUC_BCH3X",
-      filter: [
-        "cac"
-      ],
-      id: "container_1447080741972",
-      desc: "new",
-      upDated: 1447080741972
-    }, {
-      status: "on",
-      code: 37,
-      name: "BCH_UNIT_20ML",
-      filter: [
-        "disec",
-        "dised",
-        "dss",
-        "rht",
-        "dd",
-        "rbr",
-        "rihr"
-      ],
-      id: "container_1447080741973",
-      desc: "new",
-      upDated: 1447080741973
-    }, {
-      status: "on",
-      code: 38,
-      name: "BCH_UNIT_REDUC_20ML",
-      filter: [
-        "disec",
-        "dised",
-        "dss",
-        "rht",
-        "dd",
-        "rbr",
-        "rihr"
-      ],
-      id: "container_1447080741974",
-      desc: "new",
-      upDated: 1447080741974
-    }, {
-      status: "on",
-      code: 39,
-      name: "BCH_UNIT_50ML",
-      filter: [
-        "disec",
-        "dised",
-        "dss",
-        "rht",
-        "dd",
-        "rbr",
-        "rihr"
-      ],
-      id: "container_1447080741975",
-      desc: "new",
-      upDated: 1447080741975
-    }, {
-      status: "on",
-      code: 40,
-      name: "BCH_UNIT_REDUC_20ML",
-      filter: [
-        "disec",
-        "dised",
-        "dss",
-        "rht",
-        "dd",
-        "rbr",
-        "rihr"
-      ],
-      id: "container_1447080741976",
-      desc: "new",
-      upDated: 1447080741976
-    }, {
-      status: "on",
-      code: 42,
-      name: "CAL/CTL Immuno",
-      filter: [
-        "ccc"
-      ],
-      id: "container_1447080741977",
-      desc: "new",
-      upDated: 1447080741977
-    }, {
-      status: "on",
-      code: 43,
-      name: "CASBCH1X reduced dead volume",
-      filter: [
-        "cac"
-      ],
-      id: "container_1447080741978",
-      desc: "new",
-      upDated: 1447080741978
-    }, {
-      status: "on",
-      code: 44,
-      name: "CASBCH2X reduced dead volume",
-      filter: [
-        "cac"
-      ],
-      id: "container_1447080741979",
-      desc: "new",
-      upDated: 1447080741979
-    }, {
-      status: "on",
-      code: 45,
-      name: "CASBCH3X reduced dead volume",
-      filter: [
-        "cac"
-      ],
-      id: "container_1447080741980",
-      desc: "new",
-      upDated: 1447080741980
-    }, {
-      status: "on",
-      code: 46,
-      name: "IDS_UNIT_13ML",
-      filter: [
-        "disec",
-        "dised",
-        "dss",
-        "rht",
-        "dd",
-        "rbr",
-        "rihr"
-      ],
-      id: "container_1447080741981",
-      desc: "new",
-      upDated: 1447080741981}]
-  # $scope.containers = []
-  $scope.container = null
-
-  $scope.containerFormStatusOptions = [{id: "off", name: "Offline"}, {id: "on", name: "Online"}]
-  $scope.containerFormFilterOptions = [
-    # {id: "aius", name: "Ancilliaries In Use Stability"},
-    {id: "disec", name: "D Ise Cleaner"},
-    {id: "dised", name: "D Ise Diluent"},
-    {id: "dss", name: "D Saline Solution"},
-    # {id: "mmc", name: "M Master Curve"},
-    {id: "rht", name: "R Haemostasis Trigger"},
-    {id: "dd", name: "D Diluent"},
-    {id: "rbr", name: "R Biochemistry Reagent"},
-    {id: "rihr", name: "R Biochemistry Immunology Haemostasis Reagent"},
-    {id: "cac", name: "CA Cartridge"},
-    {id: "ccc", name: "C Calibrator Control"}]
-    # tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'
-
-  $scope.selectContainer = (container) ->
-    $scope.container = angular.copy(container)
-    $scope.containerFormView = true
-    $scope.containerPreView = true
-    true
-
-  $scope.saveContainer = () ->
-    # mock mongo id
-    if $scope.container.id
-      # alert("edit")
-      i = 0
-      i++ while $scope.container.id != $scope.containers[i].id
-      $scope.container.desc = "edit"
-      $scope.containers[i] = $scope.container
-    else
-      # alert("new")
-      $scope.container.id = "container_"+Date.now()
-      $scope.container.desc = "new"
-      $scope.containers.push $scope.container
-    $scope.container.upDated = Date.now()
-    $scope.clearContainer()
-    true
-
-  $scope.clearContainer = () ->
-    $scope.container = null
-    $scope.containerForm = null
-    $scope.containerFormView = false
-    $scope.containerPreView = false
-    true
-
-  $scope.deleteContainer = Modal.confirm.delete (container) ->
-    i = 0
-    i += 1  while $scope.containers[i].id != container.id
-    $scope.containers.splice(i,1)
-    $scope.clearContainer()
-    true
-
 # POSITIONS
 
   $scope.positionView = false
@@ -901,7 +934,6 @@ angular.module 'aliimsApp'
   $scope.positions = []
   $scope.position = null
 
-  $scope.positionFormStatusOptions = [{id: "off", name: "Offline"}, {id: "on", name: "Online"}]
   $scope.positionFormTypeOptions = [
     {id: "e", name: "Empty"},
     {id: "d", name: "Diluent"},
@@ -964,8 +996,6 @@ angular.module 'aliimsApp'
   $scope.analytes = []
   $scope.analyte = null
 
-  $scope.analyteFormStatusOptions = [{id: "off", name: "Offline"}, {id: "on", name: "Online"}]
-
   $scope.selectAnalyte = (analyte) ->
     $scope.analyte = angular.copy(analyte)
     $scope.analyteFormView = true
@@ -1022,8 +1052,6 @@ angular.module 'aliimsApp'
   $scope.reagents = []
   $scope.reagent = null
 
-  $scope.reagentFormStatusOptions = [{id: "off", name: "Offline"}, {id: "on", name: "Online"}]
-
   $scope.selectReagent = (reagent) ->
     $scope.reagent = angular.copy(reagent)
     $scope.reagentFormView = true
@@ -1061,21 +1089,3 @@ angular.module 'aliimsApp'
     $scope.reagents.splice(i,1)
     $scope.clearReagent()
     true
-
-# CARRIED OVER
-  $scope.today = () ->
-    $scope.dt = new Date()
-
-  $scope.today()
-
-  $scope.clear = () ->
-    $scope.dt = null
-
-  $scope.open = ($event) ->
-    $event.preventDefault()
-    $event.stopPropagation()
-    $scope.opened = true
-
-  $scope.formats = ["dd-MMMM-yyyy", "yyyy/MM/dd", "dd.MM.yyyy", "shortDate"]
-
-  $scope.format = $scope.formats[0]
