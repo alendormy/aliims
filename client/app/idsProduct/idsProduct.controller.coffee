@@ -31,285 +31,25 @@ angular.module 'aliimsApp'
   $scope.tagFormView = false
   $scope.tagPreView = false
 
-  # $scope.tags = [
-  #   {
-  #     status: "on",
-  #     type: "aius",
-  #     revision: 7,
-  #     systemLiquid: 7,
-  #     immunoWash: 7,
-  #     triggerA: 9,
-  #     triggerB: 8,
-  #     dsorb: 9,
-  #     apSubstrate: 8,
-  #     id: "tag_1447073591908",
-  #     desc: "new",
-  #     upDated: 1447073591908
-  #   }, {
-  #     status: "on",
-  #     type: "disec",
-  #     key: "qfrefeag",
-  #     lot: "z",
-  #     onBoardStabilityValue: 8,
-  #     onBoardStabilityUnit: "h",
-  #     inUseStabilityValue: 8,
-  #     inUseStabilityUnit: "d",
-  #     lagTimeFlag: true,
-  #     lagTimeValue: 7,
-  #     initialVolume: 11,
-  #     idealVolume: 9,
-  #     container: 1,
-  #     apps: [
-  #       "app_1447076981841",
-  #       "app_1447076981343",
-  #       "app_1447076981834"
-  #     ],
-  #     id: "tag_1447073625257",
-  #     desc: "new",
-  #     upDated: 1447073625257
-  #   }, {
-  #     status: "on",
-  #     type: "dised",
-  #     key: "qsfnlernil",
-  #     lot: "qsrfaerf",
-  #     onBoardStabilityValue: 10,
-  #     onBoardStabilityUnit: "h",
-  #     inUseStabilityValue: 7,
-  #     inUseStabilityUnit: "d",
-  #     initialVolume: 7,
-  #     idealVolume: 9,
-  #     container: "1",
-  #     apps: [
-  #       "app_1447076981123",
-  #       "app_1447076981345"
-  #     ],
-  #     id: "tag_1447073660982",
-  #     desc: "new",
-  #     upDated: 1447073660982
-  #   }, {
-  #     status: "on",
-  #     type: "dss",
-  #     key: "qseffé",
-  #     lot: "z",
-  #     onBoardStabilityValue: 7,
-  #     onBoardStabilityUnit: "h",
-  #     inUseStabilityValue: 7,
-  #     inUseStabilityUnit: "d",
-  #     initialVolume: 8,
-  #     idealVolume: 10,
-  #     container: "6",
-  #     apps: [
-  #       "app_1447076981841",
-  #       "app_1447076981845"
-  #     ],
-  #     id: "tag_1447073701712",
-  #     desc: "new",
-  #     upDated: 1447073701713
-  #   }, {
-  #     status: "on",
-  #     type: "mmc",
-  #     apps: [
-  #       "app_1447076981841",
-  #       "app_1447076981845"
-  #     ],
-  #     mmcId: "L123",
-  #     ymax: 0.46,
-  #     c: 0.05,
-  #     nsb: 0.19,
-  #     d: 0.11,
-  #     id: "tag_1447073726918",
-  #     desc: "new",
-  #     upDated: 1447073726918
-  #   }, {
-  #     status: "on",
-  #     type: "rht",
-  #     key: "xxxx",
-  #     lot: "qsrfaerf",
-  #     onBoardStabilityValue: 9,
-  #     onBoardStabilityUnit: "d",
-  #     inUseStabilityValue: 8,
-  #     inUseStabilityUnit: "d",
-  #     initialVolume: 10,
-  #     idealVolume: 10,
-  #     lagTimeFlag: true,
-  #     lagTimeValue: 10,
-  #     container: "9",
-  #     apps: [
-  #       "app_1447076981841",
-  #       "app_1447076981845",
-  #       "app_1447076981123"
-  #     ],
-  #     pid: "skjdfnkq",
-  #     dsorbFlag: true,
-  #     id: "tag_1447073782990",
-  #     desc: "new",
-  #     upDated: 1447073782990
-  #   }, {
-  #     status: "on",
-  #     type: "dd",
-  #     key: "qseffé",
-  #     lot: "azeff('g",
-  #     onBoardStabilityValue: 8,
-  #     onBoardStabilityUnit: "h",
-  #     inUseStabilityValue: 5,
-  #     inUseStabilityUnit: "d",
-  #     initialVolume: 7,
-  #     idealVolume: 7,
-  #     container: "4",
-  #     apps: [
-  #       "app_1447076981845",
-  #       "app_1447076981123"
-  #     ],
-  #     pid: "sqfeqf",
-  #     id: "tag_1447073820512",
-  #     desc: "new",
-  #     upDated: 1447073820512
-  #   }, {
-  #     status: "on",
-  #     type: "rbr",
-  #     key: "qfarfr",
-  #     lot: "fhtyhe",
-  #     onBoardStabilityValue: 6,
-  #     onBoardStabilityUnit: "d",
-  #     inUseStabilityValue: 6,
-  #     inUseStabilityUnit: "h",
-  #     initialVolume: 7,
-  #     idealVolume: 11,
-  #     container: "2",
-  #     apps: [
-  #       "app_1447076981841",
-  #       "app_1447076981343",
-  #       "app_1447076981834"
-  #     ],
-  #     rbrType: "2",
-  #     protocolId: "qskfnir",
-  #     id: "tag_1447073863660",
-  #     desc: "new",
-  #     upDated: 1447073863660
-  #   }, {
-  #     status: "on",
-  #     type: "rihr",
-  #     key: "sqfaer",
-  #     lot: "z",
-  #     onBoardStabilityValue: 9,
-  #     onBoardStabilityUnit: "d",
-  #     inUseStabilityValue: 7,
-  #     inUseStabilityUnit: "d",
-  #     initialVolume: 8,
-  #     idealVolume: 10,
-  #     container: "1",
-  #     apps: [
-  #       "app_1447076981343",
-  #       "app_1447076981834"
-  #     ],
-  #     pid: "sqfeqf",
-  #     dsorbFlag: true,
-  #     rihrType: "i",
-  #     minMean: 0.07,
-  #     maxMean: 0.1,
-  #     maxSd: 0.07,
-  #     mmc: "qsfffrq",
-  #     correctionFactor: 0.12,
-  #     id: "tag_1447073921380",
-  #     desc: "new",
-  #     upDated: 1447073921380
-  #   }, {
-  #     status: "on",
-  #     type: "cac",
-  #     key: "a",
-  #     lot: "fhtyhe",
-  #     onBoardStabilityValue: 3,
-  #     onBoardStabilityUnit: "h",
-  #     inUseStabilityValue: 5,
-  #     inUseStabilityUnit: "d",
-  #     lagTimeFlag: true,
-  #     lagTimeValue: 6,
-  #     apps: [
-  #       "app_1447076981841",
-  #       "app_1447076981842"
-  #     ],
-  #     minMean: 0.08,
-  #     maxMean: 0.08,
-  #     maxSd: 0.08,
-  #     mmc: "qsfffrq",
-  #     name: "qskfa",
-  #     k: 0.08,
-  #     preTreatmentFlag: true,
-  #     positions: [
-  #       "position_1447158095432",
-  #       "position_1447158113046"
-  #     ],
-  #     id: "tag_1447158159108",
-  #     desc: "new",
-  #     upDated: 1447158159108
-  #   }, {
-  #     status: "on",
-  #     type: "ccc",
-  #     key: "q",
-  #     lot: "fhtyhe",
-  #     onBoardStabilityValue: 6,
-  #     onBoardStabilityUnit: "d",
-  #     inUseStabilityValue: 8,
-  #     inUseStabilityUnit: "h",
-  #     container: "container_1447076981852",
-  #     apps: [
-  #       "app_1447076981841",
-  #       "app_1447076981844"
-  #     ],
-  #     pid: "skjdfnkq",
-  #     cccType: "con",
-  #     analytes: [
-  #       "analyte_1447158543823",
-  #       "analyte_1447158569246"
-  #     ],
-  #     id: "tag_1447158576339",
-  #     desc: "new",
-  #     upDated: 1447158576339
-  #   }, {
-  #     status: "on",
-  #     type: "ccc",
-  #     key: "q",
-  #     lot: "z",
-  #     onBoardStabilityValue: 5,
-  #     onBoardStabilityUnit: "h",
-  #     inUseStabilityValue: 6,
-  #     inUseStabilityUnit: "h",
-  #     container: "container_1447076981858",
-  #     apps: [
-  #       "app_1447076981842"
-  #     ],
-  #     pid: "kldfn",
-  #     cccType: "cal",
-  #     analytes: [
-  #       "analyte_1447159013169",
-  #       "analyte_1447159025479"
-  #     ],
-  #     reagents: [
-  #       "reagent_1447159036546"
-  #     ],
-  #     id: "tag_1447159044548",
-  #     desc: "new",
-  #     upDated: 1447159044548
-  #   }]
   $scope.tags = []
   $scope.tag = null
 
   $scope.tagFormTypeOptions = [
-    {id: "aius", name: "Ancilliaries In Use Stability"},
-    {id: "disec", name: "D Ise Cleaner"},
-    {id: "dised", name: "D Ise Diluent"},
-    {id: "dss", name: "D Saline Solution"},
-    {id: "mmc", name: "M Master Curve"},
-    {id: "rht", name: "R Haemostasis Trigger"},
-    {id: "dd", name: "D Diluent"},
-    {id: "rbr", name: "R Biochemistry Reagent"},
-    {id: "rihr", name: "R Immunology Haemostasis Reagent"},
-    {id: "cac", name: "CA Cartridge"},
-    {id: "ccc", name: "C Calibrator Control"}]
-  $scope.tagFormStabilityUnitOptions = [{id: "h", name: "Hour(s)"}, {id: "d", name: "Day(s)"}]
-  $scope.tagFormRbrTypeOptions  = [{id: "1", name: "R1"}, {id: "2", name: "R2"}, {id: "3", name: "R3"}]
-  $scope.tagFormRihrTypeOptions  = [{id: "i", name: "Immunology"}, {id: "h", name: "Haemostasis"}]
-  $scope.tagFormCccTypeOptions  = [{id: "cal", name: "Calibrator"}, {id: "con", name: "Control"}]
+    {val: "aius", desc: "Ancilliaries In Use Stability"},
+    {val: "disec", desc: "D Ise Cleaner"},
+    {val: "dised", desc: "D Ise Diluent"},
+    {val: "dss", desc: "D Saline Solution"},
+    {val: "mmc", desc: "M Master Curve"},
+    {val: "rht", desc: "R Haemostasis Trigger"},
+    {val: "dd", desc: "D Diluent"},
+    {val: "rbr", desc: "R Biochemistry Reagent"},
+    {val: "rihr", desc: "R Immunology Haemostasis Reagent"},
+    {val: "cac", desc: "CA Cartridge"},
+    {val: "ccc", desc: "C Calibrator Control"}]
+  $scope.tagFormStabilityUnitOptions = [{val: "h", desc: "Hour(s)"}, {val: "d", desc: "Day(s)"}]
+  $scope.tagFormRbrTypeOptions  = [{val: "1", desc: "R1"}, {val: "2", desc: "R2"}, {val: "3", desc: "R3"}]
+  $scope.tagFormRihrTypeOptions  = [{val: "i", desc: "Immunology"}, {val: "h", desc: "Haemostasis"}]
+  $scope.tagFormCccTypeOptions  = [{val: "cal", desc: "Calibrator"}, {val: "con", desc: "Control"}]
 
   $scope.selectTag = (tag) ->
     $scope.tag = angular.copy(tag)
@@ -318,7 +58,6 @@ angular.module 'aliimsApp'
     true
 
   $scope.saveTag = () ->
-    # mock mongo id
     if $scope.tag.id
       i = 0
       i++ while $scope.tag.id != $scope.tags[i].id
@@ -371,7 +110,7 @@ angular.module 'aliimsApp'
 
   $scope.containers  = [
     {
-      status: "on",
+      # status: "on",
       containerId: 0,
       name: "PT_11_4.5mL",
       usedIn: [
@@ -381,7 +120,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000000",
       # upDated: 0000000000000
     }, {
-      status: "on",
+      # status: "on",
       containerId: 1,
       name: "PT_13_6mL",
       usedIn: [
@@ -391,7 +130,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000001",
       # upDated: 0000000000001
     }, {
-      status: "on",
+      # status: "on",
       containerId: 2,
       name: "ST_13_5mL",
       usedIn: [
@@ -401,7 +140,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000002",
       # upDated: 0000000000002
     }, {
-      status: "on",
+      # status: "on",
       containerId: 3,
       name: "PT_16_10mL",
       usedIn: [
@@ -411,7 +150,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000003",
       # upDated: 0000000000003
     }, {
-      status: "on",
+      # status: "on",
       containerId: 4,
       name: "Cupule 500",
       usedIn: [
@@ -421,7 +160,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000004",
       # upDated: 0000000000004
     }, {
-      status: "on",
+      # status: "on",
       containerId: 5,
       name: "Cupule 2mL",
       usedIn: [
@@ -431,7 +170,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000005",
       # upDated: 0000000000005
     }, {
-      status: "on",
+      # status: "on",
       containerId: 6,
       name: "PT_15_8.5mL",
       usedIn: [
@@ -441,7 +180,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000006",
       # upDated: 0000000000006
     }, {
-      status: "on",
+      # status: "on",
       containerId: 7,
       name: "",
       usedIn: [
@@ -451,7 +190,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000007",
       # upDated: 0000000000007
     }, {
-      status: "on",
+      # status: "on",
       containerId: 8,
       name: "",
       usedIn: [
@@ -461,7 +200,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000008",
       # upDated: 0000000000008
     }, {
-      status: "on",
+      # status: "on",
       containerId: 9,
       name: "",
       usedIn: [
@@ -471,7 +210,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000009",
       # upDated: 0000000000009
     }, {
-      status: "on",
+      # status: "on",
       containerId: 10,
       name: "1mL Verre Réactif",
       usedIn: [
@@ -487,7 +226,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000010",
       # upDated: 0000000000010
     }, {
-      status: "on",
+      # status: "on",
       containerId: 11,
       name: "10mL Verre Réactif",
       usedIn: [
@@ -503,7 +242,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000011",
       # upDated: 0000000000011
     }, {
-      status: "on",
+      # status: "on",
       containerId: 17,
       name: "10mL CAL B",
       usedIn: [
@@ -513,7 +252,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000012",
       # upDated: 0000000000012
     }, {
-      status: "on",
+      # status: "on",
       containerId: 19,
       name: "",
       usedIn: [
@@ -523,7 +262,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000013",
       # upDated: 0000000000013
     }, {
-      status: "on",
+      # status: "on",
       containerId: 20,
       name: "",
       usedIn: [
@@ -533,7 +272,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000014",
       # upDated: 0000000000014
     }, {
-      status: "on",
+      # status: "on",
       containerId: 21,
       name: "",
       usedIn: [
@@ -543,7 +282,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000015",
       # upDated: 0000000000015
     }, {
-      status: "on",
+      # status: "on",
       containerId: 22,
       name: "",
       usedIn: [
@@ -553,7 +292,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000016",
       # upDated: 0000000000016
     }, {
-      status: "on",
+      # status: "on",
       containerId: 23,
       name: "",
       usedIn: [
@@ -563,7 +302,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000017",
       # upDated: 0000000000017
     }, {
-      status: "on",
+      # status: "on",
       containerId: 24,
       name: "",
       usedIn: [
@@ -573,7 +312,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000018",
       # upDated: 0000000000018
     }, {
-      status: "on",
+      # status: "on",
       containerId: 25,
       name: "",
       usedIn: [
@@ -583,7 +322,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000020",
       # upDated: 0000000000020
     }, {
-      status: "on",
+      # status: "on",
       containerId: 26,
       name: "CASBCHNANOP reduced dead volume",
       usedIn: [
@@ -593,7 +332,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000021",
       # upDated: 0000000000021
     }, {
-      status: "on",
+      # status: "on",
       containerId: 27,
       name: "CASBCHNANOP",
       usedIn: [
@@ -603,7 +342,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000022",
       # upDated: 0000000000022
     }, {
-      status: "on",
+      # status: "on",
       containerId: 28,
       name: "CASBCH1X",
       usedIn: [
@@ -620,7 +359,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000023",
       # upDated: 0000000000023
     }, {
-      status: "on",
+      # status: "on",
       containerId: 29,
       name: "CASBCH2X",
       usedIn: [
@@ -630,7 +369,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000024",
       # upDated: 0000000000024
     }, {
-      status: "on",
+      # status: "on",
       containerId: 30,
       name: "CASBCH3X",
       usedIn: [
@@ -640,7 +379,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000025",
       # upDated: 0000000000025
     }, {
-      status: "on",
+      # status: "on",
       containerId: 34,
       name: "CAS_REDUC_BCH1X",
       usedIn: [
@@ -650,7 +389,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000026",
       # upDated: 0000000000026
     }, {
-      status: "on",
+      # status: "on",
       containerId: 35,
       name: "CAS_REDUC_BCH2X",
       usedIn: [
@@ -660,7 +399,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000027",
       # upDated: 0000000000027
     }, {
-      status: "on",
+      # status: "on",
       containerId: 36,
       name: "CAS_REDUC_BCH3X",
       usedIn: [
@@ -670,7 +409,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000028",
       # upDated: 0000000000028
     }, {
-      status: "on",
+      # status: "on",
       containerId: 37,
       name: "BCH_UNIT_20ML",
       usedIn: [
@@ -686,7 +425,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000029",
       # upDated: 0000000000029
     }, {
-      status: "on",
+      # status: "on",
       containerId: 38,
       name: "BCH_UNIT_REDUC_20ML",
       usedIn: [
@@ -702,7 +441,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000030",
       # upDated: 0000000000030
     }, {
-      status: "on",
+      # status: "on",
       containerId: 39,
       name: "BCH_UNIT_50ML",
       usedIn: [
@@ -718,7 +457,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000031",
       # upDated: 0000000000031
     }, {
-      status: "on",
+      # status: "on",
       containerId: 40,
       name: "BCH_UNIT_REDUC_20ML",
       usedIn: [
@@ -734,7 +473,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000032",
       # upDated: 0000000000032
     }, {
-      status: "on",
+      # status: "on",
       containerId: 42,
       name: "CAL/CTL Immuno",
       usedIn: [
@@ -744,7 +483,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000033",
       # upDated: 0000000000033
     }, {
-      status: "on",
+      # status: "on",
       containerId: 43,
       name: "CASBCH1X reduced dead volume",
       usedIn: [
@@ -754,7 +493,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000034",
       # upDated: 0000000000034
     }, {
-      status: "on",
+      # status: "on",
       containerId: 44,
       name: "CASBCH2X reduced dead volume",
       usedIn: [
@@ -764,7 +503,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000035",
       # upDated: 0000000000035
     }, {
-      status: "on",
+      # status: "on",
       containerId: 45,
       name: "CASBCH3X reduced dead volume",
       usedIn: [
@@ -774,7 +513,7 @@ angular.module 'aliimsApp'
       # id: "container_0000000000036",
       # upDated: 0000000000036
     }, {
-      status: "on",
+      # status: "on",
       containerId: 46,
       name: "IDS_UNIT_13ML",
       usedIn: [
@@ -791,22 +530,20 @@ angular.module 'aliimsApp'
       # upDated: 0000000000037
     }
     ]
-  # $scope.containers = []
   $scope.container = null
 
-  $scope.containerFormFilterOptions = [
-    # {id: "aius", name: "Ancilliaries In Use Stability"},
-    {id: "disec", name: "D Ise Cleaner"},
-    {id: "dised", name: "D Ise Diluent"},
-    {id: "dss", name: "D Saline Solution"},
-    # {id: "mmc", name: "M Master Curve"},
-    {id: "rht", name: "R Haemostasis Trigger"},
-    {id: "dd", name: "D Diluent"},
-    {id: "rbr", name: "R Biochemistry Reagent"},
-    {id: "rihr", name: "R Biochemistry Immunology Haemostasis Reagent"},
-    {id: "cac", name: "CA Cartridge"},
-    {id: "ccc", name: "C Calibrator Control"}]
-    # tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr'
+  $scope.containerFormUsedInOptions = [
+    # {val: "aius", desc: "Ancilliaries In Use Stability"},
+    {val: "disec", desc: "D Ise Cleaner"},
+    {val: "dised", desc: "D Ise Diluent"},
+    {val: "dss", desc: "D Saline Solution"},
+    # {val: "mmc", desc: "M Master Curve"},
+    {val: "rht", desc: "R Haemostasis Trigger"},
+    {val: "dd", desc: "D Diluent"},
+    {val: "rbr", desc: "R Biochemistry Reagent"},
+    {val: "rihr", desc: "R Biochemistry Immunology Haemostasis Reagent"},
+    {val: "cac", desc: "CA Cartridge"},
+    {val: "ccc", desc: "C Calibrator Control"}]
 
   $scope.selectContainer = (container) ->
     $scope.container = angular.copy(container)
@@ -815,7 +552,6 @@ angular.module 'aliimsApp'
     true
 
   $scope.saveContainer = () ->
-    # mock mongo id
     if $scope.container.id
       i = 0
       i++ while $scope.container.id != $scope.containers[i].id
@@ -850,32 +586,6 @@ angular.module 'aliimsApp'
   $scope.appFormView = false
   $scope.appPreView = false
 
-  # $scope.apps  =[
-  #   {
-  #     status: "on",
-  #     name: "app 1",
-  #     id: "app_1447076981841",
-  #     desc: "new",
-  #     upDated: 1447076981841
-  #   }, {
-  #     status: "on",
-  #     name: "app 2",
-  #     id: "app_1447076981842",
-  #     desc: "new",
-  #     upDated: 1447076981842
-  #   }, {
-  #     status: "on",
-  #     name: "app 3",
-  #     id: "app_1447076981843",
-  #     desc: "new",
-  #     upDated: 1447076981843
-  #   }, {
-  #     status: "on",
-  #     name: "app 4",
-  #     id: "app_1447076981844",
-  #     desc: "new",
-  #     upDated: 1447076981844}]
-
   $scope.apps = []
   $scope.app = null
 
@@ -886,17 +596,13 @@ angular.module 'aliimsApp'
     true
 
   $scope.saveApp = () ->
-    # mock mongo id
+    $scope.app.desc = "<"+$scope.app.appId+"> "+$scope.app.name
     if $scope.app.id
-      # alert("edit")
       i = 0
       i++ while $scope.app.id != $scope.apps[i].id
-      $scope.app.desc = "edit"
       $scope.apps[i] = $scope.app
     else
-      # alert("new")
       $scope.app.id = "app_"+Date.now()
-      $scope.app.desc = "new"
       $scope.apps.push $scope.app
     $scope.app.upDated = Date.now()
     $scope.clearApp()
@@ -923,22 +629,14 @@ angular.module 'aliimsApp'
   $scope.positionFormView = false
   $scope.positionPreView = false
 
-  # $scope.positions  = [
-  #   {id: "1", name: "Position 1"},
-  #   {id: "2", name: "Position 2"},
-  #   {id: "3", name: "Position 3"},
-  #   {id: "4", name: "Position 4"},
-  #   {id: "5", name: "Position 5"},
-  #   {id: "6", name: "Position 6"},
-  #   {id: "7", name: "Position 7"}]
   $scope.positions = []
   $scope.position = null
 
   $scope.positionFormTypeOptions = [
-    {id: "e", name: "Empty"},
-    {id: "d", name: "Diluent"},
-    {id: "r", name: "Reagent (immuno)"},
-    {id: "p", name: "Pretreatment (immuno)"}]
+    {val: "e", desc: "Empty"},
+    {val: "d", desc: "Diluent"},
+    {val: "r", desc: "Reagent (immuno)"},
+    {val: "p", desc: "Pretreatment (immuno)"}]
 
   $scope.selectPosition = (position) ->
     $scope.position = angular.copy(position)
@@ -947,18 +645,13 @@ angular.module 'aliimsApp'
     true
 
   $scope.savePosition = () ->
-    # mock mongo id
-    $scope.position.name = 'pos:'+$scope.position.pos+', pid:'+$scope.position.pid+', containter:'+$scope.position.container+', type:'+$scope.position.type+', in:'+$scope.position.initialVolume+', id:'+$scope.position.idealVolume
+    $scope.position.desc = "<"+$scope.position.positionId+"> pos:"+$scope.position.pos+", pid:"+$scope.position.pid
     if $scope.position.id
-      # alert("edit")
       i = 0
       i++ while $scope.position.id != $scope.positions[i].id
-      $scope.position.desc = "edit"
       $scope.positions[i] = $scope.position
     else
-      # alert("new")
       $scope.position.id = "position_"+Date.now()
-      $scope.position.desc = "new"
       $scope.positions.push $scope.position
     $scope.position.upDated = Date.now()
     $scope.clearPosition()
@@ -985,14 +678,6 @@ angular.module 'aliimsApp'
   $scope.analyteFormView = false
   $scope.analytePreView = false
 
-  # $scope.analytes  = [
-  #   {id: "1", name: "Analyte 1"},
-  #   {id: "2", name: "Analyte 2"},
-  #   {id: "3", name: "Analyte 3"},
-  #   {id: "4", name: "Analyte 4"},
-  #   {id: "5", name: "Analyte 5"},
-  #   {id: "6", name: "Analyte 6"},
-  #   {id: "7", name: "Analyte 7"}]
   $scope.analytes = []
   $scope.analyte = null
 
@@ -1003,18 +688,18 @@ angular.module 'aliimsApp'
     true
 
   $scope.saveAnalyte = () ->
-    # mock mongo id
-    $scope.analyte.name = 'analyteId:'+$scope.analyte.analyteId+', target:'+$scope.analyte.target+', tolerance:'+$scope.analyte.tolerance+', reference:'+$scope.analyte.reference
+    desc = "<"+$scope.analyte.analyteId+"> target:"+$scope.analyte.target
+    if $scope.analyte.tolerance
+      desc += ", tolerance:"+$scope.analyte.tolerance
+    if $scope.analyte.reference
+      desc += ", reference:"+$scope.analyte.reference
+    $scope.analyte.desc = desc
     if $scope.analyte.id
-      # alert("edit")
       i = 0
       i++ while $scope.analyte.id != $scope.analytes[i].id
-      $scope.analyte.desc = "edit"
       $scope.analytes[i] = $scope.analyte
     else
-      # alert("new")
       $scope.analyte.id = "analyte_"+Date.now()
-      $scope.analyte.desc = "new"
       $scope.analytes.push $scope.analyte
     $scope.analyte.upDated = Date.now()
     $scope.clearAnalyte()
@@ -1041,14 +726,6 @@ angular.module 'aliimsApp'
   $scope.reagentFormView = false
   $scope.reagentPreView = false
 
-  # $scope.reagents  = [
-  #   {id: "1", name: "Reagent 1"},
-  #   {id: "2", name: "Reagent 2"},
-  #   {id: "3", name: "Reagent 3"},
-  #   {id: "4", name: "Reagent 4"},
-  #   {id: "5", name: "Reagent 5"},
-  #   {id: "6", name: "Reagent 6"},
-  #   {id: "7", name: "Reagent 7"}]
   $scope.reagents = []
   $scope.reagent = null
 
@@ -1059,18 +736,13 @@ angular.module 'aliimsApp'
     true
 
   $scope.saveReagent = () ->
-    # mock mongo id
-    $scope.reagent.name = 'reagentId:'+$scope.reagent.reagentId
+    $scope.reagent.desc = "<"+$scope.reagent.reagentId+"> "
     if $scope.reagent.id
-      # alert("edit")
       i = 0
       i++ while $scope.reagent.id != $scope.reagents[i].id
-      $scope.reagent.desc = "edit"
       $scope.reagents[i] = $scope.reagent
     else
-      # alert("new")
       $scope.reagent.id = "reagent_"+Date.now()
-      $scope.reagent.desc = "new"
       $scope.reagents.push $scope.reagent
     $scope.reagent.upDated = Date.now()
     $scope.clearReagent()

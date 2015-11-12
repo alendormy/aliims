@@ -49,16 +49,14 @@ header#banner.hero-unit
           div.form-group(ng-class="{ 'has-error' : tagForm.status.$invalid && !tagForm.status.$pristine }")
             label.control-label(for="status") Status
             div.input-group
-              select.form-control(name="status", id="status", ng-model="tag.status", required)
-                option(ng-repeat="option in formStatusOptions", value="{{option.val}}") {{option.desc}}
+              select.form-control(name="status", id="status", ng-model="tag.status", ng-options="option.val as option.desc for option in formStatusOptions track by option.desc", required)
               p.help-block(ng-show="tagForm.status.$invalid && !tagForm.status.$pristine") Must not be null.
 
           //- type
           div.form-group(ng-class="{ 'has-error' : tagForm.type.$invalid && !tagForm.type.$pristine }")
             label.control-label(for="type") Type
             div.input-group
-              select.form-control(name="type", id="type", ng-model="tag.type", required)
-                option(ng-repeat="option in tagFormTypeOptions", value="{{option.id}}") {{option.name}}
+              select.form-control(name="type", id="type", ng-model="tag.type", ng-options="option.val as option.desc for option in tagFormTypeOptions track by option.desc", required)
               p.help-block(ng-show="tagForm.type.$invalid && !tagForm.type.$pristine") Must not be null.
 
           //- revision
@@ -122,7 +120,7 @@ header#banner.hero-unit
             label.control-label(for="key") Key
             div.input-group
               span.input-group-addon a-Z 0-9
-              input.form-control(type="text", name="key", id="key", ng-model="tag.key", minlenght="1", maxlenght="5", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'")
+              input.form-control(type="text", name="key", id="key", ng-model="tag.key", minlength="1", maxlength="5", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'")
             p.help-block(ng-show="tagForm.key.$invalid && !tagForm.key.$pristine") Must be a a-Z 0-9 with [1-5] chars.
 
           //- lot
@@ -130,7 +128,7 @@ header#banner.hero-unit
             label.control-label(for="lot") Lot
             div.input-group
               span.input-group-addon a-Z 0-9
-              input.form-control(type="text", name="lot", id="lot", ng-model="tag.lot", minlenght="1", maxlenght="10", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'")
+              input.form-control(type="text", name="lot", id="lot", ng-model="tag.lot", minlength="1", maxlength="10", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'")
             p.help-block(ng-show="tagForm.lot.$invalid && !tagForm.lot.$pristine") Must be a a-Z 0-9 with [1-10] chars.
 
           //- onBoardStabilityValue
@@ -145,8 +143,7 @@ header#banner.hero-unit
           div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'", ng-class="{ 'has-error' : tagForm.onBoardStabilityUnit.$invalid && !tagForm.onBoardStabilityUnit.$pristine }")
             label.control-label(for="onBoardStabilityUnit") On Board Stability Unit
             div.input-group
-              select.form-control(name="onBoardStabilityUnit", id="onBoardStabilityUnit", ng-model="tag.onBoardStabilityUnit", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'")
-                option(ng-repeat="option in tagFormStabilityUnitOptions", value="{{option.id}}") {{option.name}}
+              select.form-control(name="onBoardStabilityUnit", id="onBoardStabilityUnit", ng-model="tag.onBoardStabilityUnit", ng-options="option.val as option.desc for option in tagFormStabilityUnitOptions track by option.desc", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'")
               p.help-block(ng-show="tagForm.onBoardStabilityUnit.$invalid && !tagForm.onBoardStabilityUnit.$pristine") Must not be null.
 
           //- inUseStabilityValue
@@ -161,8 +158,7 @@ header#banner.hero-unit
           div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'", ng-class="{ 'has-error' : tagForm.inUseStabilityUnit.$invalid && !tagForm.inUseStabilityUnit.$pristine }")
             label.control-label(for="inUseStabilityUnit") In Use Stability Unit
             div.input-group
-              select.form-control(name="inUseStabilityUnit", id="inUseStabilityUnit", ng-model="tag.inUseStabilityUnit", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'")
-                option(ng-repeat="option in tagFormStabilityUnitOptions", value="{{option.id}}") {{option.name}}
+              select.form-control(name="inUseStabilityUnit", id="inUseStabilityUnit", ng-model="tag.inUseStabilityUnit", ng-options="option.val as option.desc for option in tagFormStabilityUnitOptions track by option.desc", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'")
               p.help-block(ng-show="tagForm.inUseStabilityUnit.$invalid && !tagForm.inUseStabilityUnit.$pristine") Must not be null.
 
           //- lagTimeFlag
@@ -204,7 +200,8 @@ header#banner.hero-unit
             label.control-label.linked(for="container")
               | Container
             div.input-group
-              select.form-control(name="container", id="container", ng-model="tag.container", ng-options="container as container.desc disable when container.status == 'off' || container.usedIn.indexOf(tag.type) == -1 for container in containers", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'ccc'")
+              select.form-control(name="container", id="container", ng-model="tag.container", ng-options="container as container.desc disable when container.usedIn.indexOf(tag.type) == -1 for container in containers track by container.desc", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'ccc'")
+              p.help-block(ng-show="tagForm.container.$invalid && !tagForm.container.$pristine") Must not be null.
 
           //- apps
           div.form-group(ng-show="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'mmc' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'", ng-class="{ 'has-error' : tagForm.apps.$invalid && !tagForm.apps.$pristine }")
@@ -216,8 +213,7 @@ header#banner.hero-unit
               | App
               i (S)
             div.input-group
-              select.form-control(name="apps", id="apps", ng-model="tag.apps", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'mmc' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'", multiple)
-                option(ng-show="app.status == 'on'", ng-repeat="app in apps", value="{{app.id}}") {{app.name}}
+              select.form-control(name="apps", id="apps", ng-model="tag.apps", ng-options="app as app.desc for app in apps track by app.desc", ng-required="tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'mmc' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc'", multiple)
               p.help-block(ng-show="tagForm.apps.$invalid && !tagForm.apps.$pristine") Must not be null.
 
           //- expiry
@@ -248,7 +244,7 @@ header#banner.hero-unit
             label.control-label(for="mmcId") Mmc Id
             div.input-group
               span.input-group-addon a-Z 0-9
-              input.form-control(type="text", name="mmcId", id="mmcId", ng-model="tag.mmcId", minlenght="6", maxlenght="6", ng-required="tag.type == 'mcc'")
+              input.form-control(type="text", name="mmcId", id="mmcId", ng-model="tag.mmcId", minlength="6", maxlength="6", ng-required="tag.type == 'mcc'")
             p.help-block(ng-show="tagForm.mmcId.$invalid && !tagForm.mmcId.$pristine") Must be a a-Z 0-9 with 6 chars.
 
           //- ymax
@@ -296,7 +292,7 @@ header#banner.hero-unit
             label.control-label(for="pid") Pid
             div.input-group
               span.input-group-addon a-Z 0-9
-              input.form-control(type="text", name="pid", id="pid", ng-model="tag.pid", minlenght="1", maxlenght="10", ng-required="tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rihr' || tag.type == 'ccc'")
+              input.form-control(type="text", name="pid", id="pid", ng-model="tag.pid", minlength="1", maxlength="10", ng-required="tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rihr' || tag.type == 'ccc'")
             p.help-block(ng-show="tagForm.pid.$invalid && !tagForm.pid.$pristine") Must be a a-Z 0-9 with [1-10] chars.
 
           //- dsorbFlag
@@ -309,8 +305,7 @@ header#banner.hero-unit
           div.form-group(ng-show="tag.type == 'rbr'", ng-class="{ 'has-error' : tagForm.rbrType.$invalid && !tagForm.rbrType.$pristine }")
             label.control-label(for="rbrType") Rbr Type
             div.input-group
-              select.form-control(name="rbrType", id="rbrType", ng-model="tag.rbrType", ng-required="tag.type == 'rbr'")
-                option(ng-repeat="option in tagFormRbrTypeOptions", value="{{option.id}}") {{option.name}}
+              select.form-control(name="rbrType", id="rbrType", ng-model="tag.rbrType", ng-options="option.val as option.desc for option in tagFormRbrTypeOptions track by option.desc", ng-required="tag.type == 'rbr'")
               p.help-block(ng-show="tagForm.rbrType.$invalid && !tagForm.rbrType.$pristine") Must not be null.
 
           //- protocolId
@@ -318,15 +313,14 @@ header#banner.hero-unit
             label.control-label(for="protocolId") Protocol Id
             div.input-group
               span.input-group-addon a-Z 0-9
-              input.form-control(type="text", name="protocolId", id="protocolId", ng-model="tag.protocolId", minlenght="1", maxlenght="6", ng-required="tag.type == 'rbr'")
+              input.form-control(type="text", name="protocolId", id="protocolId", ng-model="tag.protocolId", minlength="1", maxlength="6", ng-required="tag.type == 'rbr'")
             p.help-block(ng-show="tagForm.protocolId.$invalid && !tagForm.protocolId.$pristine") Must be a a-Z 0-9 with [1-10] chars.
 
           //- rihrType
           div.form-group(ng-show="tag.type == 'rihr'", ng-class="{ 'has-error' : tagForm.rihrType.$invalid && !tagForm.rihrType.$pristine }")
             label.control-label(for="rihrType") Rihr Type
             div.input-group
-              select.form-control(name="rihrType", id="rihrType", ng-model="tag.rihrType", ng-required="tag.type == 'rihr'")
-                option(ng-repeat="option in tagFormRihrTypeOptions", value="{{option.id}}") {{option.name}}
+              select.form-control(name="rihrType", id="rihrType", ng-model="tag.rihrType", ng-options="option.val as option.desc for option in tagFormRihrTypeOptions track by option.desc", ng-required="tag.type == 'rihr'")
               p.help-block(ng-show="tagForm.rihrType.$invalid && !tagForm.rihrType.$pristine") Must not be null.
 
           //- minMean
@@ -358,7 +352,7 @@ header#banner.hero-unit
             label.control-label(for="mmc") Master Curve
             div.input-group
               span.input-group-addon a-Z 0-9
-              input.form-control(type="text", name="mmc", id="mmc", ng-model="tag.mmc", minlenght="6", maxlenght="6", ng-required="(tag.type == 'rihr' && tag.rihrType == 'i') || tag.type == 'cac'")
+              input.form-control(type="text", name="mmc", id="mmc", ng-model="tag.mmc", minlength="6", maxlength="6", ng-required="(tag.type == 'rihr' && tag.rihrType == 'i') || tag.type == 'cac'")
             p.help-block(ng-show="tagForm.mmc.$invalid && !tagForm.mmc.$pristine") Must be a a-Z 0-9 with 6 chars.
 
           //- correctionFactor
@@ -393,52 +387,48 @@ header#banner.hero-unit
 
           //- positions
           div.form-group(ng-show="tag.type == 'cac'", ng-class="{ 'has-error' : tagForm.positions.$invalid && !tagForm.positions.$pristine }")
-            label.control-label.linked(for="positions")
-              | Position
-              i (S)
             button.btn(ng-show="positionView == false", ng-click="positionView = positionPreView = positionTableView = positionFormView = true")
               span.glyphicon.glyphicon-zoom-in
             button.btn(ng-show="positionView == true", ng-click="positionView = positionPreView = positionTableView = positionFormView = false")
               span.glyphicon.glyphicon-zoom-out
+            label.control-label.linked(for="positions")
+              | Position
+              i (S)
             div.input-group
-              select.form-control(name="positions", id="positions", ng-model="tag.positions", ng-required="tag.type == 'cac'", multiple)
-                option(ng-show="position.status == 'on'", ng-repeat="position in positions", value="{{position.id}}") {{position.name}}
+              select.form-control(name="positions", id="positions", ng-model="tag.positions", ng-options="position as position.desc for position in positions track by position.desc", ng-required="tag.type == 'cac'", multiple)
               p.help-block(ng-show="tagForm.positions.$invalid && !tagForm.positions.$pristine") Must not be null.
 
           //- cccType
           div.form-group(ng-show="tag.type == 'ccc'", ng-class="{ 'has-error' : tagForm.cccType.$invalid && !tagForm.cccType.$pristine }")
             label.control-label(for="cccType") Ccc Type
             div.input-group
-              select.form-control(name="cccType", id="cccType", ng-model="tag.cccType", ng-required="tag.type == 'ccc'")
-                option(ng-repeat="option in tagFormCccTypeOptions", value="{{option.id}}") {{option.name}}
+              select.form-control(name="cccType", id="cccType", ng-model="tag.cccType", ng-options="option.val as option.desc for option in tagFormCccTypeOptions track by option.desc", ng-required="tag.type == 'ccc'")
               p.help-block(ng-show="tagForm.cccType.$invalid && !tagForm.cccType.$pristine") Must not be null.
 
           //- analytes
           div.form-group(ng-show="tag.type == 'ccc'", ng-class="{ 'has-error' : tagForm.analytes.$invalid && !tagForm.analytes.$pristine }")
-            label.control-label.linked(for="analytes")
-              | Analyte
-              i (S)
             button.btn(ng-show="analyteView == false", ng-click="analyteView = analytePreView = analyteTableView = analyteFormView = true")
               span.glyphicon.glyphicon-zoom-in
             button.btn(ng-show="analyteView == true", ng-click="analyteView = analytePreView = analyteTableView = analyteFormView = false")
               span.glyphicon.glyphicon-zoom-out
+            label.control-label.linked(for="analytes")
+              | Analyte
+              i (S)
             div.input-group
-              select.form-control(name="analytes", id="analytes", ng-model="tag.analytes", ng-required="tag.type == 'ccc'", multiple)
-                option(ng-show="analyte.status == 'on'", ng-repeat="analyte in analytes", value="{{analyte.id}}") {{analyte.name}}
+              select.form-control(name="analytes", id="analytes", ng-model="tag.analytes", ng-options="analyte as analyte.desc for analyte in analytes track by analyte.desc", ng-required="tag.type == 'ccc'", multiple)
               p.help-block(ng-show="tagForm.analytes.$invalid && !tagForm.analytes.$pristine") Must not be null.
 
           //- reagents
           div.form-group(ng-show="tag.type == 'ccc' && tag.cccType == 'cal'", ng-class="{ 'has-error' : tagForm.reagents.$invalid && !tagForm.reagents.$pristine }")
-            label.control-label.linked(for="reagents")
-              | Reagent
-              i (S)
             button.btn(ng-show="reagentView == false", ng-click="reagentView = reagentPreView = reagentTableView = reagentFormView = true")
               span.glyphicon.glyphicon-zoom-in
             button.btn(ng-show="reagentView == true", ng-click="reagentView = reagentPreView = reagentTableView = reagentFormView = false")
               span.glyphicon.glyphicon-zoom-out
+            label.control-label.linked(for="reagents")
+              | Reagent
+              i (S)
             div.input-group
-              select.form-control(name="reagents", id="reagents", ng-model="tag.reagents", ng-required="tag.type == 'ccc' && tag.cccType == 'cal'", multiple)
-                option(ng-show="reagent.status == 'on'", ng-repeat="reagent in reagents", value="{{reagent.id}}") {{reagent.name}}
+              select.form-control(name="reagents", id="reagents", ng-model="tag.reagents", ng-options="reagent as reagent.desc for reagent in reagents track by reagent.desc", ng-required="tag.type == 'ccc' && tag.cccType == 'cal'", multiple)
               p.help-block(ng-show="tagForm.reagents.$invalid && !tagForm.reagents.$pristine") Must not be null.
 
           button.btn.btn-primary(type='submit', ng-click='saveTag()', ng-disabled="tagForm.$invalid") Save
@@ -455,7 +445,6 @@ header#banner.hero-unit
 
       div(ng-show="tagPreView")
         pre tag: {{tag | json}}
-        //- pre tags: {{tags | json}}
 
   .row.col-lg-12.bordered(ng-show="containerView && (tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'ccc' || tag.type == 'cac')")
     h3.page-header
@@ -466,54 +455,36 @@ header#banner.hero-unit
       | Containers:
 
     .col-lg-12
-
       h4.centered Table
         button.btn(ng-show="containerTableView == false", ng-click="containerTableView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="containerTableView == true", ng-click="containerTableView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="containerTableView")
         table.table.table-condensed.table-hover
           tr.active
-            //- td id
-            td status
-            //- td upDated
             td containerId
             td desc
           tr(ng-repeat="item in containers", ng-click="selectContainer(item)", ng-class="{'active': item.id == container.id, cursor: pointer}")
-            //- td {{item.id}}
-            td {{item.status}}
-            //- td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
             td {{item.containerId}}
             td {{item.desc}}
 
     .col-lg-6
-
       h4.centered Form
         button.btn(ng-show="containerFormView == false", ng-click="containerFormView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="containerFormView == true", ng-click="containerFormView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="containerFormView")
         form.form-inline(name="containerForm", id="containerForm", ng-model="container", novalidate)
-
-          //- status
-          div.form-group(ng-class="{ 'has-error' : containerForm.status.$invalid && !containerForm.status.$pristine }")
-            label.control-label(for="status") Status
-            div.input-group
-              select.form-control(name="status", id="status", ng-model="container.status", required)
-                option(ng-repeat="option in formStatusOptions", value="{{option.val}}") {{option.desc}}
-              p.help-block(ng-show="containerForm.status.$invalid && !containerForm.status.$pristine") Must not be null.
 
           //- containerId
           div.form-group(ng-class="{ 'has-error' : containerForm.containerId.$invalid && !containerForm.containerId.$pristine }")
             label.control-label(for="containerId") Container Id
             div.input-group
-              span.input-group-addon #
-              input.form-control(type="number", name="containerId", id="containerId", ng-model="container.containerId", min="0", max="9999", required)
-            p.help-block(ng-show="containerForm.containerId.$invalid && !containerForm.containerId.$pristine") Must be in [0-9999] range.
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="containerId", id="containerId", ng-model="container.containerId", minlength="1", maxlength="10", required)
+            p.help-block(ng-show="containerForm.containerId.$invalid && !containerForm.containerId.$pristine") Must be a a-Z 0-9 with [1-10] chars.
 
           //- name
           div.form-group(ng-class="{ 'has-error' : containerForm.name.$invalid && !containerForm.name.$pristine }")
@@ -525,10 +496,9 @@ header#banner.hero-unit
 
           //- usedIn
           div.form-group(ng-class="{ 'has-error' : containerForm.usedIn.$invalid && !containerForm.usedIn.$pristine }")
-            label.control-label(for="usedIn") Filter
+            label.control-label(for="usedIn") Used In
             div.input-group
-              select.form-control(name="usedIn", id="usedIn", ng-model="container.usedIn", required, multiple)
-                option(ng-repeat="option in containerFormFilterOptions", value="{{option.id}}") {{option.name}}
+              select.form-control(name="usedIn", id="usedIn", ng-model="container.usedIn", ng-options="option as option.desc for option in containerFormUsedInOptions track by option.desc", required, multiple)
               p.help-block(ng-show="containerForm.usedIn.$invalid && !containerForm.usedIn.$pristine") Must not be null.
 
           button.btn.btn-primary(type='submit', ng-click='saveContainer()', ng-disabled="containerForm.$invalid") Save
@@ -536,16 +506,13 @@ header#banner.hero-unit
           button.btn.btn-danger(type='submit', ng-click='deleteContainer(container.id, container)', ng-show="container.id") Delete
 
     .col-lg-6
-
       h4.centered View
         button.btn(ng-show="containerPreView == false", ng-click="containerPreView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="containerPreView == true", ng-click="containerPreView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="containerPreView")
         pre container: {{container | json}}
-        //- pre containers: {{containers | json}}
 
   .row.col-lg-12.bordered(ng-show="appView && (tag.type == 'disec' || tag.type == 'dised' || tag.type == 'dss' || tag.type == 'mmc' || tag.type == 'rht' || tag.type == 'dd' || tag.type == 'rbr' || tag.type == 'rihr' || tag.type == 'cac' || tag.type == 'ccc')")
     h3.page-header
@@ -556,46 +523,36 @@ header#banner.hero-unit
       | Apps:
 
     .col-lg-12
-
       h4.centered Table
         button.btn(ng-show="appTableView == false", ng-click="appTableView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="appTableView == true", ng-click="appTableView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="appTableView")
         table.table.table-condensed.table-hover
           tr.active
-            td id
+            td appId
             td desc
-            td upDated
-            td status
-            td name
           tr(ng-repeat="item in apps", ng-click="selectApp(item)", ng-class="{'active': item.id == app.id, cursor: pointer}")
-            td {{item.id}}
+            td {{item.appId}}
             td {{item.desc}}
-            td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
-            td {{item.status}}
-            td {{item.name}}
 
     .col-lg-6
-
       h4.centered Form
         button.btn(ng-show="appFormView == false", ng-click="appFormView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="appFormView == true", ng-click="appFormView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="appFormView")
         form.form-inline(name="appForm", id="appForm", ng-model="app", novalidate)
 
-          //- status
-          div.form-group(ng-class="{ 'has-error' : appForm.status.$invalid && !appForm.status.$pristine }")
-            label.control-label(for="status") Status
+          //- appId
+          div.form-group(ng-class="{ 'has-error' : appForm.appId.$invalid && !appForm.appId.$pristine }")
+            label.control-label(for="appId") App Id
             div.input-group
-              select.form-control(name="status", id="status", ng-model="app.status", required)
-                option(ng-repeat="option in formStatusOptions", value="{{option.val}}") {{option.desc}}
-              p.help-block(ng-show="appForm.status.$invalid && !appForm.status.$pristine") Must not be null.
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="appId", id="appId", ng-model="app.appId", minlength="1", maxlength="10", required)
+            p.help-block(ng-show="appForm.appId.$invalid && !appForm.appId.$pristine") Must be a a-Z 0-9 with [1-10] chars.
 
           //- name
           div.form-group(ng-class="{ 'has-error' : appForm.name.$invalid && !appForm.name.$pristine }")
@@ -610,16 +567,13 @@ header#banner.hero-unit
           button.btn.btn-danger(type='submit', ng-click='deleteApp(app.id, app)', ng-show="app.id") Delete
 
     .col-lg-6
-
       h4.centered View
         button.btn(ng-show="appPreView == false", ng-click="appPreView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="appPreView == true", ng-click="appPreView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="appPreView")
         pre app: {{app | json}}
-        //- pre apps: {{apps | json}}
 
   .row.col-lg-12.bordered(ng-show="positionView && (tag.type == 'cac')")
     h3.page-header
@@ -630,48 +584,36 @@ header#banner.hero-unit
       | Positions:
 
     .col-lg-12
-
       h4.centered Table
         button.btn(ng-show="positionTableView == false", ng-click="positionTableView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="positionTableView == true", ng-click="positionTableView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="positionTableView")
         table.table.table-condensed.table-hover
           tr.active
-            td id
+            td positionId
             td desc
-            td upDated
-            td status
-            td pos
-            td name
           tr(ng-repeat="item in positions", ng-click="selectPosition(item)", ng-class="{'active': item.id == position.id, cursor: pointer}")
-            td {{item.id}}
+            td {{item.positionId}}
             td {{item.desc}}
-            td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
-            td {{item.status}}
-            td {{item.pos}}
-            td {{item.name}}
 
     .col-lg-6
-
       h4.centered Form
         button.btn(ng-show="positionFormView == false", ng-click="positionFormView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="positionFormView == true", ng-click="positionFormView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="positionFormView")
         form.form-inline(name="positionForm", id="positionForm", ng-model="position", novalidate)
 
-          //- status
-          div.form-group(ng-class="{ 'has-error' : positionForm.status.$invalid && !positionForm.status.$pristine }")
-            label.control-label(for="status") Status
+          //- positionId
+          div.form-group(ng-class="{ 'has-error' : positionForm.positionId.$invalid && !positionForm.positionId.$pristine }")
+            label.control-label(for="positionId") Analyte Id
             div.input-group
-              select.form-control(name="status", id="status", ng-model="position.status", required)
-                option(ng-repeat="option in formStatusOptions", value="{{option.val}}") {{option.desc}}
-              p.help-block(ng-show="positionForm.status.$invalid && !positionForm.status.$pristine") Must not be null.
+              span.input-group-addon a-Z 0-9
+              input.form-control(type="text", name="positionId", id="positionId", ng-model="position.positionId", minlength="1", maxlength="10", required)
+            p.help-block(ng-show="positionForm.positionId.$invalid && !positionForm.positionId.$pristine") Must be a a-Z 0-9 with [1-10] chars.
 
           //- pos
           div.form-group(ng-class="{ 'has-error' : positionForm.pos.$invalid && !positionForm.pos.$pristine }")
@@ -686,7 +628,7 @@ header#banner.hero-unit
             label.control-label(for="pid") Pid
             div.input-group
               span.input-group-addon a-Z 0-9
-              input.form-control(type="text", name="pid", id="pid", ng-model="position.pid", minlenght="1", maxlenght="10", required)
+              input.form-control(type="text", name="pid", id="pid", ng-model="position.pid", minlength="1", maxlength="10", required)
             p.help-block(ng-show="positionForm.pid.$invalid && !positionForm.pid.$pristine") Must be a a-Z 0-9 with [1-10] chars.
 
           //- container
@@ -698,16 +640,14 @@ header#banner.hero-unit
             label.control-label.linked(for="container")
               | Container
             div.input-group
-              select.form-control(name="container", id="container", ng-model="position.container", required)
-                option(ng-show="container.status == 'on' && container.usedIn.indexOf('cac') > -1", ng-repeat="container in containers", value="{{container.containerId}}") {{container.desc}}
+              select.form-control(name="container", id="container", ng-model="position.container", ng-options="container as container.desc disable when container.usedIn.indexOf('cac') == -1 for container in containers track by container.desc", required)
               p.help-block(ng-show="positionForm.container.$invalid && !positionForm.container.$pristine") Must not be null.
 
           //- type
           div.form-group(ng-class="{ 'has-error' : positionForm.type.$invalid && !positionForm.type.$pristine }")
             label.control-label(for="type") Type
             div.input-group
-              select.form-control(name="type", id="type", ng-model="position.type", required)
-                option(ng-repeat="option in positionFormTypeOptions", value="{{option.id}}") {{option.name}}
+              select.form-control(name="type", id="type", ng-model="position.type", ng-options="option.val as option.desc for option in positionFormTypeOptions track by option.desc", required)
               p.help-block(ng-show="positionForm.type.$invalid && !positionForm.type.$pristine") Must not be null.
 
           //- initialVolume
@@ -715,32 +655,29 @@ header#banner.hero-unit
             label.control-label(for="initialVolume") Initial Volume
             div.input-group
               span.input-group-addon #
-              input.form-control(type="number", name="initialVolume", id="initialVolume",ng-model="position.initialVolume", min="1", max="9999", required)
-            p.help-block(ng-show="positionForm.initialVolume.$invalid && !positionForm.initialVolume.$pristine") Must be in [1-9999] range.
+              input.form-control(type="number", name="initialVolume", id="initialVolume",ng-model="position.initialVolume", min="0", max="9999", required)
+            p.help-block(ng-show="positionForm.initialVolume.$invalid && !positionForm.initialVolume.$pristine") Must be in [0-9999] range.
 
           //- idealVolume
           div.form-group(ng-class="{ 'has-error' : positionForm.idealVolume.$invalid && !positionForm.idealVolume.$pristine }")
             label.control-label(for="idealVolume") Ideal Volume
             div.input-group
               span.input-group-addon #
-              input.form-control(type="number", name="idealVolume", id="idealVolume",ng-model="position.idealVolume", min="1", max="9999", required)
-            p.help-block(ng-show="positionForm.idealVolume.$invalid && !positionForm.idealVolume.$pristine") Must be in [1-9999] range.
+              input.form-control(type="number", name="idealVolume", id="idealVolume",ng-model="position.idealVolume", min="0", max="9999", required)
+            p.help-block(ng-show="positionForm.idealVolume.$invalid && !positionForm.idealVolume.$pristine") Must be in [0-9999] range.
 
           button.btn.btn-primary(type='submit', ng-click='savePosition()', ng-disabled="positionForm.$invalid") Save
           button.btn.btn-warning(type='submit', ng-click='clearPosition()') Clear
           button.btn.btn-danger(type='submit', ng-click='deletePosition(position.id, position)', ng-show="position.id") Delete
 
     .col-lg-6
-
       h4.centered View
         button.btn(ng-show="positionPreView == false", ng-click="positionPreView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="positionPreView == true", ng-click="positionPreView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="positionPreView")
         pre position: {{position | json}}
-        //- pre positions: {{positions | json}}
 
   .row.col-lg-12.bordered(ng-show="analyteView && (tag.type == 'ccc')")
     h3.page-header
@@ -751,93 +688,73 @@ header#banner.hero-unit
       | Analytes:
 
     .col-lg-12
-
       h4.centered Table
         button.btn(ng-show="analyteTableView == false", ng-click="analyteTableView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="analyteTableView == true", ng-click="analyteTableView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="analyteTableView")
         table.table.table-condensed.table-hover
           tr.active
-            td id
+            td analyteId
             td desc
-            td upDated
-            td status
-            td name
           tr(ng-repeat="item in analytes", ng-click="selectAnalyte(item)", ng-class="{'active': item.id == analyte.id, cursor: pointer}")
-            td {{item.id}}
+            td {{item.analyteId}}
             td {{item.desc}}
-            td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
-            td {{item.name}}
 
     .col-lg-6
-
       h4.centered Form
         button.btn(ng-show="analyteFormView == false", ng-click="analyteFormView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="analyteFormView == true", ng-click="analyteFormView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="analyteFormView")
         form.form-inline(name="analyteForm", id="analyteForm", ng-model="analyte", novalidate)
-
-          //- status
-          div.form-group(ng-class="{ 'has-error' : analyteForm.status.$invalid && !analyteForm.status.$pristine }")
-            label.control-label(for="status") Status
-            div.input-group
-              select.form-control(name="status", id="status", ng-model="analyte.status", required)
-                option(ng-repeat="option in formStatusOptions", value="{{option.val}}") {{option.desc}}
-              p.help-block(ng-show="analyteForm.status.$invalid && !analyteForm.status.$pristine") Must not be null.
 
           //- analyteId
           div.form-group(ng-class="{ 'has-error' : analyteForm.analyteId.$invalid && !analyteForm.analyteId.$pristine }")
             label.control-label(for="analyteId") Analyte Id
             div.input-group
               span.input-group-addon a-Z 0-9
-              input.form-control(type="text", name="analyteId", id="analyteId", ng-model="analyte.analyteId", minlenght="1", maxlenght="10", required)
-            p.help-block(ng-show="analyteForm.analyteId.$invalid && !analyteForm.pid.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+              input.form-control(type="text", name="analyteId", id="analyteId", ng-model="analyte.analyteId", minlength="1", maxlength="10", required)
+            p.help-block(ng-show="analyteForm.analyteId.$invalid && !analyteForm.analyteId.$pristine") Must be a a-Z 0-9 with [1-10] chars.
 
           //- target
           div.form-group(ng-class="{ 'has-error' : analyteForm.target.$invalid && !analyteForm.target.$pristine }")
             label.control-label(for="target") Target
             div.input-group
               span.input-group-addon #
-              input.form-control(type="number", name="target", id="target", ng-model="analyte.target", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", required)
-            p.help-block(ng-show="analyteForm.target.$invalid && !analyteForm.target.$pristine") Must be in [0.01-9999.99] range.
+              input.form-control(type="number", name="target", id="target", ng-model="analyte.target", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", min="0", max="9999.99", required)
+            p.help-block(ng-show="analyteForm.target.$invalid && !analyteForm.target.$pristine") Must be in [0.00-9999.99] range.
 
           //- tolerance
           div.form-group(ng-show="tag.cccType == 'con'", ng-class="{ 'has-error' : analyteForm.tolerance.$invalid && !analyteForm.tolerance.$pristine }")
             label.control-label(for="tolerance") Tolerance
             div.input-group
               span.input-group-addon #
-              input.form-control(type="number", name="tolerance", id="tolerance",ng-model="analyte.tolerance", min="1", max="9999", ng-required="tag.cccType == 'con'")
-            p.help-block(ng-show="analyteForm.tolerance.$invalid && !analyteForm.tolerance.$pristine") Must be in [1-9999] range.
+              input.form-control(type="number", name="tolerance", id="tolerance",ng-model="analyte.tolerance", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", min="0", max="9999.99", ng-required="tag.cccType == 'con'")
+            p.help-block(ng-show="analyteForm.tolerance.$invalid && !analyteForm.tolerance.$pristine") Must be in [0.00-9999.99] range.
 
           //- reference
           div.form-group(ng-show="tag.cccType == 'cal'", ng-class="{ 'has-error' : analyteForm.reference.$invalid && !analyteForm.reference.$pristine }")
             label.control-label(for="reference") Reference
             div.input-group
               span.input-group-addon #
-              input.form-control(type="number", name="reference", id="reference",ng-model="analyte.reference", min="1", max="9999", ng-required="tag.cccType == 'cal'")
-            p.help-block(ng-show="analyteForm.reference.$invalid && !analyteForm.reference.$pristine") Must be in [1-9999] range.
+              input.form-control(type="number", name="reference", id="reference",ng-model="analyte.reference", ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/", step="0.01", min="0", max="9999.99", ng-required="tag.cccType == 'cal'")
+            p.help-block(ng-show="analyteForm.reference.$invalid && !analyteForm.reference.$pristine") Must be in [0.00-9999.99] range.
 
           button.btn.btn-primary(type='submit', ng-click='saveAnalyte()', ng-disabled="analyteForm.$invalid") Save
           button.btn.btn-warning(type='submit', ng-click='clearAnalyte()') Clear
           button.btn.btn-danger(type='submit', ng-click='deleteAnalyte(analyte.id, analyte)', ng-show="analyte.id") Delete
 
     .col-lg-6
-
       h4.centered View
         button.btn(ng-show="analytePreView == false", ng-click="analytePreView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="analytePreView == true", ng-click="analytePreView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="analytePreView")
         pre analyte: {{analyte | json}}
-        //- pre analytes: {{analytes | json}}
 
   .row.col-lg-12.bordered(ng-show="reagentView && (tag.type == 'ccc' && tag.cccType == 'cal')")
     h3.page-header
@@ -848,69 +765,49 @@ header#banner.hero-unit
       | Reagents:
 
     .col-lg-12
-
       h4.centered Table
         button.btn(ng-show="reagentTableView == false", ng-click="reagentTableView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="reagentTableView == true", ng-click="reagentTableView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="reagentTableView")
         table.table.table-condensed.table-hover
           tr.active
-            td id
+            td reagentId
             td desc
-            td upDated
-            td status
-            td name
           tr(ng-repeat="item in reagents", ng-click="selectReagent(item)", ng-class="{'active': item.id == reagent.id, cursor: pointer}")
-            td {{item.id}}
+            td {{item.reagentId}}
             td {{item.desc}}
-            td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
-            td {{item.name}}
 
     .col-lg-6
-
       h4.centered Form
         button.btn(ng-show="reagentFormView == false", ng-click="reagentFormView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="reagentFormView == true", ng-click="reagentFormView = false")
           span.glyphicon.glyphicon-zoom-out
-
       div(ng-show="reagentFormView")
         form.form-inline(name="reagentForm", id="reagentForm", ng-model="reagent", novalidate)
-
-          //- status
-          div.form-group(ng-class="{ 'has-error' : reagentForm.status.$invalid && !reagentForm.status.$pristine }")
-            label.control-label(for="status") Status
-            div.input-group
-              select.form-control(name="status", id="status", ng-model="reagent.status", required)
-                option(ng-repeat="option in formStatusOptions", value="{{option.val}}") {{option.desc}}
-              p.help-block(ng-show="reagentForm.status.$invalid && !reagentForm.status.$pristine") Must not be null.
 
           //- reagentId
           div.form-group(ng-class="{ 'has-error' : reagentForm.reagentId.$invalid && !reagentForm.reagentId.$pristine }")
             label.control-label(for="reagentId") Reagent Id
             div.input-group
               span.input-group-addon a-Z 0-9
-              input.form-control(type="text", name="reagentId", id="reagentId", ng-model="reagent.reagentId", minlenght="1", maxlenght="10", required)
-            p.help-block(ng-show="reagentForm.reagentId.$invalid && !reagentForm.pid.$pristine") Must be a a-Z 0-9 with [1-10] chars.
+              input.form-control(type="text", name="reagentId", id="reagentId", ng-model="reagent.reagentId", minlength="1", maxlength="10", required)
+            p.help-block(ng-show="reagentForm.reagentId.$invalid && !reagentForm.reagentId.$pristine") Must be a a-Z 0-9 with [1-10] chars.
 
           button.btn.btn-primary(type='submit', ng-click='saveReagent()', ng-disabled="reagentForm.$invalid") Save
           button.btn.btn-warning(type='submit', ng-click='clearReagent()') Clear
           button.btn.btn-danger(type='submit', ng-click='deleteReagent(reagent.id, reagent)', ng-show="reagent.id") Delete
 
     .col-lg-6
-
       h4.centered View
         button.btn(ng-show="reagentPreView == false", ng-click="reagentPreView = true")
           span.glyphicon.glyphicon-zoom-in
         button.btn(ng-show="reagentPreView == true", ng-click="reagentPreView = false")
           span.glyphicon.glyphicon-zoom-out
-
       .col-lg-6(ng-show="reagentPreView")
         pre reagent: {{reagent | json}}
-        //- pre reagents: {{reagents | json}}
 
 footer.footer
   .container
