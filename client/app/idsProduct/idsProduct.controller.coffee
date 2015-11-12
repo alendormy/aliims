@@ -1,6 +1,6 @@
 'use strict'
 angular.module 'aliimsApp'
-.controller 'IdsProductCtrl', ($scope, $filter, Modal) ->
+.controller 'IdsProductCtrl', ($scope, $http, socket, Modal, $filter) ->
 
 # COMMONS
 
@@ -24,7 +24,7 @@ angular.module 'aliimsApp'
 
   $scope.today()
 
-# TAGS (back loaded)
+# TAGS
 
   $scope.tagView = true
   $scope.tagTableView = false
@@ -33,6 +33,13 @@ angular.module 'aliimsApp'
 
   $scope.tags = []
   $scope.tag = null
+  
+  $scope.updateTags = () ->
+    $http.get('/api/idsTags').success (tags) ->
+      $scope.tags = tags
+      socket.syncUpdates 'tag', $scope.tags
+
+  $scope.updateTags()
 
   $scope.tagFormTypeOptions = [
     {val: "aius", desc: "Ancilliaries In Use Stability"},
@@ -52,37 +59,47 @@ angular.module 'aliimsApp'
   $scope.tagFormCccTypeOptions  = [{val: "cal", desc: "Calibrator"}, {val: "con", desc: "Control"}]
 
   $scope.selectTag = (tag) ->
-    $scope.tag = angular.copy(tag)
+    $scope.tag = tag
     $scope.tagFormView = true
     $scope.tagPreView = true
     true
 
   $scope.saveTag = () ->
-    if $scope.tag.id
-      i = 0
-      i++ while $scope.tag.id != $scope.tags[i].id
-      $scope.tag.desc = "edit->"
+    if $scope.tag._id
       switch $scope.tag.type
-        when 'aius' then $scope.tag.desc += " Revision:"+$scope.tag.revision
-        when 'disec' || 'dised' || 'dss' || 'rht' || 'dd' || 'cac' then $scope.tag.desc += " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
-        when 'mmc' then $scope.tag.desc += " mmcId:"+$scope.tag.mmcId
-        when 'rbr' then $scope.tag.desc += " Rbr Type:"+$scope.tag.rbrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
-        when 'rihr' then $scope.tag.desc += " Rihr Type:"+$scope.tag.rihrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
-        when 'ccc' then $scope.tag.desc += " Ccc Type:"+$scope.tag.cccType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
-        else $scope.tag.desc += " Oups!"
-      $scope.tags[i] = $scope.tag
+        when 'aius' then $scope.tag.desc = " Revision:"+$scope.tag.revision
+        when 'disec' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'dised' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'dss' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'rht' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'dd' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'cac' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'mmc' then $scope.tag.desc = " mmcId:"+$scope.tag.mmcId
+        when 'rbr' then $scope.tag.desc = " Rbr Type:"+$scope.tag.rbrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'rihr' then $scope.tag.desc = " Rihr Type:"+$scope.tag.rihrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'ccc' then $scope.tag.desc = " Ccc Type:"+$scope.tag.cccType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        else $scope.tag.desc = " Oups!"
+      $scope.tag.upDated = Date.now()
+      $http.patch '/api/idsTags',
+        $scope.tag
     else
-      $scope.tag.id = "tag_"+Date.now()
-      $scope.tag.desc = "new->"
       switch $scope.tag.type
-        when 'aius' then $scope.tag.desc += " Revision:"+$scope.tag.revision
-        when 'disec' || 'dised' || 'dss' || 'rht' || 'dd' || 'cac' then $scope.tag.desc += " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
-        when 'mmc' then $scope.tag.desc += " mmcId:"+$scope.tag.mmcId
-        when 'rbr' then $scope.tag.desc += " Rbr Type:"+$scope.tag.rbrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
-        when 'rihr' then $scope.tag.desc += " Rihr Type:"+$scope.tag.rihrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
-        when 'ccc' then $scope.tag.desc += " Ccc Type:"+$scope.tag.cccType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
-        else $scope.tag.desc += " Oups!"      
-      $scope.tags.push $scope.tag
+        when 'aius' then $scope.tag.desc = " Revision:"+$scope.tag.revision
+        when 'disec' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'dised' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'dss' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'rht' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'dd' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'cac' then $scope.tag.desc = " Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'mmc' then $scope.tag.desc = " mmcId:"+$scope.tag.mmcId
+        when 'rbr' then $scope.tag.desc = " Rbr Type:"+$scope.tag.rbrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'rihr' then $scope.tag.desc = " Rihr Type:"+$scope.tag.rihrType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        when 'ccc' then $scope.tag.desc = " Ccc Type:"+$scope.tag.cccType+" Key:"+$scope.tag.key+" Lot:"+$scope.tag.lot+" Expiry:"+$filter('date')($scope.tag.expiry, $scope.formats[0])
+        else $scope.tag.desc = " Oups!"      
+      $scope.tag.upDated = Date.now()
+      $http.post '/api/idsTags',
+        $scope.tag
+      $scope.updateTags()
     $scope.tag.upDated = Date.now()
     $scope.clearTag()
     true
@@ -96,12 +113,16 @@ angular.module 'aliimsApp'
 
   $scope.deleteTag = Modal.confirm.delete (tag) ->
     i = 0
-    i += 1  while $scope.tags[i].id != tag.id
+    i += 1  while $scope.tags[i]._id != tag._id
+    $http.delete '/api/idsTags/' + tag._id
     $scope.tags.splice(i,1)
     $scope.clearTag()
     true
 
-# CONTAINERS (front loaded)
+  $scope.$on '$destroy', ->
+    socket.unsyncUpdates 'tag'
+
+# CONTAINERS
 
   $scope.containerView = false
   $scope.containerTableView = false
