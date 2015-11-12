@@ -21,14 +21,14 @@ header#banner.hero-unit
       div(ng-show="tagTableView")
         table.table.table-condensed.table-hover
           tr.active
-            //- td id
+            td id
             td status
             td upDated
             td type
             td desc
 
           tr(ng-repeat="item in tags", ng-click="selectTag(item)", ng-class="{'active': item.id == tag.id, cursor: pointer}")
-            //- td {{item.id}}
+            td {{item.id}}
             td {{item.status}}
             td {{item.upDated | date:'MM/dd/yyyy @ h:mma'}}
             td {{item.type}}
